@@ -1,0 +1,36 @@
+{
+  "name": "thunk-redis",
+  "version": "0.0.0",
+  "description": "Redis client module with thunks",
+  "main": "index.js",
+  "authors": [
+    "Yan Qing <admin@zensh.com>"
+  ],
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zensh/thunk-redis.git"
+  },
+  "keywords": [
+    "redis",
+    "database",
+    "thunk",
+    "thunks"
+  ],
+  "dependencies": {
+    "hiredis": "^0.1.17",
+    "jsonkit": "^0.2.1",
+    "thunks": "~0.7.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.2"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zensh/thunk-redis/issues"
+  },
+  "homepage": "https://github.com/zensh/thunk-redis"
+}
