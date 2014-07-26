@@ -1,7 +1,7 @@
 {
   "name": "thunk-redis",
-  "version": "0.0.0",
-  "description": "Redis client module with thunks",
+  "version": "0.0.1",
+  "description": "A thunks-based redis client.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
@@ -15,6 +15,7 @@
   },
   "keywords": [
     "redis",
+    "redis client",
     "database",
     "thunk",
     "thunks"
@@ -22,7 +23,7 @@
   "dependencies": {
     "hiredis": "^0.1.17",
     "jsonkit": "^0.2.1",
-    "thunks": "~0.7.x"
+    "thunks": ">=0.7.x"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -1,5 +1,3 @@
-thunk-redis (developing)
+thunk-redis v0.0.1
 ===========
-Redis client module with thunks
-
-Rewrite from [node_redis](https://github.com/mranney/node_redis)
+A thunks-based redis client.
