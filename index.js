@@ -7,30 +7,31 @@
 /*global require exports */
 'use strict';
 
-var net = require('net'),
-  RedisClient = require('./lib/client'),
-  connectionId = 0,
+var RedisClient = require('./lib/client'),
   defaultPort = 6379,
   defaultHost = '127.0.0.1';
 
 exports.createClient = function (port, host, options) {
-  var  netOptions, redisClient, netStream;
+  var  netOptions;
 
-  options = options || {};
   port = port || defaultPort;
-  host = host || defaultHost;
 
   if (typeof port === 'number') {
-    netOptions = {port: port, host: host};
+    netOptions = {port: port, host: host || defaultHost};
   } else {
     netOptions = {path: port};
   }
 
-  netStream = net.createConnection(netOptions);
-  redisClient = new RedisClient(netStream, options);
-  redisClient.connection = netOptions;
+  options = options || {};
+  if (options.noDelay == null) options.noDelay = true;
+  if (options.keepAlive == null) options.keepAlive = true;
+  options.timeout = +options.timeout || 0;
+  options.maxAttempts = +options.maxAttempts || 0;
+  options.commandQueueHighWater = +options.commandQueueHighWater || 1000;
+  options.commandQueueLowWater = +options.commandQueueLowWater || 0;
+  options.authPass = options.authPass || '';
+  options.database = +options.database || 0;
 
-  return redisClient;
+  return new RedisClient(netOptions, options);
 };
-
 
