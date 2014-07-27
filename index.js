@@ -4,10 +4,10 @@
  * MIT Licensed
  */
 
-/*global require exports */
 'use strict';
 
 var RedisClient = require('./lib/client'),
+  tool = require('./lib/tool'),
   defaultPort = 6379,
   defaultHost = '127.0.0.1';
 
@@ -34,4 +34,6 @@ exports.createClient = function (port, host, options) {
 
   return new RedisClient(netOptions, options);
 };
+
+exports.log = tool.log;
 
