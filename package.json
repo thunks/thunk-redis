@@ -1,7 +1,7 @@
 {
   "name": "thunk-redis",
-  "version": "0.0.1",
-  "description": "A thunks-based redis client.",
+  "version": "0.0.2",
+  "description": "A thunk-based redis client.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
@@ -27,7 +27,9 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.7.2"
+    "grunt-contrib-jshint": "~0.7.2",
+    "mocha": "^1.21.0",
+    "should": "^4.0.4"
   },
   "license": "MIT",
   "bugs": {

@@ -1,3 +1,3 @@
-thunk-redis v0.0.1
+thunk-redis v0.0.2
 ===========
-A thunks-based redis client.
+A thunk-based redis client.
