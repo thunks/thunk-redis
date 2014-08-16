@@ -9,17 +9,23 @@
 var RedisClient = require('./lib/client'),
   tool = require('./lib/tool'),
   defaultPort = 6379,
-  defaultHost = '127.0.0.1';
+  defaultHost = 'localhost';
 
 exports.createClient = function (port, host, options) {
   var  netOptions;
 
-  port = port || defaultPort;
-
-  if (typeof port === 'number') {
-    netOptions = {port: port, host: host || defaultHost};
-  } else {
+  if (typeof port === 'string') {
     netOptions = {path: port};
+    options = host;
+  } else {
+    netOptions = {port: port || defaultPort, host: host || defaultHost};
+    if (typeof port !== 'number') {
+      netOptions.port = defaultPort;
+      options = port;
+    } else if (typeof host !== 'string') {
+      netOptions.host = defaultHost;
+      options = host;
+    }
   }
 
   options = options || {};
