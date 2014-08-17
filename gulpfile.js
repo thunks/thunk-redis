@@ -13,7 +13,7 @@ gulp.task('jshint', function () {
 
 gulp.task('mocha', function () {
   return gulp.src('test/*.js', {read: false})
-    .pipe(mocha({ui: 'bdd', reporter: 'nyan'}));
+    .pipe(mocha());
 });
 
 gulp.task('default', function (callback) {

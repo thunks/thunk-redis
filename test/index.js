@@ -4,40 +4,56 @@
 var should = require('should');
 var redis = require('../index');
 
-// describe('Array', function(){
-//   before(function () {
-//     console.log('before', Date.now());
-//   });
-//   after(function () {
-//     console.log('after', Date.now());
-//   });
-//   beforeEach(function () {
-//     console.log('beforeEach', Date.now());
-//   });
-//   afterEach(function () {
-//     console.log('afterEach', Date.now());
-//   });
-//   describe('111', function(){
-//     it('test1', function (done) {
-//       should(1).be.exactly(1);
-//       setTimeout(function () {
-//         console.log('it1', Date.now());
-//         done();
-//       });
-//     });
-//     it('test2', function () {
-//       should(2).be.exactly(2);
-//       console.log('it2', Date.now());
-//     });
-//   });
-//   describe('222', function(){
-//     it('test3', function () {
-//       should(1).be.exactly(1);
-//       console.log('it3', Date.now());
-//     });
-//     it('test4', function () {
-//       should(2).be.exactly(2);
-//       console.log('it4', Date.now());
-//     });
-//   });
-// });
+describe('thunk-redis', function () {
+
+  before(function (done) {
+    var client = redis.createClient({database: 0});
+
+    client.flushdb()(function (error, res) {
+      should(error).be.equal(null);
+      should(res).be.equal('OK');
+      return this.dbsize()(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal(0);
+        this.end();
+      });
+    })(done);
+  });
+
+  after(function () {
+    process.exit();
+  });
+
+  describe('createClient', function () {
+
+    it('redis.createClient(port)', function (done) {
+      var connect = false,
+        client = redis.createClient(6379, 'localhost', {database: 0});
+
+      client.on('connect', function () {
+        connect = true;
+      });
+      client.info()(function (error, res) {
+        should(error).be.equal(null);
+        should(connect).be.equal(true);
+        should(res.redis_version).be.type('string');
+        this.end();
+      })(done);
+    });
+
+    it('redis.createClient(path)', function (done) {
+      var connect = false,
+        client = redis.createClient('/tmp/redis.sock', {database: 0});
+
+      client.on('connect', function () {
+        connect = true;
+      });
+      client.info()(function (error, res) {
+        should(error).be.equal(null);
+        should(connect).be.equal(true);
+        should(res.redis_version).be.type('string');
+        this.end();
+      })(done);
+    });
+  });
+});
