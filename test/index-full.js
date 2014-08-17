@@ -4,6 +4,7 @@
 var should = require('should');
 var redis = require('../index');
 var clientTest = require('./client');
+var clientTest2 = require('./client2');
 
 describe('thunk-redis', function () {
 
@@ -36,4 +37,6 @@ describe('thunk-redis', function () {
   });
 
   clientTest();
+
+  clientTest2();
 });

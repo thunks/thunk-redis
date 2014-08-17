@@ -12,12 +12,17 @@ gulp.task('jshint', function () {
 });
 
 gulp.task('mocha', function () {
-  return gulp.src('test/*.js', {read: false})
+  return gulp.src('test/index.js', {read: false})
+    .pipe(mocha());
+});
+
+gulp.task('mocha-full', function () {
+  return gulp.src('test/index-full.js', {read: false})
     .pipe(mocha());
 });
 
 gulp.task('default', function (callback) {
-  runSequence('jshint', callback);
+  runSequence('jshint', 'mocha-full', callback);
 });
 
 gulp.task('test', function (callback) {
