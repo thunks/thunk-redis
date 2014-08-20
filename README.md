@@ -7,16 +7,25 @@ A thunk-based redis client.
 ## Demo
 
 ```js
-var redis = require('thunk-redis');
-
-var client = redis.createClient({database: 1});
+var redis = require('thunk-redis'),
+  client = redis.createClient({
+    database: 1
+  });
 
 client.on('connect', function () {
   console.log('redis connected!');
 });
-client.info()(function (error, res) {
-  console.log(res);
-  console.log(this.status);
+
+client.info('server')(function (error, res) {
+  console.log('redis server info: ', res);
+  console.log('redis client status: ', this.status);
+  return this.dbsize();
+})(function (error, res) {
+  console.log('surrent database size: ', res);
+  return this.select(0);
+})(function (error, res) {
+  console.log('select database 0: ', res);
+  console.log('redis client status: ', this.status);
   this.end();
 });
 ```
