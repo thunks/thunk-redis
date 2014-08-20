@@ -3,7 +3,7 @@
 
 var redis = require('../index');
 
-var client = redis.createClient({database: 2});
+var client = redis.createClient({database: 1});
 
 client.on('connect', function () {
   console.log('redis connected!');
