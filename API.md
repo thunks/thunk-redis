@@ -56,27 +56,27 @@ var client = redis.createClient();
 ```
 
 ### Key
-### client.del
-### client.dump
-### client.exists
-### client.expire
-### client.expireat
-### client.keys
-### client.migrate
-### client.move
-### client.object
-### client.persist
-### client.pexpire
-### client.pexpireat
-### client.pttl
-### client.randomkey
-### client.rename
-### client.renamenx
-### client.restore
-### client.sort
-### client.ttl
-### client.type
-### client.scan
+### client.del(key, [key ...])
+### client.dump(key)
+### client.exists(key)
+### client.expire(key, seconds)
+### client.expireat(key, timestamp)
+### client.keys(pattern)
+### client.migrate(host, port, key, db, timeout, [COPY], [REPLASE])
+### client.move(key, db)
+### client.object(subcommand, [args ...])
+### client.persist(key)
+### client.pexpire(key, milliseconds)
+### client.pexpireat(key, ms-timestamp)
+### client.pttl(key)
+### client.randomkey()
+### client.rename(key, newkey)
+### client.renamenx(key, newkey)
+### client.restore(key, ttl, serialized-value, [REPLACE])
+### client.sort(key, [BY pattern], [LIMIT offset count], [GET pattern [GET pattern ...]], [ASC | DESC], [ALPHA], [STORE destination])
+### client.ttl(key)
+### client.type(key)
+### client.scan(cursor, [MATCH pattern], [COUNT count])
 
 ### String
 ### client.append

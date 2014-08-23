@@ -4,6 +4,17 @@
 var should = require('should');
 var redis = require('../index');
 var clientTest = require('./client');
+var commandsConnection = require('./commands-connection');
+var commandsHash = require('./commands-hash');
+var commandsKey = require('./commands-key');
+var commandsList = require('./commands-list');
+var commandsPubsub = require('./commands-pubsub');
+var commandsScript = require('./commands-script');
+var commandsServer = require('./commands-server');
+var commandsSet = require('./commands-set');
+var commandsSortedSet = require('./commands-sorted-set');
+var commandsString = require('./commands-string');
+var commandsTransaction = require('./commands-transaction');
 
 describe('thunk-redis', function () {
 
@@ -36,4 +47,16 @@ describe('thunk-redis', function () {
   });
 
   clientTest();
+
+  commandsConnection();
+  commandsHash();
+  commandsKey();
+  commandsList();
+  commandsPubsub();
+  commandsScript();
+  commandsServer();
+  commandsSet();
+  commandsSortedSet();
+  commandsString();
+  commandsTransaction();
 });

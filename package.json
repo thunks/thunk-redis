@@ -23,7 +23,7 @@
   "dependencies": {
     "hiredis": "^0.1.17",
     "jsonkit": "^0.2.1",
-    "thunks": ">=0.7.x"
+    "thunks": "^1.1.0"
   },
   "devDependencies": {
     "gulp": "^3.5.6",
