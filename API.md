@@ -79,28 +79,30 @@ var client = redis.createClient();
 ### client.scan(cursor, [MATCH pattern], [COUNT count])
 
 ### String
-### client.append
-### client.bitcount
-### client.bitop
-### client.decr
-### client.decrby
-### client.get
-### client.getbit
-### client.getrange
-### client.getset
-### client.incr
-### client.incrby
-### client.incrbyfloat
-### client.mget
-### client.mset
-### client.msetnx
-### client.psetex
-### client.set
-### client.setbit
-### client.setex
-### client.setnx
-### client.setrange
-### client.strlen
+### client.append(key, value)
+### client.bitcount(key, [start], [end])
+### client.bitop(operation, destkey, key, [key ...])
+### client.decr(key)
+### client.decrby(key, decrement)
+### client.get(key)
+### client.getbit(key, offset)
+### client.getrange(key, start, end)
+### client.getset(key, value)
+### client.incr(key)
+### client.incrby(key, increment)
+### client.incrbyfloat(key, increment)
+### client.mget(key, [key ...])
+### client.mset(key, value, [key value ...])
+### client.mset(object)
+### client.msetnx(key, value, [key value ...])
+### client.msetnx(object)
+### client.psetex(key, milliseconds, value)
+### client.set(key, value, [EX seconds], [PX milliseconds], [NX|XX])
+### client.setbit(key, offset, value)
+### client.setex(key, seconds, value)
+### client.setnx(key, value)
+### client.setrange(key, offset, value)
+### client.strlen(key)
 
 ### Hash
 ### client.hdel
