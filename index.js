@@ -6,10 +6,10 @@
 
 'use strict';
 
-var RedisClient = require('./lib/client'),
-  tool = require('./lib/tool'),
-  defaultPort = 6379,
-  defaultHost = 'localhost';
+var RedisClient = require('./lib/client');
+var tool = require('./lib/tool');
+var defaultPort = 6379;
+var defaultHost = 'localhost';
 
 exports.createClient = function (port, host, options) {
   var  netOptions;

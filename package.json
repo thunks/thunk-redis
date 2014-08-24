@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "hiredis": "^0.1.17",
-    "jsonkit": "^0.2.1",
+    "jsonkit": "^0.3.0",
     "thunks": "^1.1.0"
   },
   "devDependencies": {
