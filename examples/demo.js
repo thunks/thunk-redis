@@ -1,10 +1,8 @@
 'use strict';
 /*global */
 
-var redis = require('../index'),
-  client = redis.createClient({
-    database: 1
-  });
+var redis = require('../index');
+var client = redis.createClient({database: 1});
 
 client.on('connect', function () {
   console.log('redis connected!');

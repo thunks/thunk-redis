@@ -64,7 +64,7 @@ var client = redis.createClient();
 ### client.keys(pattern)
 ### client.migrate(host, port, key, db, timeout, [COPY], [REPLASE])
 ### client.move(key, db)
-### client.object(subcommand, [args ...])
+### client.object(subcommand, key)
 ### client.persist(key)
 ### client.pexpire(key, milliseconds)
 ### client.pexpireat(key, ms-timestamp)
