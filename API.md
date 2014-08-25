@@ -92,9 +92,9 @@ var client = redis.createClient();
 ### client.incrby(key, increment)
 ### client.incrbyfloat(key, increment)
 ### client.mget(key, [key ...])
-### client.mset(key, value, [key value ...])
+### client.mset(key, value, [key, value ...])
 ### client.mset(object)
-### client.msetnx(key, value, [key value ...])
+### client.msetnx(key, value, [key, value ...])
 ### client.msetnx(object)
 ### client.psetex(key, milliseconds, value)
 ### client.set(key, value, [EX seconds], [PX milliseconds], [NX|XX])
@@ -105,20 +105,21 @@ var client = redis.createClient();
 ### client.strlen(key)
 
 ### Hash
-### client.hdel
-### client.hexists
-### client.hget
-### client.hgetall
-### client.hincrby
-### client.hincrbyfloat
-### client.hkeys
-### client.hlen
-### client.hmget
-### client.hmset
-### client.hset
-### client.hsetnx
-### client.hvals
-### client.hscan
+### client.hdel(key, field, [field ...])
+### client.hexists(key, field)
+### client.hget(key, field)
+### client.hgetall(key)
+### client.hincrby(key, field, increment)
+### client.hincrbyfloat(key, field, increment)
+### client.hkeys(key)
+### client.hlen(key)
+### client.hmget(key, field, [field ...])
+### client.hmset(key, field, value, [field, value ...])
+### client.hmset(key, object)
+### client.hset(key, field, value)
+### client.hsetnx(key, field, value)
+### client.hvals(key)
+### client.hscan(key, cursor, [MATCH pattern], [COUNT count])
 
 ### List
 ### client.blpop
