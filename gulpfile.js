@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
-  runSequence = require('run-sequence'),
+  gulpSequence = require('gulp-sequence'),
   jshint = require('gulp-jshint'),
   mocha = require('gulp-mocha');
 
@@ -21,10 +21,6 @@ gulp.task('mocha-full', function () {
     .pipe(mocha());
 });
 
-gulp.task('default', function (callback) {
-  runSequence('jshint', 'mocha-full', callback);
-});
+gulp.task('default', gulpSequence('jshint', 'mocha-full'));
 
-gulp.task('test', function (callback) {
-  runSequence('jshint', 'mocha', callback);
-});
+gulp.task('test', gulpSequence('jshint', 'mocha'));

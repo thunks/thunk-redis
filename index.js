@@ -33,8 +33,7 @@ exports.createClient = function (port, host, options) {
   if (options.keepAlive == null) options.keepAlive = true;
   options.timeout = +options.timeout || 0;
   options.maxAttempts = +options.maxAttempts || 0;
-  options.commandQueueHighWater = +options.commandQueueHighWater || 1000;
-  options.commandQueueLowWater = +options.commandQueueLowWater || 0;
+  options.commandsHighWater = options.commandsHighWater >= 1 ? +options.commandsHighWater : 10000;
   options.authPass = options.authPass || '';
   options.database = +options.database || 0;
 
@@ -42,4 +41,3 @@ exports.createClient = function (port, host, options) {
 };
 
 exports.log = tool.log;
-

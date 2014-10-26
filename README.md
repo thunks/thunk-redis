@@ -1,6 +1,6 @@
-thunk-redis v0.0.6 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
+thunk-redis v0.1.0 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
 ===========
-A thunk-based redis client.
+A thunk-based redis client with pipelining.
 
 
 
@@ -223,5 +223,3 @@ client.info('server')(function (error, res) {
 1. client.end()
 1. client.options
 1. client.status
-
-
