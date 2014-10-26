@@ -1,7 +1,7 @@
 {
   "name": "thunk-redis",
-  "version": "0.0.6",
-  "description": "A thunk-based redis client.",
+  "version": "0.1.0",
+  "description": "A thunk-based redis client with pipelining.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
@@ -21,16 +21,16 @@
     "thunks"
   ],
   "dependencies": {
-    "hiredis": "^0.1.17",
     "jsonkit": "^0.3.0",
+    "respjs": "^0.2.0",
     "thunks": "^1.1.0"
   },
   "devDependencies": {
     "gulp": "^3.5.6",
     "gulp-jshint": "^1.8.4",
     "gulp-mocha": "^1.0.0",
+    "gulp-sequence": "^0.1.0",
     "mocha": "^1.21.0",
-    "run-sequence": "^0.3.6",
     "should": "^4.0.4"
   },
   "license": "MIT",
