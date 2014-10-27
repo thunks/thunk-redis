@@ -10,7 +10,7 @@ module.exports = function () {
     var client;
 
     before(function () {
-      client = redis.createClient({database: 0});
+      client = redis.createClient({database: 0, debugMode: true});
       client.on('error', function (error) {
         console.error('redis client:', error);
       });
@@ -27,7 +27,41 @@ module.exports = function () {
       client.end();
     });
 
-    it.skip('client.echo', function () {});
+    it('client.echo', function (done) {
+      client.echo('hello world!')(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('hello world!');
+        return this.echo(123);
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('123');
+      })(done);
+    });
+
+    it('client.ping', function (done) {
+      client.ping()(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('PONG');
+      })(done);
+    });
+
+    it('client.select', function (done) {
+      client.select(10)(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('OK');
+        return this.select(99);
+      })(function (error, res) {
+        should(error).be.instanceOf(Error);
+        should(res).be.equal(undefined);
+      })(done);
+    });
+
+    it('client.quit', function (done) {
+      client.quit()(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('OK');
+      })(done);
+    });
 
   });
 };
