@@ -120,6 +120,36 @@ module.exports = function () {
       })(done);
     });
 
+    it('client.bitpos', function (done) {
+      var Thunk = thunks(function (error) {
+          console.error(error);
+          done(error);
+        });
+
+      Thunk.call(client, client.set('key', '\xff\xf0\x00'))(function (error, res) {
+        should(res).be.equal('OK');
+        return this.bitpos('key', 0);
+      })(function (error, res) {
+        // should(res).be.equal(12);? //TODO
+        should(res).be.equal(2);
+        return this.set('key2', '\x00\xff\xf0');
+      })(function (error, res) {
+        should(res).be.equal('OK');
+        return this.bitpos('key2', 1, 0);
+      })(function (error, res) {
+        should(res).be.equal(8);
+        return this.bitpos('key2', 1, 2);
+      })(function (error, res) {
+        should(res).be.equal(16);
+        return this.set('key3', '\x00\x00\x00');
+      })(function (error, res) {
+        should(res).be.equal('OK');
+        return this.bitpos('key3', 1);
+      })(function (error, res) {
+        should(res).be.equal(-1);
+      })(done);
+    });
+
     it('client.decr, client.decrby, client.incr, client.incrby, client.incrbyfloat', function (done) {
       var Thunk0 = thunks();
       var Thunk = thunks(function (error) {

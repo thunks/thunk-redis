@@ -1,4 +1,4 @@
-thunk-redis API v0.1.0 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
+thunk-redis API v0.1.2 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
 ===========
 A thunk-based redis client.
 
@@ -8,8 +8,8 @@ A thunk-based redis client.
 var redis = require('thunk-redis');
 ```
 
-### redis.createClient([port], [host], [options])
-### redis.createClient([path], [options])
+#### redis.createClient([port], [host], [options])
+#### redis.createClient([path], [options])
 
 + port: `Number`, default: `6379`;
 + host: `String`, default: `'localhost'`;
@@ -27,7 +27,7 @@ var client5 = redis.createClient('/tmp/redis.sock');
 var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
 ```
 
-### redis.log([...])
+#### redis.log([...])
 
 ```js
 var client = redis.createClient();
@@ -40,14 +40,12 @@ client.info()(redis.log);
 var client = redis.createClient();
 ```
 
-### client.on('error', function (error) {})
-### client.on('connect', function () {})
-### client.on('close', function () {})
-### client.on('end', function () {})
-### client.on('drain', function () {})
-### client.on('timeout', function () {})
-### client.on('drain', function () {})
-### client.on('all', function (e) {})
+#### client.on('error', function (error) {})
+#### client.on('connect', function () {})
+#### client.on('close', function () {})
+#### client.on('end', function () {})
+#### client.on('drain', function () {})
+#### client.on('timeout', function () {})
 
 ## Commands
 
@@ -55,173 +53,196 @@ var client = redis.createClient();
 var client = redis.createClient();
 ```
 
-### Key
-### client.del(key, [key ...])
-### client.dump(key)
-### client.exists(key)
-### client.expire(key, seconds)
-### client.expireat(key, timestamp)
-### client.keys(pattern)
-### client.migrate(host, port, key, db, timeout, [COPY], [REPLASE])
-### client.move(key, db)
-### client.object(subcommand, key)
-### client.persist(key)
-### client.pexpire(key, milliseconds)
-### client.pexpireat(key, ms-timestamp)
-### client.pttl(key)
-### client.randomkey()
-### client.rename(key, newkey)
-### client.renamenx(key, newkey)
-### client.restore(key, ttl, serialized-value, [REPLACE])
-### client.sort(key, [BY pattern], [LIMIT offset count], [GET pattern [GET pattern ...]], [ASC | DESC], [ALPHA], [STORE destination])
-### client.ttl(key)
-### client.type(key)
-### client.scan(cursor, [MATCH pattern], [COUNT count])
+### Keys
+#### client.del(key, [key ...])
+#### client.dump(key)
+#### client.exists(key)
+#### client.expire(key, seconds)
+#### client.expireat(key, timestamp)
+#### client.keys(pattern)
+#### client.migrate(host, port, key, db, timeout, [COPY], [REPLASE])
+#### client.move(key, db)
+#### client.object(subcommand, [key, [key ...]])
+#### client.persist(key)
+#### client.pexpire(key, milliseconds)
+#### client.pexpireat(key, ms-timestamp)
+#### client.pttl(key)
+#### client.randomkey()
+#### client.rename(key, newkey)
+#### client.renamenx(key, newkey)
+#### client.restore(key, ttl, serialized-value, [REPLACE])
+#### client.sort(key, [BY pattern], [LIMIT offset count], [GET pattern [GET pattern ...]], [ASC | DESC], [ALPHA], [STORE destination])
+#### client.ttl(key)
+#### client.type(key)
+#### client.scan(cursor, [MATCH pattern], [COUNT count])
 
-### String
-### client.append(key, value)
-### client.bitcount(key, [start], [end])
-### client.bitop(operation, destkey, key, [key ...])
-### client.decr(key)
-### client.decrby(key, decrement)
-### client.get(key)
-### client.getbit(key, offset)
-### client.getrange(key, start, end)
-### client.getset(key, value)
-### client.incr(key)
-### client.incrby(key, increment)
-### client.incrbyfloat(key, increment)
-### client.mget(key, [key ...])
-### client.mset(key, value, [key, value ...])
-### client.mset(object)
-### client.msetnx(key, value, [key, value ...])
-### client.msetnx(object)
-### client.psetex(key, milliseconds, value)
-### client.set(key, value, [EX seconds], [PX milliseconds], [NX|XX])
-### client.setbit(key, offset, value)
-### client.setex(key, seconds, value)
-### client.setnx(key, value)
-### client.setrange(key, offset, value)
-### client.strlen(key)
+### Strings
+#### client.append(key, value)
+#### client.bitcount(key, [start], [end])
+#### client.bitop(operation, destkey, key, [key ...])
+#### client.bitpos(key, bit, [start], [end])
+#### client.decr(key)
+#### client.decrby(key, decrement)
+#### client.get(key)
+#### client.getbit(key, offset)
+#### client.getrange(key, start, end)
+#### client.getset(key, value)
+#### client.incr(key)
+#### client.incrby(key, increment)
+#### client.incrbyfloat(key, increment)
+#### client.mget(key, [key ...])
+#### client.mset(key, value, [key, value ...]) | client.mset(object)
+#### client.msetnx(key, value, [key, value ...]) | client.msetnx(object)
+#### client.psetex(key, milliseconds, value)
+#### client.set(key, value, [EX seconds], [PX milliseconds], [NX|XX])
+#### client.setbit(key, offset, value)
+#### client.setex(key, seconds, value)
+#### client.setnx(key, value)
+#### client.setrange(key, offset, value)
+#### client.strlen(key)
 
-### Hash
-### client.hdel(key, field, [field ...])
-### client.hexists(key, field)
-### client.hget(key, field)
-### client.hgetall(key)
-### client.hincrby(key, field, increment)
-### client.hincrbyfloat(key, field, increment)
-### client.hkeys(key)
-### client.hlen(key)
-### client.hmget(key, field, [field ...])
-### client.hmset(key, field, value, [field, value ...])
-### client.hmset(key, object)
-### client.hset(key, field, value)
-### client.hsetnx(key, field, value)
-### client.hvals(key)
-### client.hscan(key, cursor, [MATCH pattern], [COUNT count])
+### Hashes
+#### client.hdel(key, field, [field ...])
+#### client.hexists(key, field)
+#### client.hget(key, field)
+#### client.hgetall(key)
+#### client.hincrby(key, field, increment)
+#### client.hincrbyfloat(key, field, increment)
+#### client.hkeys(key)
+#### client.hlen(key)
+#### client.hmget(key, field, [field ...])
+#### client.hmset(key, field, value, [field, value ...]) | client.hmset(key, object)
+#### client.hset(key, field, value)
+#### client.hsetnx(key, field, value)
+#### client.hvals(key)
+#### client.hscan(key, cursor, [MATCH pattern], [COUNT count])
 
-### List
-### client.blpop
-### client.brpop
-### client.brpoplpush
-### client.lindex
-### client.linsert
-### client.llen
-### client.lpop
-### client.lpush
-### client.lpushx
-### client.lrange
-### client.lrem
-### client.lset
-### client.ltrim
-### client.rpop
-### client.rpoplpush
-### client.rpush
-### client.rpushx
+### Lists
+#### client.blpop(key, [key ...], timeout)
+#### client.brpop(key, [key ...], timeout)
+#### client.brpoplpush(source, destination, timeout)
+#### client.lindex(key, index)
+#### client.linsert(key, BEFORE|AFTER, pivot, value)
+#### client.llen(key)
+#### client.lpop(key)
+#### client.lpush(key, value, [value ...])
+#### client.lpushx(key, value)
+#### client.lrange(key, start, stop)
+#### client.lrem(key, count, value)
+#### client.lset(key, index, value)
+#### client.ltrim(key, start, stop)
+#### client.rpop(key)
+#### client.rpoplpush(source, destination)
+#### client.rpush(key, value, [value ...])
+#### client.rpushx(key, value)
 
-### Set
-### client.sadd
-### client.scard
-### client.sdiff
-### client.sdiffstore
-### client.sinter
-### client.sinterstore
-### client.sismember
-### client.smembers
-### client.smove
-### client.spop
-### client.srandmember
-### client.srem
-### client.sunion
-### client.sunionstore
-### client.sscan
+### Sets
+#### client.sadd(key, member, [member ...])
+#### client.scard(key)
+#### client.sdiff(key, [key ...])
+#### client.sdiffstore(destination, key, [key ...])
+#### client.sinter(key, [key ...])
+#### client.sinterstore(destination, key, [key ...])
+#### client.sismember(key, member)
+#### client.smembers(key)
+#### client.smove(source, destination, member)
+#### client.spop(key)
+#### client.srandmember(key, [count])
+#### client.srem(key, member, [member ...])
+#### client.sunion(key, [key ...])
+#### client.sunionstore(destination, key, [key ...])
+#### client.sscan(key, cursor, [MATCH, pattern], [COUNT, count])
 
-### Sorted Set
-### client.zadd
-### client.zcard
-### client.zcount
-### client.zincrby
-### client.zinterstore
-### client.zrange
-### client.zrangebyscore
-### client.zrank
-### client.zrem
-### client.zremrangebyrank
-### client.zremrangebyscore
-### client.zrevrange
-### client.zrevrangebyscore
-### client.zrevrank
-### client.zscore
-### client.zunionstore
-### client.zsan
+### Sorted Sets
+#### client.zadd(key, score, member, [score, member ...])
+#### client.zcard(key)
+#### client.zcount(key, min, max)
+#### client.zincrby(key, increment, member)
+#### client.zinterstore(destination, numkeys, key, [key ...], [WEIGHTS, weight, [weight ...]], [AGGREGATE, SUM|MIN|MAX])
+#### client.zlexcount(key, min, max)
+#### client.zrange(key, start, stop, [WITHSCORES])
+#### client.zrangebylex(key, min, max, [LIMIT, offset, count])
+#### client.zrevrangebylex(key, min, max, [LIMIT, offset, count])
+#### client.zrangebyscore(key, min, max, [WITHSCORES], [LIMIT, offset, count])
+#### client.zrank(key, member)
+#### client.zrem(key, member, [member ...])
+#### client.zremrangebylex(key, min, max)
+#### client.zremrangebyrank(key, start, stop)
+#### client.zremrangebyscore(key, min, max)
+#### client.zrevrange(key, start, stop, [WITHSCORES])
+#### client.zrevrangebyscore(key, max, min, [WITHSCORES], [LIMIT, offset, count])
+#### client.zrevrank(key, member)
+#### client.zscore(key, member)
+#### client.zunionstore(destination, numkeys, key, [key ...], [WEIGHTS, weight, [weight ...]], [AGGREGATE, SUM|MIN|MAX])
+#### client.zsan(key, cursor, [MATCH, pattern] [COUNT, count])
 
-### Pubsub
-### client.psubscribe
-### client.publish
-### client.pubsub
-### client.punsubscribe
-### client.subscribe
-### client.unsubscribe
+### HyperLog
+#### client.pfadd(key, element, [element ...])
+#### client.pfcount(key, [key ...])
+#### client.pfmerge(destkey, sourcekey, [sourcekey ...])
 
-### Transaction
-### client.discard
-### client.exec
-### client.multi
-### client.unwatch
-### client.watch
+### Pub/Sub
+#### client.psubscribe(pattern, [pattern ...])
+#### client.publish(channel, message)
+#### client.pubsub(subcommand, [argument, [argument ...])
+#### client.punsubscribe(pattern [pattern ...])
+#### client.subscribe(channel, [channel ...])
+#### client.unsubscribe([channel, [channel ...]])
 
-### Script
-### client.eval
-### client.evalsha
-### client.script
+### Transactions
+#### client.discard()
+#### client.exec()
+#### client.multi()
+#### client.unwatch()
+#### client.watch(key, [key ...])
+
+### Scripting
+#### client.eval(script, numkeys, key, [key ...], arg, [arg ...])
+#### client.evalsha(sha1, numkeys, key, [key ...], arg, [arg ...])
+#### client.script('EXISTS', script, [script ...])
+#### client.script('FLUSH')
+#### client.script('KILL')
+#### client.script('LOAD', script)
 
 ### Connection
-### client.auth
-### client.echo
-### client.ping
-### client.quit
-### client.select
+#### client.auth(password)
+#### client.echo(message)
+#### client.ping()
+#### client.quit()
+#### client.select(index)
 
 ### Server
-### client.bgrewriteaof
-### client.bgsave
-### client.client
-### client.config
-### client.dbsize
-### client.debug
-### client.flushall
-### client.flushdb
-### client.info
-### client.lastsave
-### client.monitor
-### client.psync
-### client.save
-### client.shutdown
-### client.slaveof
-### client.slowlog
-### client.sync
-### client.time
+#### client.bgrewriteaof()
+#### client.bgsave()
+#### client.client('KILL', [ip:port], [ID, client-id], [TYPE, normal|slave|pubsub], [ADDR, ip:port], [SKIPME, yes/no])
+#### client.client('LIST')
+#### client.client('GETNAME')
+#### client.client('PAUSE', timeout)
+#### client.client('SETNAME', connection-name)
+#### client.cluster('SLOTS')
+#### client.command()
+#### client.command('COUNT')
+#### client.command('GETKEYS')
+#### client.command('INFO', command-name, [command-name ...])
+#### client.config('GET', parameter)
+#### client.config('REWRITE')
+#### client.config('SET', parameter, value)
+#### client.config('RESETSTAT')
+#### client.dbsize()
+#### client.debug('OBJECT', key)
+#### client.debug('SEGFAULT')
+#### client.flushall()
+#### client.flushdb()
+#### client.info([section])
+#### client.lastsave()
+#### client.monitor()
+#### client.role()
+#### client.save()
+#### client.shutdown([NOSAVE], [SAVE])
+#### client.slaveof(host, port)
+#### client.slowlog(subcommand, [argument])
+#### client.sync()
+#### client.time()
 
 ## Others
 
@@ -229,10 +250,6 @@ var client = redis.createClient();
 var client = redis.createClient();
 ```
 
-### client.unref()
-### client.emit()
-### client.end()
-### client.options
-### client.status
-
-
+#### client.unref()
+#### client.emit()
+#### client.end()

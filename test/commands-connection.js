@@ -10,7 +10,7 @@ module.exports = function () {
     var client;
 
     before(function () {
-      client = redis.createClient({database: 0, debugMode: true});
+      client = redis.createClient({database: 0, debugMode: false});
       client.on('error', function (error) {
         console.error('redis client:', error);
       });
