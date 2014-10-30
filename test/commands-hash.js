@@ -3,7 +3,7 @@
 
 var should = require('should');
 var thunks = require('thunks');
-var JSONkit = require('jsonkit');
+var JSONKit = require('jsonkit');
 var redis = require('../index');
 
 module.exports = function () {
@@ -208,7 +208,7 @@ module.exports = function () {
 
       function fullScan(key, cursor) {
         return client.hscan(key, cursor)(function (error, res) {
-          JSONkit.each(res[1], function (value, key) {
+          JSONKit.each(res[1], function (value, key) {
             scanKeys[key] = value;
           });
           if (res[0] === '0') return res;
@@ -223,7 +223,7 @@ module.exports = function () {
         should(res).be.equal('OK');
         return fullScan('hash', 0);
       })(function (error, res) {
-        JSONkit.each(data, function (value, key) {
+        JSONKit.each(data, function (value, key) {
           should(scanKeys[key] >= 0).be.equal(true);
         });
         return this.hscan('hash', '0', 'count', 20);

@@ -3,7 +3,7 @@
 
 var should = require('should');
 var thunks = require('thunks');
-var JSONkit = require('jsonkit');
+var JSONKit = require('jsonkit');
 var redis = require('../index');
 
 module.exports = function () {
@@ -578,7 +578,7 @@ module.exports = function () {
         should(res).be.equal('OK');
         return fullScan(0);
       })(function (error, res) {
-        JSONkit.each(data, function (value, key) {
+        JSONKit.each(data, function (value, key) {
           should(scanKeys.indexOf(key) >= 0).be.equal(true);
         });
         return this.scan('0', 'count', 20);
