@@ -20,7 +20,7 @@ var commandsTransaction = require('./commands-transaction');
 describe('thunk-redis', function () {
 
   before(function (done) {
-    redis.createClient({database: 0}).flushdb()(function (error, res) {
+    redis.createClient({database: 0, debugMode: false}).flushdb()(function (error, res) {
       should(error).be.equal(null);
       should(res).be.equal('OK');
       return this.dbsize();

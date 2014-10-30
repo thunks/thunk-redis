@@ -1,4 +1,4 @@
-thunk-redis v0.1.2 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
+thunk-redis v0.2.0 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
 ===========
 A thunk-based redis client with pipelining.
 
@@ -41,6 +41,58 @@ client.info('server')(function (error, res) {
 1. redis.createClient([port], [host], [options])
 2. redis.createClient([path], [options])
 3. redis.log([...])
+
+### Options
+
+#### noDelay
+
+*Optional*, Type: `Boolean`, Default: `true`.
+
+Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.
+
+#### keepAlive
+
+*Optional*, Type: `Boolean`, Default: `true`.
+
+Enable/disable keep-alive functionality, and optionally set the initial delay before the first keepalive probe is sent on an idle socket.
+
+#### timeout
+
+*Optional*, Type: `Number`, Default: `0`.
+
+Sets the socket to timeout after timeout milliseconds of inactivity on the socket. If timeout is 0, then the existing idle timeout is disabled.
+
+When an idle timeout is triggered the socket will receive a 'timeout' event but the connection will not be severed.
+
+#### retryDelay
+
+*Optional*, Type: `Number`, Default: `1000`.
+
+
+#### maxAttempts
+
+*Optional*, Type: `Number`, Default: `10`.
+
+
+#### commandsHighWater
+
+*Optional*, Type: `Number`, Default: `10000`.
+
+
+#### authPass
+
+*Optional*, Type: `String`, Default: `''`.
+
+
+#### database
+
+*Optional*, Type: `Number`, Default: `0`.
+
+
+#### returnBuffers
+
+*Optional*, Type: `Boolean`, Default: `false`.
+
 
 ### Events
 1. client.on('error', function (error) {})

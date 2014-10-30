@@ -32,7 +32,7 @@ module.exports = function () {
     });
 
     it('redis.createClient(options)', function (done) {
-      var client = redis.createClient({database: 1});
+      var client = redis.createClient({database: 1, debugMode: false});
 
       client.get('test')(function (error, res) {
         should(error).be.equal(null);
