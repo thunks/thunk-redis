@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A thunk-based redis client with pipelining.",
   "main": "index.js",
   "authors": [
@@ -40,5 +40,13 @@
   "bugs": {
     "url": "https://github.com/zensh/thunk-redis/issues"
   },
-  "homepage": "https://github.com/zensh/thunk-redis"
+  "homepage": "https://github.com/zensh/thunk-redis",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "benchmark",
+    "test",
+    "examples",
+    "gulpfile.js"
+  ]
 }

@@ -36,10 +36,6 @@ client.info()(redis.log);
 
 ## Events
 
-```js
-var client = redis.createClient();
-```
-
 #### client.on('error', function (error) {})
 #### client.on('connect', function () {})
 #### client.on('close', function () {})
@@ -47,11 +43,13 @@ var client = redis.createClient();
 #### client.on('drain', function () {})
 #### client.on('timeout', function () {})
 
-## Commands
+## Others
 
-```js
-var client = redis.createClient();
-```
+#### client.unref()
+#### client.end()
+#### client.clientState()
+
+## Commands
 
 ### Keys
 #### client.del(key, [key ...])
@@ -243,13 +241,3 @@ var client = redis.createClient();
 #### client.slowlog(subcommand, [argument])
 #### client.sync()
 #### client.time()
-
-## Others
-
-```js
-var client = redis.createClient();
-```
-
-#### client.unref()
-#### client.emit()
-#### client.end()

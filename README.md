@@ -1,4 +1,4 @@
-thunk-redis v0.2.0 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
+thunk-redis v0.2.1 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
 ===========
 A thunk-based redis client with pipelining.
 
@@ -66,12 +66,12 @@ When an idle timeout is triggered the socket will receive a 'timeout' event but 
 
 #### retryDelay
 
-*Optional*, Type: `Number`, Default: `1000`.
+*Optional*, Type: `Number`, Default: `5000`.
 
 
 #### maxAttempts
 
-*Optional*, Type: `Number`, Default: `10`.
+*Optional*, Type: `Number`, Default: `5`.
 
 
 #### commandsHighWater
@@ -92,12 +92,3 @@ When an idle timeout is triggered the socket will receive a 'timeout' event but 
 #### returnBuffers
 
 *Optional*, Type: `Boolean`, Default: `false`.
-
-
-### Events
-1. client.on('error', function (error) {})
-2. client.on('connect', function () {})
-3. client.on('close', function () {})
-4. client.on('end', function () {})
-5. client.on('drain', function () {})
-6. client.on('timeout', function () {})
