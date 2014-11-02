@@ -24,7 +24,7 @@ module.exports = function () {
     });
 
     after(function () {
-      client.end();
+      client.clientEnd();
     });
 
     it('client.append', function (done) {

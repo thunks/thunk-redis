@@ -9,30 +9,26 @@ module.exports = function () {
   describe('commands:Pubsub', function () {
     var client1, client2;
 
-    before(function () {
-      client1 = redis.createClient({debugMode: true});
+    beforeEach(function (done) {
+      client1 = redis.createClient({debugMode: false});
       client1.on('error', function (error) {
         console.error('redis client:', error);
       });
 
-      client2 = redis.createClient({debugMode: true});
+      client2 = redis.createClient({debugMode: false});
       client2.on('error', function (error) {
         console.error('redis client:', error);
       });
-    });
 
-    beforeEach(function (done) {
-      client1.removeAllListeners();
-      client2.removeAllListeners();
       client1.flushdb()(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
       })(done);
     });
 
-    after(function () {
-      client1.end();
-      client2.end();
+    afterEach(function () {
+      client1.clientEnd();
+      client2.clientEnd();
     });
 
     it('client.psubscribe, client.punsubscribe', function (done) {
@@ -44,9 +40,8 @@ module.exports = function () {
         })
         .on('punsubscribe', function (pattern, n) {
           if (pattern === 'a.*') should(n).be.equal(2);
-          if (pattern === '*') should(n).be.equal(2);
-          if (pattern === '123') should(n).be.equal(1);
-          if (pattern === 'b.*') {
+          if (pattern === 'b.*') should(n).be.equal(1);
+          if (pattern === '123') {
             should(n).be.equal(0);
             done();
           }
@@ -65,7 +60,7 @@ module.exports = function () {
       });
     });
 
-    it.skip('client.subscribe, client.unsubscribe', function (done) {
+    it('client.subscribe, client.unsubscribe', function (done) {
       client1
         .on('subscribe', function (pattern, n) {
           if (pattern === 'a') should(n).be.equal(1);
@@ -95,23 +90,19 @@ module.exports = function () {
       });
     });
 
-    it.skip('client.publish', function (done) {
-      // client1
-      //   .on('subscribe', function (pattern, n) {
-      //     console.log(pattern, n);
-      //     if (pattern === 'a') should(n).be.equal(1);
-      //     if (pattern === 'b') should(n).be.equal(2);
-      //     if (pattern === '123') should(n).be.equal(3);
-      //   })
-      //   .on('unsubscribe', function (pattern, n) {
-      //     if (pattern === 'a') should(n).be.equal(2);
-      //     if (pattern === '*') should(n).be.equal(2);
-      //     if (pattern === '123') should(n).be.equal(1);
-      //     if (pattern === 'b') {
-      //       should(n).be.equal(0);
-      //       done();
-      //     }
-      //   });
+    it('client.publish', function (done) {
+      var messages = [];
+      client1
+        .on('message', function (channel, message) {
+          messages.push(message);
+        })
+        .on('pmessage', function (pattern, channel, message) {
+          messages.push(message);
+          if (message === 'end') {
+            should(messages).be.eql(['hello1', 'hello2', 'hello2', 'end']);
+            done();
+          }
+        });
       client2.publish()(function (error, res) {
         should(error).be.instanceOf(Error);
         should(res).be.equal(undefined);
@@ -123,25 +114,26 @@ module.exports = function () {
       })(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(undefined);
-        return this.publish('a', 'hello');
+        return this.publish('a', 'hello1');
       })(function (error, res) {
-        console.log(321321321321, error, res);
         should(error).be.equal(null);
         should(res).be.equal(1);
-        return client2.psubscribe('*');
+        return client1.psubscribe('*');
       })(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(undefined);
-        return this.publish('a', 'hello');
+        return this.publish('a', 'hello2');
       })(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(2);
-        return this.publish('b', 'hello');
+        return this.publish('b', 'end');
       })(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(1);
-      })(done);
+      });
     });
+
+    it.skip('client.pubsub', function (done) {});
 
   });
 };

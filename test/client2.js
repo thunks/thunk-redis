@@ -28,7 +28,7 @@ module.exports = function () {
       })(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
-        this.end();
+        this.clientEnd();
       })(done);
     });
 
@@ -44,7 +44,7 @@ module.exports = function () {
         should(error).be.equal(null);
         should(connect).be.equal(true);
         should(res.redis_version).be.type('string');
-        return this.end();
+        return this.clientEnd();
       })(done);
     });
   });

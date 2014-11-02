@@ -25,7 +25,7 @@ module.exports = function () {
     });
 
     after(function () {
-      client.end();
+      client.clientEnd();
     });
 
     it('client.hdel, client.hexists', function (done) {

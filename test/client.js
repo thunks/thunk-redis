@@ -27,7 +27,7 @@ module.exports = function () {
       })(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
-        this.end();
+        this.clientEnd();
       })(done);
     });
 
@@ -37,7 +37,7 @@ module.exports = function () {
       client.get('test')(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(time);
-        this.end();
+        this.clientEnd();
       })(done);
     });
 
@@ -47,7 +47,7 @@ module.exports = function () {
       client.get('test')(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(time);
-        this.end();
+        this.clientEnd();
       })(done);
     });
 
@@ -57,7 +57,7 @@ module.exports = function () {
       client.get('test')(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(time);
-        this.end();
+        this.clientEnd();
       })(done);
     });
   });

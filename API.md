@@ -43,10 +43,18 @@ client.info()(redis.log);
 #### client.on('drain', function () {})
 #### client.on('timeout', function () {})
 
+#### client.on('subscribe', function (pattern, n) {})
+#### client.on('unsubscribe', function (pattern, n) {})
+#### client.on('psubscribe', function (pattern, n) {})
+#### client.on('punsubscribe', function (pattern, n) {})
+#### client.on('message', function (channel, message) {})
+#### client.on('message', function (pattern, channel, message) {})
+#### client.on('monitor', function (message) {})  
+
 ## Others
 
-#### client.unref()
-#### client.end()
+#### client.clientUnref()
+#### client.clientEnd()
 #### client.clientState()
 
 ## Commands

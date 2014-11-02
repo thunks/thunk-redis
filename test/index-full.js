@@ -39,7 +39,7 @@ describe('thunk-redis', function () {
     })(function (error, res) {
       should(error).be.equal(null);
       should(res).be.equal(0);
-      this.end();
+      this.clientEnd();
     })(done);
   });
 
@@ -54,7 +54,7 @@ describe('thunk-redis', function () {
   commandsHash();
   commandsKey();
   commandsList();
-  // commandsPubsub();
+  commandsPubsub();
   commandsScript();
   commandsServer();
   commandsSet();
