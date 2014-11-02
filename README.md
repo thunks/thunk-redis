@@ -18,15 +18,15 @@ client.on('connect', function () {
 
 client.info('server')(function (error, res) {
   console.log('redis server info: ', res);
-  console.log('redis client status: ', this.status);
+  console.log('redis client status: ', this.clientState());
   return this.dbsize();
 })(function (error, res) {
   console.log('surrent database size: ', res);
   return this.select(0);
 })(function (error, res) {
   console.log('select database 0: ', res);
-  console.log('redis client status: ', this.status);
-  this.end();
+  console.log('redis client status: ', this.clientState());
+  this.clientEnd();
 });
 ```
 
