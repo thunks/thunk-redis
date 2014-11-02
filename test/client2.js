@@ -34,20 +34,17 @@ module.exports = function () {
 
     it('redis.createClient(path, options)', function (done) {
       var connect = false,
-        client = redis.createClient('/tmp/redis.sock', {database: 1});
+        client = redis.createClient('/tmp/redis2.sock', {database: 1});
 
       client.on('connect', function () {
         connect = true;
       });
+
       client.info()(function (error, res) {
         should(error).be.equal(null);
         should(connect).be.equal(true);
         should(res.redis_version).be.type('string');
-        return this.get('test');
-      })(function (error, res) {
-        should(error).be.equal(null);
-        should(res).be.equal(time);
-        this.end();
+        return this.end();
       })(done);
     });
   });

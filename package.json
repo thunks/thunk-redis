@@ -24,8 +24,8 @@
     "node": ">= 0.10.0"
   },
   "dependencies": {
-    "respjs": "^0.2.0",
-    "thunks": "^1.1.0"
+    "respjs": "^0.3.0",
+    "thunks": "^1.3.0"
   },
   "devDependencies": {
     "gulp": "^3.5.6",

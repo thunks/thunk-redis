@@ -56,6 +56,25 @@ module.exports = function () {
       })(done);
     });
 
+    it('client.auth', function (done) {
+      client.auth('123456')(function (error, res) {
+        should(error).be.instanceOf(Error);
+        should(res).be.equal(undefined);
+        return this.config('set', 'requirepass', '123456');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('OK');
+        return this.auth('123456');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('OK');
+        return this.config('set', 'requirepass', '');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal('OK');
+      })(done);
+    });
+
     it('client.quit', function (done) {
       client.quit()(function (error, res) {
         should(error).be.equal(null);

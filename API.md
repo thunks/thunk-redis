@@ -68,7 +68,7 @@ client.info()(redis.log);
 #### client.randomkey()
 #### client.rename(key, newkey)
 #### client.renamenx(key, newkey)
-#### client.restore(key, ttl, serialized-value, [REPLACE])
+#### client.restore(key, ttl, serialized-value)
 #### client.sort(key, [BY pattern], [LIMIT offset count], [GET pattern [GET pattern ...]], [ASC | DESC], [ALPHA], [STORE destination])
 #### client.ttl(key)
 #### client.type(key)

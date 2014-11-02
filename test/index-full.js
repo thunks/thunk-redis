@@ -54,7 +54,7 @@ describe('thunk-redis', function () {
   commandsHash();
   commandsKey();
   commandsList();
-  commandsPubsub();
+  // commandsPubsub();
   commandsScript();
   commandsServer();
   commandsSet();

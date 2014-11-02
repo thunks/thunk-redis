@@ -130,7 +130,6 @@ module.exports = function () {
         should(res).be.equal('OK');
         return this.bitpos('key', 0);
       })(function (error, res) {
-        // should(res).be.equal(12);? //TODO
         should(res).be.equal(2);
         return this.set('key2', '\x00\xff\xf0');
       })(function (error, res) {

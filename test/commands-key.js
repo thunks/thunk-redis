@@ -77,21 +77,22 @@ module.exports = function () {
       })(done);
     });
 
-    it.skip('client.dump, client.restore', function (done) {
+    it('client.dump, client.restore', function (done) {
       var serializedValue, Thunk0 = thunks();
+      var client2 = redis.createClient({returnBuffers: true, debugMode: false});
       var Thunk = thunks(function (error) {
           console.error(error);
           done(error);
         });
 
-      Thunk.call(client, client.dump('dumpKey'))(function (error, res) {
+      Thunk.call(client2, client2.dump('dumpKey'))(function (error, res) {
         should(res).be.equal(null);
-        return this.set('dumpKey', 'hello, dumping world!');
+        return this.set('dumpKey', 'hello, dump & restore!');
       })(function (error, res) {
         should(res).be.equal('OK');
         return this.dump('dumpKey');
       })(function (error, res) {
-        should(res).be.type('string');
+        should(Buffer.isBuffer(res)).be.equal(true);
         serializedValue = res;
         return Thunk0.call(this, this.restore('restoreKey', 0, 'errorValue'))(function (error, res) {
           should(error).be.instanceOf(Error);
@@ -102,29 +103,26 @@ module.exports = function () {
         should(res).be.equal('OK');
         return this.get('restoreKey');
       })(function (error, res) {
-        should(res).be.equal('hello, dumping world!');
-        return this.set('key', 123);
-      })(function (error, res) {
-        should(res).be.equal('OK');
-        return this.get('key');
-      })(function (error, res) {
-        should(res).be.equal('123');
-        return Thunk0.call(this, this.restore('key', 0, serializedValue))(function (error, res) {
+        should(Buffer.isBuffer(res)).be.equal(true);
+        should(res.toString('utf8')).be.equal('hello, dump & restore!');
+        return Thunk0.call(this, this.restore('restoreKey', 0, serializedValue))(function (error, res) {
           should(error).be.instanceOf(Error);
           should(res).be.equal(undefined);
-          return this.get('key');
+          return this.get('restoreKey');
         });
       })(function (error, res) {
-        should(res).be.equal('123');
-        return this.restore('key', 1000, serializedValue, 'REPLACE');
+        should(Buffer.isBuffer(res)).be.equal(true);
+        should(res.toString('utf8')).be.equal('hello, dump & restore!');
+        return this.restore('key123', 1000, serializedValue);
       })(function (error, res) {
         should(res).be.equal('OK');
-        return this.get('key');
+        return this.get('key123');
       })(function (error, res) {
-        should(res).be.equal('hello, dumping world!');
-        return Thunk.delay(2000);
+        should(Buffer.isBuffer(res)).be.equal(true);
+        should(res.toString('utf8')).be.equal('hello, dump & restore!');
+        return Thunk.delay(1100);
       })(function (error, res) {
-        return this.exists('key');
+        return this.exists('key123');
       })(function (error, res) {
         should(res).be.equal(0);
       })(done);
@@ -210,7 +208,35 @@ module.exports = function () {
       })(done);
     });
 
-    it.skip('client.migrate', function () {});
+    it('client.migrate', function (done) {
+      var Thunk0 = thunks();
+      var Thunk = thunks(function (error) {
+          console.error(error);
+          done(error);
+        });
+
+      var client2 = redis.createClient(6380);
+
+      client2.on('error', function (error) {
+        done();
+      });
+
+      Thunk.call(client, client.set('key', 123))(function (error, res) {
+        should(res).be.equal('OK');
+        return client2.flushdb();
+      })(function (error, res) {
+        should(res).be.equal('OK');
+        return this.migrate('127.0.0.1', 6380, 'key', 0, 100);
+      })(function (error, res) {
+        should(res).be.equal('OK');
+        return this.exists('key');
+      })(function (error, res) {
+        should(res).be.equal(0);
+        return client2.get('key');
+      })(function (error, res) {
+        should(res).be.equal('123');
+      })(done);
+    });
 
     it('client.move', function (done) {
       var Thunk0 = thunks();
