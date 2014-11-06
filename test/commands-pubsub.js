@@ -91,7 +91,7 @@ module.exports = function () {
     });
 
     it('client.publish', function (done) {
-      var messages = [];
+      var messages = [], Thunk = thunks();
       client1
         .on('message', function (channel, message) {
           messages.push(message);
@@ -100,7 +100,7 @@ module.exports = function () {
           messages.push(message);
           if (message === 'end') {
             should(messages).be.eql(['hello1', 'hello2', 'hello2', 'end']);
-            done();
+            Thunk.delay(10)(done);
           }
         });
       client2.publish()(function (error, res) {
