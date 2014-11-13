@@ -48,10 +48,12 @@ client.info()(redis.log);
 #### client.on('psubscribe', function (pattern, n) {})
 #### client.on('punsubscribe', function (pattern, n) {})
 #### client.on('message', function (channel, message) {})
-#### client.on('message', function (pattern, channel, message) {})
+#### client.on('pmessage', function (pattern, channel, message) {})
 #### client.on('monitor', function (message) {})  
 
 ## Others
+
+#### client.clientCommands
 
 #### client.clientUnref()
 #### client.clientEnd()

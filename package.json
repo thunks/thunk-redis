@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A thunk-based redis client with pipelining.",
   "main": "index.js",
   "authors": [
