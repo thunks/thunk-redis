@@ -1,4 +1,4 @@
-thunk-redis API v0.1.2 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
+thunk-redis API [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
 ===========
 A thunk-based redis client.
 
