@@ -1,4 +1,4 @@
-thunk-redis v0.3.2 [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
+thunk-redis v0.3.3 [![Build Status](https://travis-ci.org/thunks/thunk-redis.png?branch=master)](https://travis-ci.org/thunks/thunk-redis)
 ===========
 A thunk-based redis client with pipelining.
 

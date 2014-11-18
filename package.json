@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A thunk-based redis client with pipelining.",
   "main": "index.js",
   "authors": [
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zensh/thunk-redis.git"
+    "url": "git://github.com/thunks/thunk-redis.git"
   },
   "keywords": [
     "redis",
@@ -38,9 +38,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zensh/thunk-redis/issues"
+    "url": "https://github.com/thunks/thunk-redis/issues"
   },
-  "homepage": "https://github.com/zensh/thunk-redis",
+  "homepage": "https://github.com/thunks/thunk-redis",
   "ignore": [
     "**/.*",
     "node_modules",
