@@ -197,7 +197,7 @@ module.exports = function () {
       })(done);
     });
 
-    it('client.hscan', function (done) {
+    it.skip('client.hscan', function (done) {
       var Thunk = thunks(function (error) {
           console.error(error);
           done(error);
