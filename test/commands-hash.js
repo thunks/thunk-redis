@@ -197,7 +197,7 @@ module.exports = function () {
       })(done);
     });
 
-    it.skip('client.hscan', function (done) {
+    it('client.hscan', function (done) {
       var Thunk = thunks(function (error) {
           console.error(error);
           done(error);
@@ -217,7 +217,7 @@ module.exports = function () {
       }
 
       Thunk.call(client, client.hscan('hash', 0))(function (error, res) {
-        should(res).be.eql(['0', []]);
+        should(res).be.eql(['0', {}]);
         return client.hmset('hash', data);
       })(function (error, res) {
         should(res).be.equal('OK');

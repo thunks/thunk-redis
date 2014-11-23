@@ -7,7 +7,7 @@ var redis = require('../index');
 
 module.exports = function () {
   describe('commands:Pubsub', function () {
-    var client1, client2;
+    var client1, client2, client3;
 
     beforeEach(function (done) {
       client1 = redis.createClient({debugMode: false});
@@ -20,6 +20,11 @@ module.exports = function () {
         console.error('redis client:', error);
       });
 
+      client3 = redis.createClient({debugMode: false});
+      client3.on('error', function (error) {
+        console.error('redis client:', error);
+      });
+
       client1.flushdb()(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
@@ -29,6 +34,7 @@ module.exports = function () {
     afterEach(function () {
       client1.clientEnd();
       client2.clientEnd();
+      client3.clientEnd();
     });
 
     it('client.psubscribe, client.punsubscribe', function (done) {
@@ -133,7 +139,49 @@ module.exports = function () {
       });
     });
 
-    it.skip('client.pubsub', function (done) {});
+    it('client.pubsub', function (done) {
+      var Thunk = thunks();
+
+      Thunk.call(client3, client1.subscribe('a', 'b', 'ab'))(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal(undefined);
+        return this.pubsub('channels');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res.length).be.equal(3);
+        should(res).be.containEql('a');
+        should(res).be.containEql('ab');
+        should(res).be.containEql('b');
+        return client2.subscribe('b', 'ab', 'abc');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal(undefined);
+        return this.pubsub('channels', 'a*');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res.length).be.equal(3);
+        should(res).be.containEql('a');
+        should(res).be.containEql('ab');
+        should(res).be.containEql('abc');
+        return Thunk.all(this.pubsub('numsub'), this.pubsub('numsub', 'a', 'b', 'ab', 'd'));
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res[0]).be.eql({});
+        should(res[1]).be.eql({a: '1', b: '2', ab: '2', d: '0'});
+        return this.pubsub('numpat');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal(0);
+        return Thunk.all(client1.psubscribe('a.*', 'b.*', '123'), client2.psubscribe('a.*', 'b.*', '456'));
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.eql([undefined, undefined]);
+        return this.pubsub('numpat');
+      })(function (error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal(6);
+      })(done);
+    });
 
   });
 };

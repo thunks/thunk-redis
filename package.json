@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "A thunk-based redis client with pipelining.",
   "main": "index.js",
   "authors": [
@@ -24,17 +24,17 @@
     "node": ">= 0.10.0"
   },
   "dependencies": {
-    "respjs": "^0.3.1",
+    "respjs": "^0.4.0",
     "thunks": "^2.1.0"
   },
   "devDependencies": {
-    "gulp": "^3.5.6",
-    "gulp-jshint": "^1.8.4",
-    "gulp-mocha": "^1.0.0",
-    "gulp-sequence": "^0.1.0",
-    "mocha": "^1.21.0",
-    "should": "^4.0.4",
-    "jsonkit": "^0.3.0"
+    "gulp": ">=3.8.0",
+    "gulp-jshint": ">=1.8.4",
+    "gulp-mocha": ">=1.0.0",
+    "gulp-sequence": ">=0.3.0",
+    "mocha": ">=1.21.0",
+    "should": ">=4.0.4",
+    "jsonkit": ">=0.3.0"
   },
   "license": "MIT",
   "bugs": {
