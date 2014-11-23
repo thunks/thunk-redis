@@ -599,7 +599,7 @@ module.exports = function () {
 
       Thunk.call(client, client.scan(0))(function (error, res) {
         should(res).be.eql(['0', []]);
-        return client.mset(data);
+        return this.mset(data);
       })(function (error, res) {
         should(res).be.equal('OK');
         return fullScan(0);
