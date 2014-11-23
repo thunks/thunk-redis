@@ -1,6 +1,8 @@
 thunk-redis API [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
 ===========
-A thunk-based redis client.
+A redis client with pipelining, rely on thunks
+
+## [thunks](https://github.com/thunks/thunks)
 
 ## Initial
 

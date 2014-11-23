@@ -1,14 +1,15 @@
-thunk-redis v0.3.5 [![Build Status](https://travis-ci.org/thunks/thunk-redis.png?branch=master)](https://travis-ci.org/thunks/thunk-redis)
+thunk-redis v0.3.6 [![Build Status](https://travis-ci.org/thunks/thunk-redis.png?branch=master)](https://travis-ci.org/thunks/thunk-redis)
 ===========
-A thunk-based redis client with pipelining.
+A redis client with pipelining, rely on thunks
 
-
+## [thunks](https://github.com/thunks/thunks)
 
 ## Demo
 
 ```js
 var redis = require('thunk-redis'),
   client = redis.createClient({
+    authPass: 'xxxxxx',
     database: 1
   });
 
@@ -27,6 +28,26 @@ client.info('server')(function (error, res) {
   console.log('select database 0: ', res);
   console.log('redis client status: ', this.clientState());
   this.clientEnd();
+});
+```
+
+```js
+// with generator
+var redis = require('thunk-redis');
+var client = redis.createClient();
+
+client.select(1)(function* (error, res) {
+  console.log(error, res);
+
+  yield this.set('foo', 'bar');
+  yield this.set('bar', 'baz');
+
+  console.log('foo -> %s', yield this.get('foo'));
+  console.log('bar -> %s', yield this.get('bar'));
+
+  return this.quit();
+})(function (error, res) {
+  console.log(error, res);
 });
 ```
 
