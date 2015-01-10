@@ -59,7 +59,7 @@ module.exports = function () {
         return this.exists('key');
       })(function (error, res) {
         should(res).be.equal(0);
-        return this.del('key1', 'key2', 'key3');
+        return this.del(['key1', 'key2', 'key3']);
       })(function (error, res) {
         should(res).be.equal(3);
         return this.exists('key1');

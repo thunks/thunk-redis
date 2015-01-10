@@ -1,6 +1,10 @@
-thunk-redis v0.3.6 [![Build Status](https://travis-ci.org/thunks/thunk-redis.png?branch=master)](https://travis-ci.org/thunks/thunk-redis)
-===========
+thunk-redis
+==========
 A redis client with pipelining, rely on thunks
+
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Talk topic][talk-image]][talk-url]
 
 ## [thunks](https://github.com/thunks/thunks)
 
@@ -113,3 +117,12 @@ When an idle timeout is triggered the socket will receive a 'timeout' event but 
 #### returnBuffers
 
 *Optional*, Type: `Boolean`, Default: `false`.
+
+[npm-url]: https://npmjs.org/package/thunk-redis
+[npm-image]: http://img.shields.io/npm/v/thunk-redis.svg
+
+[travis-url]: https://travis-ci.org/thunks/thunk-redis
+[travis-image]: http://img.shields.io/travis/thunks/thunk-redis.svg
+
+[talk-url]: https://guest.talk.ai/rooms/d1ccbf802n
+[talk-image]: https://img.shields.io/talk/t/d1ccbf802n.svg

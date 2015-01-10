@@ -1,5 +1,6 @@
 'use strict';
 /*global describe, it, before, after, beforeEach, afterEach*/
+/*jshint -W106*/
 
 var should = require('should');
 var redis = require('../index');

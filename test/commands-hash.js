@@ -202,29 +202,29 @@ module.exports = function () {
           console.error(error);
           done(error);
         });
-      var count = 100, data = {}, scanKeys = {};
+      var count = 100, data = {}, scanKeys = [];
 
       while (count--) data['key' + count] = count;
 
       function fullScan(key, cursor) {
         return client.hscan(key, cursor)(function (error, res) {
-          JSONKit.each(res[1], function (value, key) {
-            scanKeys[key] = value;
-          });
+          scanKeys = scanKeys.concat(res[1]);
           if (res[0] === '0') return res;
           return fullScan(key, res[0]);
         });
       }
 
       Thunk.call(client, client.hscan('hash', 0))(function (error, res) {
-        should(res).be.eql(['0', {}]);
+        should(res).be.eql(['0', []]);
         return client.hmset('hash', data);
       })(function (error, res) {
         should(res).be.equal('OK');
         return fullScan('hash', 0);
       })(function (error, res) {
+        should(scanKeys.length).be.equal(200);
         JSONKit.each(data, function (value, key) {
-          should(scanKeys[key] >= 0).be.equal(true);
+          should(scanKeys).be.containEql(value + '');
+          should(scanKeys).be.containEql(key);
         });
         return this.hscan('hash', '0', 'count', 20);
       })(function (error, res) {
@@ -233,7 +233,7 @@ module.exports = function () {
         return this.hscan('hash', '0', 'count', 200, 'match', '*0');
       })(function (error, res) {
         should(res[0] === '0').be.equal(true);
-        should(Object.keys(res[1]).length === 10).be.equal(true);
+        should(Object.keys(res[1]).length === 20).be.equal(true);
       })(done);
     });
 

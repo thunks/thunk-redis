@@ -64,7 +64,7 @@ client.info()(redis.log);
 ## Commands
 
 ### Keys
-#### client.del(key, [key ...])
+#### client.del(key, [key ...]) | client.del([key1, key2, ...])
 #### client.dump(key)
 #### client.exists(key)
 #### client.expire(key, seconds)
@@ -100,7 +100,7 @@ client.info()(redis.log);
 #### client.incr(key)
 #### client.incrby(key, increment)
 #### client.incrbyfloat(key, increment)
-#### client.mget(key, [key ...])
+#### client.mget(key, [key ...]) | client.mget([key1, key2, ...])
 #### client.mset(key, value, [key, value ...]) | client.mset(object)
 #### client.msetnx(key, value, [key, value ...]) | client.msetnx(object)
 #### client.psetex(key, milliseconds, value)
@@ -184,7 +184,7 @@ client.info()(redis.log);
 #### client.zrevrank(key, member)
 #### client.zscore(key, member)
 #### client.zunionstore(destination, numkeys, key, [key ...], [WEIGHTS, weight, [weight ...]], [AGGREGATE, SUM|MIN|MAX])
-#### client.zsan(key, cursor, [MATCH, pattern] [COUNT, count])
+#### client.zscan(key, cursor, [MATCH, pattern] [COUNT, count])
 
 ### HyperLog
 #### client.pfadd(key, element, [element ...])

@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "A redis client with pipelining, rely on thunks.",
   "main": "index.js",
   "authors": [
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "respjs": "^0.4.0",
-    "thunks": "^2.1.0"
+    "thunks": "^2.7.0"
   },
   "devDependencies": {
     "gulp": ">=3.8.0",
