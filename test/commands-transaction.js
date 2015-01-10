@@ -5,29 +5,31 @@ var should = require('should');
 var thunks = require('thunks');
 var redis = require('../index');
 
-module.exports = function () {
-  describe('commands:Transaction', function () {
+module.exports = function() {
+  describe('commands:Transaction', function() {
     var client;
 
-    before(function () {
-      client = redis.createClient({database: 0});
-      client.on('error', function (error) {
+    before(function() {
+      client = redis.createClient({
+        database: 0
+      });
+      client.on('error', function(error) {
         console.error('redis client:', error);
       });
     });
 
-    beforeEach(function (done) {
-      client.flushdb()(function (error, res) {
+    beforeEach(function(done) {
+      client.flushdb()(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
       })(done);
     });
 
-    after(function () {
+    after(function() {
       client.clientEnd();
     });
 
-    it.skip('client.discard', function () {});
+    it.skip('client.discard', function() {});
 
   });
 };

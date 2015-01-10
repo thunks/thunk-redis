@@ -11,14 +11,19 @@ var tool = require('./lib/tool');
 var defaultPort = 6379;
 var defaultHost = 'localhost';
 
-exports.createClient = function (port, host, options) {
-  var  netOptions;
+exports.createClient = function(port, host, options) {
+  var netOptions;
 
   if (typeof port === 'string') {
-    netOptions = {path: port};
+    netOptions = {
+      path: port
+    };
     options = host;
   } else {
-    netOptions = {port: port || defaultPort, host: host || defaultHost};
+    netOptions = {
+      port: port || defaultPort,
+      host: host || defaultHost
+    };
     if (typeof port !== 'number') {
       netOptions.port = defaultPort;
       options = port;

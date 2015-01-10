@@ -16,33 +16,35 @@ var commandsSortedSet = require('./commands-sorted-set');
 var commandsString = require('./commands-string');
 var commandsTransaction = require('./commands-transaction');
 
-describe('thunk-redis', function () {
+describe('thunk-redis', function() {
 
-  before(function (done) {
-    redis.createClient({database: 0}).flushdb()(function (error, res) {
+  before(function(done) {
+    redis.createClient({
+      database: 0
+    }).flushdb()(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal('OK');
       return this.dbsize();
-    })(function (error, res) {
+    })(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal(0);
       return this.select(1);
-    })(function (error, res) {
+    })(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal('OK');
       return this.flushdb();
-    })(function (error, res) {
+    })(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal('OK');
       return this.dbsize();
-    })(function (error, res) {
+    })(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal(0);
       this.clientEnd();
     })(done);
   });
 
-  after(function () {
+  after(function() {
     process.exit();
   });
 
