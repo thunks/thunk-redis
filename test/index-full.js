@@ -12,6 +12,7 @@ var commandsList = require('./commands-list');
 var commandsPubsub = require('./commands-pubsub');
 var commandsScript = require('./commands-script');
 var commandsServer = require('./commands-server');
+var commandsHyperLogLog  = require('./commands-hyperloglog');
 var commandsSet = require('./commands-set');
 var commandsSortedSet = require('./commands-sorted-set');
 var commandsString = require('./commands-string');
@@ -53,15 +54,16 @@ describe('thunk-redis', function() {
   clientTest();
   clientTest2();
 
-  commandsConnection();
-  commandsHash();
   commandsKey();
+  commandsSet();
+  commandsHash();
   commandsList();
   commandsPubsub();
   commandsScript();
   commandsServer();
-  commandsSet();
-  commandsSortedSet();
   commandsString();
+  commandsSortedSet();
+  commandsConnection();
+  commandsHyperLogLog();
   commandsTransaction();
 });
