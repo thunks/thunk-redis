@@ -44,7 +44,28 @@ exports.createClient = function(port, host, options) {
   options.authPass = (options.authPass || '') + '';
   options.returnBuffers = !!options.returnBuffers;
 
-  return new RedisClient(netOptions, options);
+  var client = new RedisClient(netOptions, options);
+  var AliasPromise = options.usePromise;
+  if (AliasPromise && typeof AliasPromise !== 'function')
+    AliasPromise = typeof Promise === 'function' ? Promise : false;
+
+  if (AliasPromise) {
+    // if `options.usePromise` is available, export promise commands API for a client instance.
+    tool.each(client.clientCommands, function(command) {
+      var commandMethod = client[command];
+      client[command] = client[command.toUpperCase()] = function() {
+        var thunk = commandMethod.apply(client, arguments);
+        return new AliasPromise(function (resolve, reject) {
+          thunk(function(error, res) {
+            if (error != null) return reject(error);
+            resolve(arguments.length > 2 ? tool.slice(arguments, 1) : res);
+          });
+        });
+      };
+    });
+  }
+
+  return client;
 };
 
 exports.log = tool.log;

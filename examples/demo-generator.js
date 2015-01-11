@@ -4,7 +4,7 @@
 var redis = require('../index');
 var client = redis.createClient();
 
-client.select(1)(function* (error, res) {
+client.select(1)(function*(error, res) {
   console.log(error, res);
 
   yield this.set('foo', 'bar');
@@ -14,6 +14,6 @@ client.select(1)(function* (error, res) {
   console.log('bar -> %s', yield this.get('bar'));
 
   return this.quit();
-})(function (error, res) {
+})(function(error, res) {
   console.log(error, res);
 });
