@@ -1,14 +1,6 @@
-thunk-redis API [![Build Status](https://travis-ci.org/zensh/thunk-redis.png?branch=master)](https://travis-ci.org/zensh/thunk-redis)
-===========
-A redis client with pipelining, rely on thunks
-
-## [thunks](https://github.com/thunks/thunks)
-
-## Initial
-
-```js
-var redis = require('thunk-redis');
-```
+thunk-redis API
+=====
+A redis client with pipelining, rely on thunks, support promise.
 
 #### redis.createClient([port], [host], [options])
 #### redis.createClient([path], [options])
@@ -55,11 +47,11 @@ client.info()(redis.log);
 
 ## Others
 
-#### client.clientCommands
-
-#### client.clientUnref()
 #### client.clientEnd()
+#### client.clientUnref()
 #### client.clientState()
+
+#### client.clientCommands
 
 ## Commands
 
