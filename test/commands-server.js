@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function() {
@@ -51,8 +51,6 @@ module.exports = function() {
     });
 
     it('client.bgrewriteaof, client.bgsave, client.lastsave', function(done) {
-      var Thunk = thunks();
-
       client1.bgrewriteaof()(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal('Background append only file rewriting started');
@@ -72,8 +70,6 @@ module.exports = function() {
     });
 
     it('client.client', function(done) {
-      var Thunk = thunks();
-
       client1.client('getname')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(null);
@@ -106,8 +102,6 @@ module.exports = function() {
     });
 
     it('client.config', function(done) {
-      var Thunk = thunks();
-
       client1.config('get', '*')(function(error, res) {
         should(error).be.equal(null);
         should(res.length > 10).be.equal(true);
@@ -124,8 +118,6 @@ module.exports = function() {
     });
 
     it('client.debug', function(done) {
-      var Thunk = thunks();
-
       client1.debug('object', 'key')(function(error, res) {
         should(error).be.instanceOf(Error);
         return Thunk.all(this.set('key', 100), this.debug('object', 'key'));
@@ -138,8 +130,6 @@ module.exports = function() {
     });
 
     it('client.dbsize, client.flushall, client.flushdb', function(done) {
-      var Thunk = thunks();
-
       client1.dbsize()(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(0);
@@ -159,8 +149,6 @@ module.exports = function() {
     });
 
     it('client.time, client.info, client.slowlog', function(done) {
-      var Thunk = thunks();
-
       client1.time()(function(error, res) {
         should(error).be.equal(null);
         should(res.length).be.equal(2);
@@ -171,7 +159,7 @@ module.exports = function() {
         return Thunk.all(this.slowlog('len'), this.slowlog('get'));
       })(function(error, res) {
         should(error).be.equal(null);
-        should(res[0]).be.equal(res[1].length);
+        should(res[0] >= res[1].length).be.equal(true);
       })(done);
     });
 

@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function() {
@@ -32,8 +32,6 @@ module.exports = function() {
     });
 
     it('client.multi, client.discard, client.exec', function(done) {
-      var Thunk = thunks();
-
       client1.multi()(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
@@ -56,8 +54,6 @@ module.exports = function() {
     });
 
     it('client.watch, client.unwatch', function(done) {
-      var Thunk = thunks();
-
       client1.watch('users')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');

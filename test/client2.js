@@ -50,5 +50,29 @@ module.exports = function() {
         return this.clientEnd();
       })(done);
     });
+
+    it('client.migrate', function(done) {
+      var client = redis.createClient();
+      var client2 = redis.createClient(6380);
+
+      client.set('key', 123)(function(error, res) {
+        should(res).be.equal('OK');
+        return client2.flushdb();
+      })(function(error, res) {
+        should(res).be.equal('OK');
+        return this.migrate('127.0.0.1', 6380, 'key', 0, 100);
+      })(function(error, res) {
+        should(res).be.equal('OK');
+        return this.exists('key');
+      })(function(error, res) {
+        should(res).be.equal(0);
+        return client2.get('key');
+      })(function(error, res) {
+        should(res).be.equal('123');
+      })(function() {
+        this.clientEnd();
+        client2.clientEnd();
+      })(done);
+    });
   });
 };

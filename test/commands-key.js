@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var JSONKit = require('jsonkit');
 var redis = require('../index');
 
@@ -31,17 +31,12 @@ module.exports = function() {
     });
 
     it('client.del, client.exists', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.mset({
+      client.mset({
         key: 1,
         key1: 2,
         key2: 3,
         key3: 4
-      }))(function(error, res) {
+      })(function(error, res) {
         should(res).be.equal('OK');
         return this.exists('key');
       })(function(error, res) {
@@ -80,17 +75,13 @@ module.exports = function() {
     });
 
     it('client.dump, client.restore', function(done) {
-      var serializedValue, Thunk0 = thunks();
+      var serializedValue;
       var client2 = redis.createClient({
         returnBuffers: true,
         debugMode: false
       });
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
 
-      Thunk.call(client2, client2.dump('dumpKey'))(function(error, res) {
+      client2.dump('dumpKey')(function(error, res) {
         should(res).be.equal(null);
         return this.set('dumpKey', 'hello, dump & restore!');
       })(function(error, res) {
@@ -99,7 +90,7 @@ module.exports = function() {
       })(function(error, res) {
         should(Buffer.isBuffer(res)).be.equal(true);
         serializedValue = res;
-        return Thunk0.call(this, this.restore('restoreKey', 0, 'errorValue'))(function(error, res) {
+        return this.restore('restoreKey', 0, 'errorValue')(function(error, res) {
           should(error).be.instanceOf(Error);
           should(res).be.equal(undefined);
           return this.restore('restoreKey', 0, serializedValue);
@@ -110,7 +101,7 @@ module.exports = function() {
       })(function(error, res) {
         should(Buffer.isBuffer(res)).be.equal(true);
         should(res.toString('utf8')).be.equal('hello, dump & restore!');
-        return Thunk0.call(this, this.restore('restoreKey', 0, serializedValue))(function(error, res) {
+        return this.restore('restoreKey', 0, serializedValue)(function(error, res) {
           should(error).be.instanceOf(Error);
           should(res).be.equal(undefined);
           return this.get('restoreKey');
@@ -134,12 +125,7 @@ module.exports = function() {
     });
 
     it('client.expire', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', 123))(function(error, res) {
+      client.set('key', 123)(function(error, res) {
         should(res).be.equal('OK');
         return this.exists('key');
       })(function(error, res) {
@@ -159,12 +145,7 @@ module.exports = function() {
     });
 
     it('client.expireat', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', 123))(function(error, res) {
+      client.set('key', 123)(function(error, res) {
         should(res).be.equal('OK');
         return this.exists('key');
       })(function(error, res) {
@@ -184,12 +165,7 @@ module.exports = function() {
     });
 
     it('client.keys', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.keys('*'))(function(error, res) {
+      client.keys('*')(function(error, res) {
         should(res).be.eql([]);
         return this.mset({
           a: 123,
@@ -213,47 +189,11 @@ module.exports = function() {
       })(done);
     });
 
-    it('client.migrate', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      var client2 = redis.createClient(6380);
-
-      client2.on('error', function(error) {
-        done();
-      });
-
-      Thunk.call(client, client.set('key', 123))(function(error, res) {
-        should(res).be.equal('OK');
-        return client2.flushdb();
-      })(function(error, res) {
-        should(res).be.equal('OK');
-        return this.migrate('127.0.0.1', 6380, 'key', 0, 100);
-      })(function(error, res) {
-        should(res).be.equal('OK');
-        return this.exists('key');
-      })(function(error, res) {
-        should(res).be.equal(0);
-        return client2.get('key');
-      })(function(error, res) {
-        should(res).be.equal('123');
-      })(done);
-    });
-
     it('client.move', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.mset({
+      client.mset({
         key1: 1,
         key2: 2
-      }))(function(error, res) {
+      })(function(error, res) {
         should(res).be.equal('OK');
         return this.select(1);
       })(function(error, res) {
@@ -288,22 +228,17 @@ module.exports = function() {
         return this.get('key2');
       })(function(error, res) {
         should(res).be.equal('2');
-        return Thunk0(this.move('key2', 0))(function(error, res) {
+        return this.move('key2', 0)(function(error, res) {
           should(error).be.instanceOf(Error);
         });
       })(done);
     });
 
     it('client.object', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.mset({
+      client.mset({
         key1: 123,
         key2: 'hello'
-      }))(function(error, res) {
+      })(function(error, res) {
         should(res).be.equal('OK');
         return this.object('refcount', 'key1');
       })(function(error, res) {
@@ -323,12 +258,7 @@ module.exports = function() {
     });
 
     it('client.persist', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', 'hello'))(function(error, res) {
+      client.set('key', 'hello')(function(error, res) {
         should(res).be.equal('OK');
         return this.expire('key', 1);
       })(function(error, res) {
@@ -351,12 +281,7 @@ module.exports = function() {
     });
 
     it('client.pexpire', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', 123))(function(error, res) {
+      client.set('key', 123)(function(error, res) {
         should(res).be.equal('OK');
         return this.exists('key');
       })(function(error, res) {
@@ -376,12 +301,7 @@ module.exports = function() {
     });
 
     it('client.pexpireat', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', 123))(function(error, res) {
+      client.set('key', 123)(function(error, res) {
         should(res).be.equal('OK');
         return this.exists('key');
       })(function(error, res) {
@@ -401,12 +321,7 @@ module.exports = function() {
     });
 
     it('client.pttl, client.ttl', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', 'hello'))(function(error, res) {
+      client.set('key', 'hello')(function(error, res) {
         should(res).be.equal('OK');
         return this.pttl('key');
       })(function(error, res) {
@@ -436,12 +351,7 @@ module.exports = function() {
     });
 
     it('client.randomkey', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.randomkey())(function(error, res) {
+      client.randomkey()(function(error, res) {
         should(res).be.equal(null);
         return this.set('key', 'hello');
       })(function(error, res) {
@@ -453,16 +363,10 @@ module.exports = function() {
     });
 
     it('client.rename, client.renamenx', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.mset({
+      client.mset({
         key: 'hello',
         newkey: 1
-      }))(function(error, res) {
+      })(function(error, res) {
         should(res).be.equal('OK');
         return this.rename('key', 'newkey');
       })(function(error, res) {
@@ -473,7 +377,7 @@ module.exports = function() {
         return this.get('newkey');
       })(function(error, res) {
         should(res).be.equal('hello');
-        return Thunk0.call(this, this.rename('key', 'key1'))(function(error, res) {
+        return this.rename('key', 'key1')(function(error, res) {
           should(error).be.instanceOf(Error);
           return this.rename('newkey', 'newkey');
         })(function(error, res) {
@@ -501,18 +405,12 @@ module.exports = function() {
     });
 
     it('client.sort', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.sort('key'))(function(error, res) {
+      client.sort('key')(function(error, res) {
         should(res).be.eql([]);
         return this.set('key', 12345);
       })(function(error, res) {
         should(res).be.equal('OK');
-        return Thunk0.call(this, this.sort('key'))(function(error, res) {
+        return this.sort('key')(function(error, res) {
           should(error).be.instanceOf(Error);
           return this.lpush('list', 1, 3, 5, 4, 2);
         });
@@ -560,15 +458,10 @@ module.exports = function() {
     });
 
     it('client.type', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.mset({
+      client.mset({
         a: 123,
         b: '123'
-      }))(function(error, res) {
+      })(function(error, res) {
         should(res).be.equal('OK');
         return this.type('key');
       })(function(error, res) {
@@ -589,10 +482,6 @@ module.exports = function() {
     });
 
     it('client.scan', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
       var count = 100,
         data = {},
         scanKeys = [];
@@ -607,7 +496,7 @@ module.exports = function() {
         });
       }
 
-      Thunk.call(client, client.scan(0))(function(error, res) {
+      client.scan(0)(function(error, res) {
         should(res).be.eql(['0', []]);
         return this.mset(data);
       })(function(error, res) {

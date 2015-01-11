@@ -2,7 +2,6 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
 var redis = require('../index');
 
 module.exports = function() {

@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var JSONKit = require('jsonkit');
 var redis = require('../index');
 
@@ -31,9 +31,7 @@ module.exports = function() {
     });
 
     it('client.sadd, client.scard', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.scard('setA'))(function(error, res) {
+      client.scard('setA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(0);
         return Thunk.all(this.set('key', 'abc'), this.scard('key'));
@@ -50,9 +48,7 @@ module.exports = function() {
     });
 
     it('client.sdiff, client.sdiffstore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.sdiff('setA'))(function(error, res) {
+      client.sdiff('setA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.eql([]);
         return Thunk.all(this.sadd('setA', 'a', 'b', 'c'), this.sadd('setB', 'b', 'c', 'd'));
@@ -84,9 +80,7 @@ module.exports = function() {
     });
 
     it('client.sinter, client.sinterstore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.sinter('setA'))(function(error, res) {
+      client.sinter('setA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.eql([]);
         return Thunk.all(this.sadd('setA', 'a', 'b', 'c'), this.sadd('setB', 'b', 'c', 'd'));
@@ -116,9 +110,7 @@ module.exports = function() {
     });
 
     it('client.sismember, client.smembers', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.smembers('setA'))(function(error, res) {
+      client.smembers('setA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal([]);
         return Thunk.all(this.set('key', 'abc'), this.smembers('key'));
@@ -140,9 +132,7 @@ module.exports = function() {
     });
 
     it('client.smove, client.spop', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.smove('setA', 'setB', 'a'))(function(error, res) {
+      client.smove('setA', 'setB', 'a')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(0);
         return Thunk.all(this.sadd('setA', 'a', 'b', 'c'), this.smove('setA', 'setB', 'a'), this.smove('setA', 'setB', 'd'));
@@ -161,9 +151,7 @@ module.exports = function() {
     });
 
     it('client.srandmember, client.srem', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.srandmember('setA'))(function(error, res) {
+      client.srandmember('setA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(null);
         return Thunk.all(this.sadd('setA', 'a', 'b', 'c'), this.srandmember('setA'), this.srandmember('setA', 2));
@@ -182,9 +170,7 @@ module.exports = function() {
     });
 
     it('client.sunion, client.sunionstore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.sunion('setA'))(function(error, res) {
+      client.sunion('setA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.eql([]);
         return Thunk.all(this.sadd('setA', 'a', 'b', 'c'), this.sadd('setB', 'b', 'c', 'd'));
@@ -216,10 +202,6 @@ module.exports = function() {
     });
 
     it('client.sscan', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
       var count = 100,
         data = [],
         scanKeys = [];
@@ -234,7 +216,7 @@ module.exports = function() {
         });
       }
 
-      Thunk.call(client, client.sscan('set', 0))(function(error, res) {
+      client.sscan('set', 0)(function(error, res) {
         should(error).be.equal(null);
         should(res).be.eql(['0', []]);
         var args = data.slice();

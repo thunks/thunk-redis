@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function() {
@@ -30,12 +30,7 @@ module.exports = function() {
     });
 
     it('client.append', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.append('key', 123))(function(error, res) {
+      client.append('key', 123)(function(error, res) {
         should(res).be.equal(3);
         return this.append('key', 456);
       })(function(error, res) {
@@ -47,12 +42,7 @@ module.exports = function() {
     });
 
     it('client.bitcount, client.getbit, client.setbit', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.getbit('key', 9))(function(error, res) {
+      client.getbit('key', 9)(function(error, res) {
         should(res).be.equal(0);
         return this.setbit('key', 9, 1);
       })(function(error, res) {
@@ -88,12 +78,7 @@ module.exports = function() {
     });
 
     it('client.bitop', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.bitop('or', 'key', 'key1', 'key2', 'key3'))(function(error, res) {
+      client.bitop('or', 'key', 'key1', 'key2', 'key3')(function(error, res) {
         should(res).be.equal(0);
         return this.setbit('key1', 0, 1);
       })(function(error, res) {
@@ -123,12 +108,7 @@ module.exports = function() {
     });
 
     it('client.bitpos', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.set('key', '\xff\xf0\x00'))(function(error, res) {
+      client.set('key', '\xff\xf0\x00')(function(error, res) {
         should(res).be.equal('OK');
         return this.bitpos('key', 0);
       })(function(error, res) {
@@ -152,13 +132,7 @@ module.exports = function() {
     });
 
     it('client.decr, client.decrby, client.incr, client.incrby, client.incrbyfloat', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.decr('key'))(function(error, res) {
+      client.decr('key')(function(error, res) {
         should(res).be.equal(-1);
         return this.decrby('key', 9);
       })(function(error, res) {
@@ -172,25 +146,19 @@ module.exports = function() {
         return this.incrbyfloat('key', 1.1);
       })(function(error, res) {
         should(res).be.equal('2.1');
-        return Thunk0.call(this, this.incr('key'))(function(error, res) {
+        return this.incr('key')(function(error, res) {
           should(error).be.instanceOf(Error);
         });
       })(done);
     });
 
     it('client.get, client.set', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.get('key'))(function(error, res) {
+      client.get('key')(function(error, res) {
         should(res).be.equal(null);
         return this.lpush('key', 'hello');
       })(function(error, res) {
         should(res).be.equal(1);
-        return Thunk0.call(this, this.get('key'))(function(error, res) {
+        return this.get('key')(function(error, res) {
           should(error).be.instanceOf(Error);
           return this.set('key', 'hello');
         });
@@ -218,13 +186,7 @@ module.exports = function() {
     });
 
     it('client.getset, client.getrange', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.getset('key', 'hello'))(function(error, res) {
+      client.getset('key', 'hello')(function(error, res) {
         should(res).be.equal(null);
         return this.getrange('key', 0, -2);
       })(function(error, res) {
@@ -238,7 +200,7 @@ module.exports = function() {
         return this.lpush('key1', 'hello');
       })(function(error, res) {
         should(res).be.equal(1);
-        return Thunk0.call(this, this.getset('key1', 'world'))(function(error, res) {
+        return this.getset('key1', 'world')(function(error, res) {
           should(error).be.instanceOf(Error);
           return this.getrange('key1', 0, 10086);
         })(function(error, res) {
@@ -248,12 +210,7 @@ module.exports = function() {
     });
 
     it('client.mget, client.mset, client.msetnx', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.mget('key1', 'key2'))(function(error, res) {
+      client.mget('key1', 'key2')(function(error, res) {
         should(res).be.eql([null, null]);
         return this.mset('key1', 1, 'key2', 2);
       })(function(error, res) {
@@ -292,18 +249,12 @@ module.exports = function() {
     });
 
     it('client.psetex, client.setex, client.setnx, client.setrange, client.strlen', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.strlen('key'))(function(error, res) {
+      client.strlen('key')(function(error, res) {
         should(res).be.equal(0);
         return this.lpush('key', 'hello');
       })(function(error, res) {
         should(res).be.equal(1);
-        return Thunk0.call(this, this.strlen('key'))(function(error, res) {
+        return this.strlen('key')(function(error, res) {
           should(error).be.instanceOf(Error);
           return this.setnx('key', 'hello');
         });

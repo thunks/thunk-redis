@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function () {
@@ -33,8 +33,6 @@ module.exports = function () {
     });
 
     it('client.blpop, client.brpop', function (done) {
-      var Thunk = thunks();
-
       var time = Date.now();
       Thunk.all.call(client, [
         client.blpop('listA', 0),
@@ -44,7 +42,7 @@ module.exports = function () {
       ])(function (error, res) {
         should(error).be.equal(null);
         should(res).be.eql([['listA', 'abc'], 1]);
-        should((Date.now() - time) > 100).be.equal(true);
+        should((Date.now() - time) >= 98).be.equal(true);
         return Thunk.all(this.blpop('listA', 0), client1.lpush('listA', 'abcd'), this.llen('listA'));
       })(function (error, res) {
         should(error).be.equal(null);
@@ -61,8 +59,6 @@ module.exports = function () {
     });
 
     it('client.brpoplpush, client.rpoplpush', function (done) {
-      var Thunk = thunks();
-
       var time = Date.now();
       Thunk.all.call(client, [
         client.brpoplpush('listA', 'listB', 0),
@@ -72,7 +68,7 @@ module.exports = function () {
       ])(function (error, res) {
         should(error).be.equal(null);
         should(res).be.eql(['abc', 1]);
-        should((Date.now() - time) > 100).be.equal(true);
+        should((Date.now() - time) >= 98).be.equal(true);
         return Thunk.all(this.lpush('listB', 'b0', 'b1'), this.rpoplpush('listA', 'listB'), this.llen('listB'));
       })(function (error, res) {
         should(error).be.equal(null);
@@ -89,9 +85,7 @@ module.exports = function () {
     });
 
     it('client.lindex, client.linsert', function (done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.lindex('listA', 0))(function (error, res) {
+      client.lindex('listA', 0)(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(null);
         return Thunk.all(this.lpush('listA', 'a0', 'a1'), this.lindex('listA', 0), this.lindex('listA', -1));
@@ -120,9 +114,7 @@ module.exports = function () {
     });
 
     it('client.llen, client.lpop, client.lpush', function (done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.llen('listA'))(function (error, res) {
+      client.llen('listA')(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(0);
         return Thunk.all(this.set('key', 123), this.llen('key'));
@@ -140,9 +132,7 @@ module.exports = function () {
     });
 
     it('client.lpushx, client.lrange, client.lrem', function (done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.lpushx('listA', 'a'))(function (error, res) {
+      client.lpushx('listA', 'a')(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(0);
         return Thunk.all(this.set('key', 123), this.lpushx('key', 'a'));
@@ -168,9 +158,7 @@ module.exports = function () {
     });
 
     it('client.lset, client.ltrim', function (done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.lset('listA', 0, 'a'))(function (error, res) {
+      client.lset('listA', 0, 'a')(function (error, res) {
         should(error).be.instanceOf(Error);
         return Thunk.all(this.lpush('listA', 'a'), this.lset('listA', 1, 'a'));
       })(function (error, res) {
@@ -190,9 +178,7 @@ module.exports = function () {
     });
 
     it('client.rpop, client.rpush, client.rpushx', function (done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.rpop('listA'))(function (error, res) {
+      client.rpop('listA')(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(null);
         return Thunk.all(this.set('key', 123), this.rpop('key'));

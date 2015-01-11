@@ -22,7 +22,7 @@ describe('thunk-redis', function() {
   before(function(done) {
     redis.createClient({
       database: 0
-    }).flushdb()(function(error, res) {
+    }).flushall()(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal('OK');
       return this.dbsize();
@@ -46,7 +46,9 @@ describe('thunk-redis', function() {
   });
 
   after(function() {
-    process.exit();
+    setTimeout(function() {
+      process.exit();
+    }, 1000);
   });
 
   clientTest();
@@ -63,4 +65,12 @@ describe('thunk-redis', function() {
   commandsConnection();
   commandsHyperLogLog();
   commandsTransaction();
+
+  try {
+    /*jshint -W054 */
+    var check = new Function('return function*(){}');
+    require('./chaos')();
+  } catch (e) {
+    console.log('Not support generator!');
+  }
 });

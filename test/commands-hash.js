@@ -2,7 +2,6 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
 var JSONKit = require('jsonkit');
 var redis = require('../index');
 
@@ -31,12 +30,7 @@ module.exports = function() {
     });
 
     it('client.hdel, client.hexists', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.hdel('hash', 'key'))(function(error, res) {
+      client.hdel('hash', 'key')(function(error, res) {
         should(res).be.equal(0);
         return this.hexists('hash', 'key');
       })(function(error, res) {
@@ -63,12 +57,7 @@ module.exports = function() {
     });
 
     it('client.hget, client.hgetall, client.hkeys', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.hget('hash', 'key'))(function(error, res) {
+      client.hget('hash', 'key')(function(error, res) {
         should(res).be.equal(null);
         return this.hgetall('hash');
       })(function(error, res) {
@@ -100,13 +89,7 @@ module.exports = function() {
     });
 
     it('client.hincrby, client.hincrbyfloat', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.hincrby('hash', 'key', -1))(function(error, res) {
+      client.hincrby('hash', 'key', -1)(function(error, res) {
         should(res).be.equal(-1);
         return this.hincrby('hash', 'key', -9);
       })(function(error, res) {
@@ -120,20 +103,14 @@ module.exports = function() {
         return this.hset('hash', 'key1', 'hello');
       })(function(error, res) {
         should(res).be.equal(1);
-        return Thunk0.call(this, this.hincrbyfloat('hash', 'key1', 1))(function(error, res) {
+        return this.hincrbyfloat('hash', 'key1', 1)(function(error, res) {
           should(error).be.instanceOf(Error);
         });
       })(done);
     });
 
     it('client.hlen, client.hmget, client.hmset', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.hlen('hash'))(function(error, res) {
+      client.hlen('hash')(function(error, res) {
         should(res).be.equal(0);
         return this.hmget('hash', 'key1', 'key2');
       })(function(error, res) {
@@ -160,7 +137,7 @@ module.exports = function() {
         return this.set('key', 'hello');
       })(function(error, res) {
         should(res).be.equal('OK');
-        return Thunk0.call(this, this.hlen('key'))(function(error, res) {
+        return this.hlen('key')(function(error, res) {
           should(res).be.equal(0);
           return this.hmget('key', 'key3');
         })(function(error, res) {
@@ -173,13 +150,7 @@ module.exports = function() {
     });
 
     it('client.hset, client.hsetnx, client.hvals', function(done) {
-      var Thunk0 = thunks();
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
-
-      Thunk.call(client, client.hvals('hash'))(function(error, res) {
+      client.hvals('hash')(function(error, res) {
         should(res).be.eql([]);
         return this.hset('hash', 'key', 123);
       })(function(error, res) {
@@ -215,10 +186,6 @@ module.exports = function() {
     });
 
     it('client.hscan', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
       var count = 100,
         data = {},
         scanKeys = [];
@@ -233,7 +200,7 @@ module.exports = function() {
         });
       }
 
-      Thunk.call(client, client.hscan('hash', 0))(function(error, res) {
+      client.hscan('hash', 0)(function(error, res) {
         should(res).be.eql(['0', []]);
         return client.hmset('hash', data);
       })(function(error, res) {

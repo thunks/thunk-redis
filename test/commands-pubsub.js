@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function () {
@@ -97,7 +97,7 @@ module.exports = function () {
     });
 
     it('client.publish', function (done) {
-      var messages = [], Thunk = thunks();
+      var messages = [];
       client1
         .on('message', function (channel, message) {
           messages.push(message);
@@ -140,8 +140,6 @@ module.exports = function () {
     });
 
     it('client.pubsub', function (done) {
-      var Thunk = thunks();
-
       Thunk.call(client3, client1.subscribe('a', 'b', 'ab'))(function (error, res) {
         should(error).be.equal(null);
         should(res).be.equal(undefined);
@@ -167,7 +165,10 @@ module.exports = function () {
       })(function (error, res) {
         should(error).be.equal(null);
         should(res[0]).be.eql({});
-        should(res[1]).be.eql({a: '1', b: '2', ab: '2', d: '0'});
+        should(+res[1].a).be.equal(1);
+        should(+res[1].b).be.equal(2);
+        should(+res[1].ab).be.equal(2);
+        should(+res[1].d).be.equal(0);
         return this.pubsub('numpat');
       })(function (error, res) {
         should(error).be.equal(null);

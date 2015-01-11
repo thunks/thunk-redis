@@ -13,12 +13,16 @@ gulp.task('jshint', function () {
 
 gulp.task('mocha', function () {
   return gulp.src('test/index.js', {read: false})
-    .pipe(mocha());
+    .pipe(mocha({
+      timeout: 8000
+    }));
 });
 
 gulp.task('mocha-full', function () {
   return gulp.src('test/index-full.js', {read: false})
-    .pipe(mocha());
+    .pipe(mocha({
+      timeout: 8000
+    }));
 });
 
 gulp.task('default', gulpSequence('jshint', 'mocha-full'));

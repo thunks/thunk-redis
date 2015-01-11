@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 /*jshint -W061*/
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function() {
@@ -30,8 +30,6 @@ module.exports = function() {
     });
 
     it('client.eval', function(done) {
-      var Thunk = thunks();
-
       client.eval('return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}', 2, 'key1', 'key2', 'first', 'second')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.eql(['key1', 'key2', 'first', 'second']);
@@ -53,7 +51,6 @@ module.exports = function() {
     });
 
     it('client.script, client.evalsha', function(done) {
-      var Thunk = thunks();
       var sha = null;
 
       client.script('load', 'return "hello thunk-redis"')(function(error, res) {

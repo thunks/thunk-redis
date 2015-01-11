@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var JSONKit = require('jsonkit');
 var redis = require('../index');
 
@@ -32,9 +32,7 @@ module.exports = function() {
     });
 
     it('client.zadd, client.zcard, client.zcount', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zcard('zsetA'))(function(error, res) {
+      client.zcard('zsetA')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(0);
         return Thunk.all(this.set('key', 'abc'), this.zcard('key'));
@@ -55,9 +53,7 @@ module.exports = function() {
     });
 
     it('client.zincrby, client.zscore, client.zrange, client.zrangebyscore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zadd('zsetA', 2, 'a'))(function(error, res) {
+      client.zadd('zsetA', 2, 'a')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(1);
         return Thunk.all(this.zincrby('zsetA', 10, 'a'), this.zscore('zsetA', 'a'));
@@ -82,9 +78,7 @@ module.exports = function() {
     });
 
     it('client.zrank, client.zrevrank', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c'))(function(error, res) {
+      client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(3);
         return Thunk.all(this.zrank('zsetA', 'a'), this.zrank('zsetA', 'c'), this.zrank('zsetA', 'x'));
@@ -97,9 +91,7 @@ module.exports = function() {
     });
 
     it('client.zrem, client.zremrangebyrank, client.zremrangebyscore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c'))(function(error, res) {
+      client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(3);
         return Thunk.all(this.zrem('zsetA', 'a'), this.zrem('zsetA', 'a', 'c'), client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c'));
@@ -118,9 +110,7 @@ module.exports = function() {
     });
 
     it('client.zrevrange, client.zrevrangebyscore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c'))(function(error, res) {
+      client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(3);
         return this.zrevrange('zsetA', 1, 100, 'WITHSCORES');
@@ -133,9 +123,7 @@ module.exports = function() {
     });
 
     it('client.zunionstore, client.zinterstore', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c'))(function(error, res) {
+      client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(3);
         return client.zadd('zsetB', 4, 'b', 5, 'c', 6, 'd');
@@ -157,9 +145,7 @@ module.exports = function() {
     });
 
     it('client.zrangebylex, client.zlexcount, client.zremrangebylex', function(done) {
-      var Thunk = thunks();
-
-      Thunk.call(client, client.zadd('zsetA', 1, 'a', 1, 'b', 1, 'c', 1, 'bc'))(function(error, res) {
+      client.zadd('zsetA', 1, 'a', 1, 'b', 1, 'c', 1, 'bc')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(4);
         return client.zrangebylex('zsetA', '[b', '[c');
@@ -178,10 +164,6 @@ module.exports = function() {
     });
 
     it('client.zscan', function(done) {
-      var Thunk = thunks(function(error) {
-        console.error(error);
-        done(error);
-      });
       var count = 100,
         data = [],
         scanKeys = [];

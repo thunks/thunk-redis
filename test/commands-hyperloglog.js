@@ -2,7 +2,7 @@
 /*global describe, it, before, after, beforeEach, afterEach*/
 /*jshint -W061*/
 var should = require('should');
-var thunks = require('thunks');
+var Thunk = require('thunks')();
 var redis = require('../index');
 
 module.exports = function() {
@@ -30,8 +30,6 @@ module.exports = function() {
     });
 
     it('client.pfadd, client.pfcount, client.pfmerge', function(done) {
-      var Thunk = thunks();
-
       client.pfadd('db', 'Redis', 'MongoDB', 'MySQL')(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal(1);
