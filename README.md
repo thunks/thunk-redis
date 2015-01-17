@@ -81,11 +81,64 @@ client.select(1)(function*(error, res) {
   console.log('foo -> %s', yield this.get('foo'));
   console.log('bar -> %s', yield this.get('bar'));
 
+  var user = {
+    id: 'u001',
+    name: 'jay',
+    age: 24
+  };
+  // transaction, it is different from node_redis!
+  yield [
+    this.multi(),
+    this.set(user.id, JSON.stringify(user)),
+    this.zadd('userAge', user.age, user.id),
+    this.pfadd('ageLog', user.age),
+    this.exec()
+  ];
+
   return this.quit();
 })(function(error, res) {
   console.log(error, res);
 });
 ```
+
+## Benchmark
+
+```js
+➜  thunk-redis git:(master) ✗ node benchmark/index.js
+redis(N):node_redis
+OK
+redis(T):thunk-redis
+OK
+Start...
+
+
+redis(N): PING 49358 ops/sec 100%
+redis(T): PING 54495 ops/sec 110.4%
+
+redis(N): SET small string 39062 ops/sec 100%
+redis(T): SET small string 44523 ops/sec 114.0%
+
+redis(N): GET small string 43859 ops/sec 100%
+redis(T): GET small string 47687 ops/sec 108.7%
+
+redis(N): SET long string 28320 ops/sec 100%
+redis(T): SET long string 35323 ops/sec 124.7%
+
+redis(N): GET long string 30432 ops/sec 100%
+redis(T): GET long string 26645 ops/sec 87.6%
+
+redis(N): INCR 46061 ops/sec 100%
+redis(T): INCR 48756 ops/sec 105.9%
+
+redis(N): LPUSH 39824 ops/sec 100%
+redis(T): LPUSH 45289 ops/sec 113.7%
+
+redis(N): LRANGE 100 8322 ops/sec 100%
+redis(T): LRANGE 100 10094 ops/sec 121.3%
+```
+
+从 benchmark 看优势不大，主要是为了模拟同条件测试，thunk-redis command 实际上比 node_redis command 多包了一层。
+在实际应用场合，如果不打算写原生 callback，那肯定是要把 node_redis 再包一层 promise 或 thunk 的（反过来了~），从而 thunk-redis 的性能表现还会要好一些。
 
 ## Installation
 
