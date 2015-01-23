@@ -138,11 +138,11 @@ module.exports = function() {
       })(function(error, res) {
         should(res).be.equal('OK');
         return this.hlen('key')(function(error, res) {
-          should(res).be.equal(0);
-          return this.hmget('key', 'key3');
-        })(function(error, res) {
-          should(res).be.eql([null]);
+          should(error).be.instanceOf(Error);
           return this.hmset('key', 'key3', 'hello');
+        })(function(error, res) {
+          should(error).be.instanceOf(Error);
+          return this.hmset('hash', 'key3', null);
         })(function(error, res) {
           should(error).be.instanceOf(Error);
         });
