@@ -104,7 +104,7 @@ client.select(1)(function*(error, res) {
 ## Benchmark
 
 ```js
-➜  thunk-redis git:(master) ✗ node benchmark/index.js
+➜  thunk-redis git:(master) ✗ node --harmony benchmark/index.js
 redis(N):node_redis
 OK
 redis(T):thunk-redis
@@ -137,9 +137,6 @@ redis(N): LRANGE 100 8322 ops/sec 100%
 redis(T): LRANGE 100 10094 ops/sec 121.3%
 ```
 
-从 benchmark 看优势不大，主要是为了模拟同条件测试，thunk-redis command 实际上比 node_redis command 多包了一层。
-在实际应用场合，如果不打算写原生 callback，那肯定是要把 node_redis 再包一层 promise 或 thunk 的（反过来了~），从而 thunk-redis 的性能表现还会要好一些。
-
 ## Installation
 
 **Node.js:**
@@ -154,80 +151,78 @@ npm install thunk-redis
 2. redis.createClient([path], [options])
 3. redis.log([...])
 
-### Options
+### redis.log
 
-#### authPass
+Helper tool, print result or error stack.
 
-*Optional*, Type: `String`, Default: `''`.
-
-
-#### database
-
-*Optional*, Type: `Number`, Default: `0`.
-
-
-#### returnBuffers
-
-*Optional*, Type: `Boolean`, Default: `false`.
-
-#### usePromise
-
-*Optional*, Type: `Boolean` or `Promise` constructor, Default: `false`.
-
-Export promise commands API.
-
-**Use default Promise:**
 ```js
-var redis = require('thunk-redis');
-var client = redis.createClient({
-  database: 1,
-  usePromise: true
-});
+var client = redis.createClient();
+client.info()(redis.log);
 ```
 
-**Use bluebird:**
+### redis.createClient
+
 ```js
-var redis = require('thunk-redis');
-var Bluebird = require('bluebird');
-var client = redis.createClient({
-  database: 1,
-  usePromise: Bluebird
-});
+var client1 = redis.createClient();
+var client2 = redis.createClient({database: 2});
+var client3 = redis.createClient(6379, {database: 2});
+var client4 = redis.createClient(6379, '127.0.0.1', {database: 2});
+var client5 = redis.createClient('/tmp/redis.sock');
+var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
 ```
 
-#### noDelay
+- `options.authPass`: *Optional*, Type: `String`, Default: `''`.
 
-*Optional*, Type: `Boolean`, Default: `true`.
+- `options.database`: *Optional*, Type: `Number`, Default: `0`.
 
-Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.
+- `options.debugMode`: *Optional*, Type: `Boolean`, Default: `false`.
 
-#### keepAlive
+    Print request data and response data.
 
-*Optional*, Type: `Boolean`, Default: `true`.
+- `options.returnBuffers`: *Optional*, Type: `Boolean`, Default: `false`.
 
-Enable/disable keep-alive functionality, and optionally set the initial delay before the first keepalive probe is sent on an idle socket.
+- `options.usePromise`: *Optional*, Type: `Boolean` or `Promise` constructor, Default: `false`.
 
-#### timeout
+    Export promise commands API.
 
-*Optional*, Type: `Number`, Default: `0`.
+    **Use default Promise:**
+    ```js
+    var redis = require('thunk-redis');
+    var client = redis.createClient({
+      database: 1,
+      usePromise: true
+    });
+    ```
 
-Sets the socket to timeout after timeout milliseconds of inactivity on the socket. If timeout is 0, then the existing idle timeout is disabled.
+    **Use bluebird:**
+    ```js
+    var redis = require('thunk-redis');
+    var Bluebird = require('bluebird');
+    var client = redis.createClient({
+      database: 1,
+      usePromise: Bluebird
+    });
+    ```
 
-When an idle timeout is triggered the socket will receive a 'timeout' event but the connection will not be severed.
+- `options.noDelay`: *Optional*, Type: `Boolean`, Default: `true`.
 
-#### retryDelay
+    Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.
 
-*Optional*, Type: `Number`, Default: `5000`.
+- `options.keepAlive`: *Optional*, Type: `Boolean`, Default: `true`.
 
+    Enable/disable keep-alive functionality, and optionally set the initial delay before the first keepalive probe is sent on an idle socket.
 
-#### maxAttempts
+- `options.timeout`: *Optional*, Type: `Number`, Default: `0`.
 
-*Optional*, Type: `Number`, Default: `5`.
+    Sets the socket to timeout after timeout milliseconds of inactivity on the socket. If timeout is 0, then the existing idle timeout is disabled.
 
+    When an idle timeout is triggered the socket will receive a 'timeout' event but the connection will not be severed.
 
-#### commandsHighWater
+- `options.retryDelay`: *Optional*, Type: `Number`, Default: `5000`.
 
-*Optional*, Type: `Number`, Default: `10000`.
+- `options.maxAttempts`: *Optional*, Type: `Number`, Default: `5`.
+
+- `options.commandsHighWater`: *Optional*, Type: `Number`, Default: `10000`.
 
 
 [npm-url]: https://npmjs.org/package/thunk-redis
