@@ -49,7 +49,7 @@ exports.createClient = function(port, host, options) {
   if (!AliasPromise) return client;
 
   if (typeof AliasPromise !== 'function' && typeof Promise === 'function') AliasPromise = Promise;
-  if (typeof AliasPromise.prototype.then !== 'function')
+  if (!AliasPromise.prototype || typeof AliasPromise.prototype.then !== 'function')
     throw new Error(String(AliasPromise) + ' is not Promise constructor');
   // if `options.usePromise` is available, export promise commands API for a client instance.
   tool.each(client.clientCommands, function(command) {

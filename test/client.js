@@ -47,7 +47,7 @@ module.exports = function() {
     });
 
     it('redis.createClient({usePromise: true})', function(done) {
-      if (!Promise) return done();
+      if (typeof Promise !== 'function') return done();
       var client = redis.createClient({
         usePromise: true
       });
