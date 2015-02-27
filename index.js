@@ -43,12 +43,14 @@ exports.createClient = function(port, host, options) {
   options.maxAttempts = options.maxAttempts > 0 ? Math.floor(options.maxAttempts) : 5;
   options.commandsHighWater = options.commandsHighWater >= 1 ? Math.floor(options.commandsHighWater) : 10000;
 
-  var AliasPromise = options.usePromise;
   var client = new RedisClient(netOptions, options);
-  if (AliasPromise && typeof AliasPromise !== 'function')
-    AliasPromise = typeof Promise === 'function' ? Promise : false;
+  var AliasPromise = options.usePromise;
 
   if (!AliasPromise) return client;
+
+  if (typeof AliasPromise !== 'function' && typeof Promise === 'function') AliasPromise = Promise;
+  if (typeof AliasPromise.prototype.then !== 'function')
+    throw new Error(String(AliasPromise) + ' is not Promise constructor');
   // if `options.usePromise` is available, export promise commands API for a client instance.
   tool.each(client.clientCommands, function(command) {
     var commandMethod = client[command];

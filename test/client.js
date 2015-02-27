@@ -3,6 +3,7 @@
 /*jshint -W106*/
 
 var should = require('should');
+var Bluebird = require('bluebird');
 var redis = require('../index');
 
 module.exports = function() {
@@ -43,6 +44,29 @@ module.exports = function() {
         should(res).be.equal(time);
         this.clientEnd();
       })(done);
+    });
+
+    it('redis.createClient({usePromise: true})', function(done) {
+      if (!Promise) return done();
+      var client = redis.createClient({
+        usePromise: true
+      });
+      var promise = client.info();
+      should(promise).be.instanceof(Promise);
+      promise.then(function(res) {
+        done();
+      }, done);
+    });
+
+    it('redis.createClient({usePromise: Bluebird})', function(done) {
+      var client = redis.createClient({
+        usePromise: Bluebird
+      });
+      var promise = client.info();
+      should(promise).be.instanceof(Bluebird);
+      promise.then(function(res) {
+        done();
+      }, done);
     });
 
     it('redis.createClient(port, options)', function(done) {

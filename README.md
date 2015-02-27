@@ -145,7 +145,7 @@ redis(T): LRANGE 100 10094 ops/sec 121.3%
 npm install thunk-redis
 ```
 
-## API([More](https://github.com/zensh/thunk-redis/blob/master/API.md))
+## API ([More](https://github.com/zensh/thunk-redis/blob/master/API.md))
 
 1. redis.createClient([port], [host], [options])
 2. redis.createClient([path], [options])
@@ -189,7 +189,6 @@ var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
     ```js
     var redis = require('thunk-redis');
     var client = redis.createClient({
-      database: 1,
       usePromise: true
     });
     ```
@@ -199,7 +198,6 @@ var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
     var redis = require('thunk-redis');
     var Bluebird = require('bluebird');
     var client = redis.createClient({
-      database: 1,
       usePromise: Bluebird
     });
     ```
@@ -223,6 +221,10 @@ var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
 - `options.maxAttempts`: *Optional*, Type: `Number`, Default: `5`.
 
 - `options.commandsHighWater`: *Optional*, Type: `Number`, Default: `10000`.
+
+## Who's using
+
++ Teambition community: https://bbs.teambition.com/
 
 
 [npm-url]: https://npmjs.org/package/thunk-redis
