@@ -31,6 +31,7 @@ client.info()(redis.log);
 ## Events
 
 #### client.on('error', function (error) {})
+#### client.on('warn', function (error) {})
 #### client.on('connect', function () {})
 #### client.on('close', function () {})
 #### client.on('end', function () {})
@@ -43,7 +44,7 @@ client.info()(redis.log);
 #### client.on('punsubscribe', function (pattern, n) {})
 #### client.on('message', function (channel, message) {})
 #### client.on('pmessage', function (pattern, channel, message) {})
-#### client.on('monitor', function (message) {})  
+#### client.on('monitor', function (message) {})
 
 ## Others
 
@@ -221,7 +222,6 @@ client.info()(redis.log);
 #### client.client('GETNAME')
 #### client.client('PAUSE', timeout)
 #### client.client('SETNAME', connection-name)
-#### client.cluster('SLOTS')
 #### client.command()
 #### client.command('COUNT')
 #### client.command('GETKEYS')

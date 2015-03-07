@@ -163,6 +163,33 @@ module.exports = function() {
       })(done);
     });
 
+    it('client.command', function(done) {
+      var len = 0;
+      client1.command()(function(error, commands) {
+        should(error).be.equal(null);
+        len = commands.length;
+        return Thunk.all.call(this, commands.map(function(command) {
+          return client1.command('info', command[0])(function(error, res) {
+            should(error).be.equal(null);
+            should(res[0]).be.eql(command);
+            return command[0];
+          });
+        }))(function(error, res) {
+          should(error).be.equal(null);
+          should(res.length).be.equal(len);
+          res.unshift('info');
+          return this.command(res);
+        })(function(error, res) {
+          should(error).be.equal(null);
+          should(res).be.eql(commands);
+          return this.command('count');
+        });
+      })(function(error, res) {
+        should(error).be.equal(null);
+        should(res).be.equal(len);
+      })(done);
+    });
+
     it.skip('client.psync, client.sync, client.save, client.shutdown, client.slaveof', function(done) {});
   });
 };
