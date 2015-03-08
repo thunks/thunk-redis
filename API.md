@@ -2,8 +2,9 @@ thunk-redis API
 =====
 A redis client with pipelining, rely on thunks, support promise.
 
-#### redis.createClient([port], [host], [options])
 #### redis.createClient([path], [options])
+#### redis.createClient([port], [host], [options])
+#### redis.createClient([netOptionsArray], [options])
 
 + port: `Number`, default: `6379`;
 + host: `String`, default: `'localhost'`;
@@ -28,6 +29,13 @@ var client = redis.createClient();
 client.info()(redis.log);
 ```
 
+#### redis.calcSlot(str)
+
+```js
+redis.calcSlot('123456789'); // => 12739
+redis.calcSlot(118); // => 13162
+```
+
 ## Events
 
 #### client.on('error', function (error) {})
@@ -35,7 +43,6 @@ client.info()(redis.log);
 #### client.on('connect', function () {})
 #### client.on('close', function () {})
 #### client.on('end', function () {})
-#### client.on('drain', function () {})
 #### client.on('timeout', function () {})
 
 #### client.on('subscribe', function (pattern, n) {})
@@ -51,6 +58,7 @@ client.info()(redis.log);
 #### client.clientEnd()
 #### client.clientUnref()
 #### client.clientState()
+#### client.clientSwitch(redisId)
 
 #### client.clientCommands
 
@@ -222,6 +230,7 @@ client.info()(redis.log);
 #### client.client('GETNAME')
 #### client.client('PAUSE', timeout)
 #### client.client('SETNAME', connection-name)
+#### client.cluster('SLOTS')
 #### client.command()
 #### client.command('COUNT')
 #### client.command('GETKEYS')
