@@ -1,12 +1,16 @@
 thunk-redis
 ==========
-A thunk/promise-based redis client with pipelining.
+A thunk/promise-based redis client with pipelining and cluster.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Talk topic][talk-image]][talk-url]
 
 ## [thunks](https://github.com/thunks/thunks)
+
+### [v0.6.x](https://github.com/thunks/thunk-redis) Stable, support Redis v2.8.x
+### [v0.7.x](https://github.com/thunks/thunk-redis/tree/cluster) unstable, support for Redis Cluster(v3.0.0).
+
 
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
 

@@ -1,7 +1,7 @@
 {
   "name": "thunk-redis",
   "version": "0.6.0",
-  "description": "A thunk/promise-based redis client with pipelining.",
+  "description": "A thunk/promise-based redis client with pipelining and cluster.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
@@ -16,6 +16,7 @@
   "keywords": [
     "redis",
     "redis client",
+    "cluster",
     "database",
     "thunk",
     "thunks",
