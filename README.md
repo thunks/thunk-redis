@@ -8,8 +8,8 @@ A thunk/promise-based redis client with pipelining and cluster.
 
 ## [thunks](https://github.com/thunks/thunks)
 
-### [v0.6.x](https://github.com/thunks/thunk-redis) Stable, support Redis v2.8.x
-### [v0.7.x](https://github.com/thunks/thunk-redis/tree/cluster) unstable, support for Redis Cluster(v3.0.0).
+### [v0.6.x](https://github.com/thunks/thunk-redis/tree/v0.6.0) Stable, support Redis v2.8.x
+### [v0.7.x](https://github.com/thunks/thunk-redis) RC, support for Redis Cluster(v3.0.0).
 
 
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
