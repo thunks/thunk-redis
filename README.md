@@ -202,10 +202,6 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
     Print request data and response data.
 
-- `options.clusterMode`: *Optional*, Type: `Boolean`, Default: auto.
-
-    If `false`, client will disable cluster.
-
 - `options.returnBuffers`: *Optional*, Type: `Boolean`, Default: `false`.
 
 - `options.usePromise`: *Optional*, Type: `Boolean` or `Promise` constructor, Default: `false`.

@@ -44,7 +44,6 @@ exports.createClient = function(port, host, options) {
   options.debugMode = !!options.debugMode;
   options.returnBuffers = !!options.returnBuffers;
   options.authPass = (options.authPass || '') + '';
-  options.clusterMode = options.clusterMode !== false;
   options.noDelay = options.noDelay == null ? true : !!options.noDelay;
   options.timeout = options.timeout > 0 ? Math.floor(options.timeout) : 0;
   options.keepAlive = options.keepAlive == null ? true : !!options.keepAlive;
