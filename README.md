@@ -153,7 +153,9 @@ npm install thunk-redis
 
 1. redis.createClient([port], [host], [options])
 2. redis.createClient([path], [options])
-3. redis.log([...])
+3. redis.createClient([netOptionsArray], [options])
+4. redis.log([...])
+5. redis.calcSlot(str)
 
 ### redis.log
 
@@ -173,6 +175,23 @@ var client3 = redis.createClient(6379, {database: 2});
 var client4 = redis.createClient(6379, '127.0.0.1', {database: 2});
 var client5 = redis.createClient('/tmp/redis.sock');
 var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
+```
+
+**redis cluster:**
+```js
+// assume cluster: '127.0.0.1:7000', '127.0.0.1:7001', '127.0.0.1:7002', ...
+var client1 = redis.createClient(7000, options);
+var client2 = redis.createClient([7000, 7001, 7002], options);
+var client3 = redis.createClient({host: '127.0.0.1', port: 7000}, options);
+var client4 = redis.createClient([
+  {host: '127.0.0.1', port: 7000},
+  {host: '127.0.0.1', port: 7001},
+  {host: '127.0.0.1', port: 7002},
+], options);
+// All of above will work, it will find redis nodes by self.
+
+// Create a client in cluster servers without cluster mode:
+var clientX = redis.createClient(7000, {clusterMode: false});
 ```
 
 - `options.authPass`: *Optional*, Type: `String`, Default: `''`.

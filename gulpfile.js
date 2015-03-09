@@ -25,6 +25,15 @@ gulp.task('mocha-full', function () {
     }));
 });
 
+gulp.task('mocha-cluster', function () {
+  return gulp.src('test/cluster.js', {read: false})
+    .pipe(mocha({
+      timeout: 8000
+    }));
+});
+
 gulp.task('default', gulpSequence('jshint', 'mocha-full'));
+
+gulp.task('cluster', gulpSequence('jshint', 'mocha-cluster'));
 
 gulp.task('test', gulpSequence('jshint', 'mocha'));

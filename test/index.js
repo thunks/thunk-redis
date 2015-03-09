@@ -21,7 +21,8 @@ describe('thunk-redis', function() {
 
   before(function(done) {
     redis.createClient({
-      database: 0
+      database: 0,
+      debugMode: false
     }).flushall()(function(error, res) {
       should(error).be.equal(null);
       should(res).be.equal('OK');
