@@ -33,9 +33,9 @@ module.exports = function() {
       })(done);
     });
 
-    it('redis.createClient(path, options)', function(done) {
+    it('redis.createClient(address, options)', function(done) {
       var connect = false,
-        client = redis.createClient('/tmp/redis2.sock', {
+        client = redis.createClient('127.0.0.1:6379', {
           database: 1
         });
 

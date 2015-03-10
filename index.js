@@ -15,26 +15,29 @@ exports.log = tool.log;
 exports.calcSlot = calcSlot;
 
 exports.createClient = function(port, host, options) {
-  var netOptions;
+  var addressArray;
 
-  if (typeof port === 'string') {
-    netOptions = normalizeNetOptions([port]);
+  if (Array.isArray(port)) {
+    addressArray = normalizeNetAddress(port);
     options = host;
-  } else if (Array.isArray(port)) {
-    netOptions = normalizeNetOptions(port);
+  } else if (port && typeof port.port === 'number') {
+    addressArray = normalizeNetAddress([port]);
+    options = host;
+  } else if (typeof port === 'string') {
+    addressArray = normalizeNetAddress([port]);
     options = host;
   } else if (typeof port === 'number') {
     if (typeof host !== 'string') {
       options = host;
       host = defaultHost;
     }
-    netOptions = normalizeNetOptions([{
+    addressArray = normalizeNetAddress([{
       port: port,
       host: host
     }]);
   } else {
     options = port;
-    netOptions = normalizeNetOptions([{
+    addressArray = normalizeNetAddress([{
       port: defaultPort,
       host: defaultHost
     }]);
@@ -52,7 +55,7 @@ exports.createClient = function(port, host, options) {
   options.database = options.database > 0 ? Math.floor(options.database) : 0;
   options.commandsHighWater = options.commandsHighWater >= 1 ? Math.floor(options.commandsHighWater) : 10000;
 
-  var client = new RedisClient(netOptions, options);
+  var client = new RedisClient(addressArray, options);
   var AliasPromise = options.usePromise;
 
   if (!AliasPromise) return client;
@@ -76,17 +79,12 @@ exports.createClient = function(port, host, options) {
   return client;
 };
 
-function normalizeNetOptions(array) {
-  return array.map(function(option) {
-    switch (typeof option) {
-      case 'string':
-        return {path: option};
-      case 'number':
-        return {
-          port: option,
-          host: defaultHost
-        };
-      default: return option;
-    }
+function normalizeNetAddress(array) {
+  return array.map(function(options) {
+    if (typeof options === 'string') return options;
+    if (typeof options === 'number') return defaultHost + ':' + options;
+    options.host = options.host || defaultHost;
+    options.port = options.port || defaultPort;
+    return options.host + ':' + options.port;
   });
 }

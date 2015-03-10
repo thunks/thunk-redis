@@ -151,11 +151,11 @@ npm install thunk-redis
 
 ## API ([More](https://github.com/zensh/thunk-redis/blob/master/API.md))
 
-1. redis.createClient([port], [host], [options])
-2. redis.createClient([path], [options])
-3. redis.createClient([netOptionsArray], [options])
-4. redis.log([...])
-5. redis.calcSlot(str)
+1. redis.createClient([addressArray], [options])
+2. redis.createClient([port], [host], [options])
+3. redis.createClient([address], [options])
+4. redis.calcSlot(str)
+5. redis.log([...])
 
 ### redis.log
 
@@ -172,9 +172,8 @@ client.info()(redis.log);
 var client1 = redis.createClient();
 var client2 = redis.createClient({database: 2});
 var client3 = redis.createClient(6379, {database: 2});
-var client4 = redis.createClient(6379, '127.0.0.1', {database: 2});
-var client5 = redis.createClient('/tmp/redis.sock');
-var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
+var client4 = redis.createClient('127.0.0.1:6379', {database: 2});
+var client5 = redis.createClient(6379, '127.0.0.1', {database: 2});
 ```
 
 **redis cluster:**
@@ -182,7 +181,13 @@ var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
 // assume cluster: '127.0.0.1:7000', '127.0.0.1:7001', '127.0.0.1:7002', ...
 var client1 = redis.createClient(7000, options);
 var client2 = redis.createClient([7000, 7001, 7002], options);
-var client3 = redis.createClient({host: '127.0.0.1', port: 7000}, options);
+
+var client3 = redis.createClient([
+  '127.0.0.1:7000',
+  '127.0.0.1:7001',
+  '127.0.0.1:7002'
+], options);
+
 var client4 = redis.createClient([
   {host: '127.0.0.1', port: 7000},
   {host: '127.0.0.1', port: 7001},

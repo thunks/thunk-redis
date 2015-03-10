@@ -2,9 +2,9 @@ thunk-redis API
 =====
 A redis client with pipelining, rely on thunks, support promise.
 
-#### redis.createClient([path], [options])
+#### redis.createClient([address], [options])
 #### redis.createClient([port], [host], [options])
-#### redis.createClient([netOptionsArray], [options])
+#### redis.createClient([addressArray], [options])
 
 + port: `Number`, default: `6379`;
 + host: `String`, default: `'localhost'`;
@@ -17,9 +17,9 @@ Create a redis client, return the client.
 var client1 = redis.createClient();
 var client2 = redis.createClient({database: 2});
 var client3 = redis.createClient(6379, {database: 2});
-var client4 = redis.createClient(6379, '127.0.0.1', {database: 2});
-var client5 = redis.createClient('/tmp/redis.sock');
-var client6 = redis.createClient('/tmp/redis.sock', {database: 2});
+var client4 = redis.createClient('127.0.0.1:6379', {database: 2});
+var client5 = redis.createClient(6379, '127.0.0.1', {database: 2});
+var client6 = redis.createClient([7000, 7001, 7002], {authPass: 'authPassXXX'});
 ```
 
 #### redis.log([...])
