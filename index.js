@@ -50,8 +50,8 @@ exports.createClient = function(port, host, options) {
   options.noDelay = options.noDelay == null ? true : !!options.noDelay;
   options.timeout = options.timeout > 0 ? Math.floor(options.timeout) : 0;
   options.keepAlive = options.keepAlive == null ? true : !!options.keepAlive;
-  options.retryDelay = options.retryDelay > 0 ? Math.floor(options.retryDelay) : 5000;
-  options.maxAttempts = options.maxAttempts > 0 ? Math.floor(options.maxAttempts) : 5;
+  options.retryMaxDelay = options.retryMaxDelay >= 150 ? Math.floor(options.retryMaxDelay) : Infinity;
+  options.maxAttempts = options.maxAttempts >= 0 ? Math.floor(options.maxAttempts) : Infinity;
   options.database = options.database > 0 ? Math.floor(options.database) : 0;
   options.commandsHighWater = options.commandsHighWater >= 1 ? Math.floor(options.commandsHighWater) : 10000;
 

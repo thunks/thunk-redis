@@ -43,7 +43,6 @@ redis.calcSlot(118); // => 13162
 #### client.on('connect', function () {})
 #### client.on('close', function () {})
 #### client.on('end', function () {})
-#### client.on('timeout', function () {})
 
 #### client.on('subscribe', function (pattern, n) {})
 #### client.on('unsubscribe', function (pattern, n) {})
