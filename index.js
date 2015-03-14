@@ -50,9 +50,9 @@ exports.createClient = function(port, host, options) {
   options.noDelay = options.noDelay == null ? true : !!options.noDelay;
   options.timeout = options.timeout > 0 ? Math.floor(options.timeout) : 0;
   options.keepAlive = options.keepAlive == null ? true : !!options.keepAlive;
-  options.retryMaxDelay = options.retryMaxDelay >= 150 ? Math.floor(options.retryMaxDelay) : Infinity;
-  options.maxAttempts = options.maxAttempts >= 0 ? Math.floor(options.maxAttempts) : Infinity;
   options.database = options.database > 0 ? Math.floor(options.database) : 0;
+  options.maxAttempts = options.maxAttempts >= 0 ? Math.floor(options.maxAttempts) : Infinity;
+  options.retryMaxDelay = options.retryMaxDelay >= 150 ? Math.floor(options.retryMaxDelay) : Infinity;
   options.commandsHighWater = options.commandsHighWater >= 1 ? Math.floor(options.commandsHighWater) : 10000;
 
   var client = new RedisClient(addressArray, options);
@@ -68,10 +68,9 @@ exports.createClient = function(port, host, options) {
     var commandMethod = client[command];
     client[command] = client[command.toUpperCase()] = function() {
       var thunk = commandMethod.apply(client, arguments);
-      return new AliasPromise(function (resolve, reject) {
+      return new AliasPromise(function(resolve, reject) {
         thunk(function(error, res) {
-          if (error != null) return reject(error);
-          resolve(arguments.length > 2 ? tool.slice(arguments, 1) : res);
+          return error == null ? resolve(res) : reject(error);
         });
       });
     };

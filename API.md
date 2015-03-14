@@ -38,11 +38,11 @@ redis.calcSlot(118); // => 13162
 
 ## Events
 
-#### client.on('error', function (error) {})
-#### client.on('warn', function (error) {})
-#### client.on('connect', function () {})
 #### client.on('close', function () {})
-#### client.on('end', function () {})
+#### client.on('connect', function () {})
+#### client.on('warn', function (error) {})
+#### client.on('error', function (error) {})
+#### client.on('reconnecting', function (message) {})
 
 #### client.on('subscribe', function (pattern, n) {})
 #### client.on('unsubscribe', function (pattern, n) {})
