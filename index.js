@@ -12,6 +12,8 @@ var calcSlot = require('./lib/slot');
 var RedisClient = require('./lib/client');
 
 exports.log = tool.log;
+exports.each = tool.each;
+exports.slice = tool.slice;
 exports.calcSlot = calcSlot;
 
 exports.createClient = function(port, host, options) {
