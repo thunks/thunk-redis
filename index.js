@@ -53,11 +53,18 @@ exports.createClient = function(port, host, options) {
   options.timeout = options.timeout > 0 ? Math.floor(options.timeout) : 0;
   options.keepAlive = options.keepAlive == null ? true : !!options.keepAlive;
   options.database = options.database > 0 ? Math.floor(options.database) : 0;
-  options.maxAttempts = options.maxAttempts >= 0 ? Math.floor(options.maxAttempts) : Infinity;
+  options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 10;
   options.retryMaxDelay = options.retryMaxDelay >= 150 ? Math.floor(options.retryMaxDelay) : Infinity;
   options.commandsHighWater = options.commandsHighWater >= 1 ? Math.floor(options.commandsHighWater) : 10000;
 
   var client = new RedisClient(addressArray, options);
+
+  if (options.handleError !== false) {
+    client.on('error', function(err) {
+      console.error(err.stack);
+    });
+  }
+
   var AliasPromise = options.usePromise;
 
   if (!AliasPromise) return client;

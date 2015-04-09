@@ -199,6 +199,10 @@ var client4 = redis.createClient([
 var clientX = redis.createClient(7000, {clusterMode: false});
 ```
 
+- `options.handleError`: *Optional*, Type: `Boolean`, Default: `true`.
+
+    Handle client error event.
+
 - `options.authPass`: *Optional*, Type: `String`, Default: `''`.
 
 - `options.database`: *Optional*, Type: `Number`, Default: `0`.
@@ -246,9 +250,9 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
 - `options.retryMaxDelay`: *Optional*, Type: `Number`, Default: `Infinity`.
 
-    By default every time the client tries to connect and fails time before reconnection (delay) almost doubles. This delay normally grows infinitely, but setting `retryMaxDelay` limits delay to maximum value, provided in milliseconds.
+    By default every time the client tries to connect and fails time before reconnection (delay) almost multiply by `1.5`. This delay normally grows infinitely, but setting `retryMaxDelay` limits delay to maximum value, provided in milliseconds.
 
-- `options.maxAttempts`: *Optional*, Type: `Number`, Default: `Infinity`.
+- `options.maxAttempts`: *Optional*, Type: `Number`, Default: `10`.
 
     By default client will try reconnecting until connected. Setting `maxAttempts` limits total amount of reconnects.
 
