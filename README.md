@@ -8,11 +8,10 @@ A thunk/promise-based redis client with pipelining and cluster.
 
 ## [thunks](https://github.com/thunks/thunks)
 
-### [v0.6.x](https://github.com/thunks/thunk-redis/tree/v0.6.0) Stable, support Redis v2.8.x
-### [v0.7.x](https://github.com/thunks/thunk-redis) RC, support for Redis Cluster(v3.0.0).
-
-
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
+
+## https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf
+**Sugest set config `cluster-require-full-coverage` to `no` in redis cluster!**
 
 **default thunk API:**
 
@@ -177,7 +176,6 @@ var client5 = redis.createClient(6379, '127.0.0.1', {database: 2});
 ```
 
 **redis cluster:**
-**sugest set config `cluster-require-full-coverage` to `no`!**
 
 ```js
 // assume cluster: '127.0.0.1:7000', '127.0.0.1:7001', '127.0.0.1:7002', ...
