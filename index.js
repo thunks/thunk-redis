@@ -61,7 +61,7 @@ exports.createClient = function(port, host, options) {
 
   if (options.handleError !== false) {
     client.on('error', function(err) {
-      console.error(err.stack);
+      console.error('thunk-redis', err);
     });
   }
 

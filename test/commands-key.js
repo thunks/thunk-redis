@@ -296,6 +296,7 @@ module.exports = function() {
         should(res).be.equal(0);
         return this.pexpire('key', 100);
       })(function(error, res) {
+        should(error).be.equal(null);
         should(res).be.equal(0);
       })(done);
     });

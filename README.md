@@ -177,9 +177,11 @@ var client5 = redis.createClient(6379, '127.0.0.1', {database: 2});
 ```
 
 **redis cluster:**
+**sugest set config `cluster-require-full-coverage` to `no`!**
+
 ```js
 // assume cluster: '127.0.0.1:7000', '127.0.0.1:7001', '127.0.0.1:7002', ...
-var client1 = redis.createClient(7000, options);
+var client1 = redis.createClient(7000, options); // will auto find cluster nodes!
 var client2 = redis.createClient([7000, 7001, 7002], options);
 
 var client3 = redis.createClient([
@@ -250,7 +252,7 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
 - `options.retryMaxDelay`: *Optional*, Type: `Number`, Default: `Infinity`.
 
-    By default every time the client tries to connect and fails time before reconnection (delay) almost multiply by `1.5`. This delay normally grows infinitely, but setting `retryMaxDelay` limits delay to maximum value, provided in milliseconds.
+    By default every time the client tries to connect and fails time before reconnection (delay) almost multiply by `1.2`. This delay normally grows infinitely, but setting `retryMaxDelay` limits delay to maximum value, provided in milliseconds.
 
 - `options.maxAttempts`: *Optional*, Type: `Number`, Default: `10`.
 

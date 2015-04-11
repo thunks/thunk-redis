@@ -28,7 +28,7 @@ gulp.task('mocha-full', function () {
 gulp.task('mocha-cluster', function () {
   return gulp.src('test/cluster.js', {read: false})
     .pipe(mocha({
-      timeout: 8000
+      timeout: 100000
     }));
 });
 
