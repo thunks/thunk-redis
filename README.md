@@ -10,15 +10,17 @@ A thunk/promise-based redis client with pipelining and cluster.
 
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
 
-## https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf
+** https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf **
+
 **Sugest set config `cluster-require-full-coverage` to `no` in redis cluster!**
 
 **default thunk API:**
 
 ```js
-var redis = require('thunk-redis');
+var redis = require('../index');
+var Thunk = require('thunks')();
 var client = redis.createClient({
-  database: 0
+  database: 1
 });
 
 client.on('connect', function() {
@@ -29,22 +31,38 @@ client.info('server')(function(error, res) {
   console.log('redis server info:', res);
   return this.dbsize();
 })(function(error, res) {
-  console.log('surrent database size:', res);
+  console.log('current database size:', res);
+  // current database size: 0
   return this.select(0);
 })(function(error, res) {
   console.log('select database 0:', res);
+  // select database 0: OK
+  return Thunk.all([
+    this.multi(),
+    this.set('key', 'redis'),
+    this.get('key'),
+    this.exec()
+  ]);
+})(function(error, res) {
+  console.log('transactions:', res);
+  // transactions: [ 'OK', 'QUEUED', 'QUEUED', [ 'OK', 'redis' ] ]
   return this.quit();
 })(function(error, res) {
   console.log('redis client quit:', res);
+  // redis client quit: OK
 });
 ```
 
 **use promise API:**
 ```js
-var redis = require('thunk-redis');
+'use strict';
+/*global */
+
+var redis = require('../index');
+var Promise = require('bluebird');
 var client = redis.createClient({
   database: 1,
-  usePromise: true
+  usePromise: Promise
 });
 
 client.on('connect', function() {
@@ -58,15 +76,31 @@ client
     return client.dbsize();
   })
   .then(function(res) {
-    console.log('surrent database size:', res);
+    console.log('current database size:', res);
+    // current database size: 0
     return client.select(0);
   })
   .then(function(res) {
     console.log('select database 0:', res);
+    // select database 0: OK
+    return Promise.all([
+      client.multi(),
+      client.set('key', 'redis'),
+      client.get('key'),
+      client.exec()
+    ]);
+  })
+  .then(function(res) {
+    console.log('transactions:', res);
+    // transactions: [ 'OK', 'QUEUED', 'QUEUED', [ 'OK', 'redis' ] ]
     return client.quit();
   })
   .then(function(res) {
     console.log('redis client quit:', res);
+    // redis client quit: OK
+  })
+  .catch(function(err) {
+    console.error(err);
   });
 ```
 
