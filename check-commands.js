@@ -31,7 +31,11 @@ cli.info()(function* (err, info) {
   }, discard);
   console.log('Discard:', discard);
 
-  // console.log(commandsInfo);
+  info = {};
+  Object.keys(commandsInfo).sort().forEach(function(command) {
+    info[command] = commandsInfo[command];
+  });
+  console.log(info);
 
   process.exit();
 })();

@@ -78,8 +78,8 @@ exports.createClient = function(port, host, options) {
     client[command] = client[command.toUpperCase()] = function() {
       var thunk = commandMethod.apply(client, arguments);
       return new AliasPromise(function(resolve, reject) {
-        thunk(function(error, res) {
-          return error == null ? resolve(res) : reject(error);
+        thunk(function(err, res) {
+          return err == null ? resolve(res) : reject(err);
         });
       });
     };

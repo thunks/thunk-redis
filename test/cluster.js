@@ -25,8 +25,8 @@ describe('cluster test', function() {
       var len = count;
       while (len--) {
         task.push(Thunk(len + '')(function*(err, res) {
-          assert((yield client.set(res, res)) === 'OK');
-          assert((yield client.get(res)) === res);
+          assert.equal((yield client.set(res, res)), 'OK');
+          assert.equal((yield client.get(res)), res);
         }));
       }
       yield Thunk.all(task);
@@ -39,10 +39,28 @@ describe('cluster test', function() {
       var len = count;
       while (len--) {
         task.push(Thunk(len + '')(function*(err, res) {
-          assert((yield client.get(res)) === res);
+          assert.equal((yield client.get(res)), res);
         }));
       }
       yield Thunk.all(task);
+    })(done);
+  });
+
+  it('transaction', function(done) {
+    Thunk(function*() {
+      for (let i = 0; i < count; i++) {
+        let res = yield [
+          client.multi(i),
+          client.set(i, i),
+          client.get(i),
+          client.exec(i)
+        ];
+        assert.equal(res[0], 'OK');
+        assert.equal(res[1], 'QUEUED');
+        assert.equal(res[2], 'QUEUED');
+        assert.equal(res[3][0], 'OK');
+        assert.equal(res[3][1], i + '');
+      }
     })(done);
   });
 
