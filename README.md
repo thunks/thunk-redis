@@ -10,7 +10,7 @@ A thunk/promise-based redis client with pipelining and cluster.
 
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
 
-** https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf **
+**https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf**
 
 **Sugest set config `cluster-require-full-coverage` to `no` in redis cluster!**
 
