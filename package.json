@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "description": "A thunk/promise-based redis client with pipelining and cluster.",
   "main": "index.js",
   "authors": [
@@ -25,9 +25,10 @@
     "pipelining"
   ],
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.10.x"
   },
   "dependencies": {
+    "debug": "^2.1.3",
     "respjs": "^1.1.1",
     "thunks": "^2.7.3"
   },

@@ -269,10 +269,6 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
 - `options.database`: *Optional*, Type: `Number`, Default: `0`.
 
-- `options.debugMode`: *Optional*, Type: `Boolean`, Default: `false`.
-
-    Print request data and response data.
-
 - `options.returnBuffers`: *Optional*, Type: `Boolean`, Default: `false`.
 
 - `options.usePromise`: *Optional*, Type: `Boolean` or `Promise` constructor, Default: `false`.
@@ -319,6 +315,17 @@ var clientX = redis.createClient(7000, {clusterMode: false});
     By default client will try reconnecting until connected. Setting `maxAttempts` limits total amount of reconnects.
 
 - `options.commandsHighWater`: *Optional*, Type: `Number`, Default: `10000`.
+
+## Debug
+
+Tool: **https://github.com/visionmedia/debug**
+
+Debugs: `redis:resp`, `redis:socket`, `redis:command`
+
+**Debug all:**
+```sh
+DEBUG=redis:* node examples/demo
+```
 
 ## Who's using
 

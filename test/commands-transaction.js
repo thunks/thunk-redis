@@ -10,12 +10,12 @@ module.exports = function() {
     var client1, client2;
 
     beforeEach(function (done) {
-      client1 = redis.createClient({debugMode: false});
+      client1 = redis.createClient();
       client1.on('error', function (error) {
         console.error('redis client:', error);
       });
 
-      client2 = redis.createClient({debugMode: false});
+      client2 = redis.createClient();
       client2.on('error', function (error) {
         console.error('redis client:', error);
       });

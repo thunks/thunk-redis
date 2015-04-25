@@ -46,7 +46,6 @@ exports.createClient = function(port, host, options) {
   }
 
   options = options || {};
-  options.debugMode = !!options.debugMode;
   options.returnBuffers = !!options.returnBuffers;
   options.authPass = (options.authPass || '') + '';
   options.noDelay = options.noDelay == null ? true : !!options.noDelay;

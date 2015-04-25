@@ -35,8 +35,7 @@ module.exports = function() {
 
     it('redis.createClient(options)', function(done) {
       var client = redis.createClient({
-        database: 1,
-        debugMode: false
+        database: 1
       });
 
       client.get('test')(function(error, res) {

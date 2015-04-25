@@ -77,8 +77,7 @@ module.exports = function() {
     it('client.dump, client.restore', function(done) {
       var serializedValue;
       var client2 = redis.createClient({
-        returnBuffers: true,
-        debugMode: false
+        returnBuffers: true
       });
 
       client2.dump('dumpKey')(function(error, res) {
