@@ -37,8 +37,9 @@
     "gulp-jshint": "^1.9.4",
     "gulp-mocha": "^2.0.0",
     "gulp-sequence": "^0.3.2",
-    "mocha": "^2.2.1",
+    "ioredis": "^1.0.6",
     "jsonkit": "^0.3.2",
+    "mocha": "^2.2.1",
     "redis": "^0.12.1",
     "should": "^5.2.0"
   },
