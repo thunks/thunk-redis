@@ -296,16 +296,6 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
     Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.
 
-- `options.keepAlive`: *Optional*, Type: `Boolean`, Default: `true`.
-
-    Enable/disable keep-alive functionality, and optionally set the initial delay before the first keepalive probe is sent on an idle socket.
-
-- `options.timeout`: *Optional*, Type: `Number`, Default: `0`.
-
-    Sets the socket to timeout after timeout milliseconds of inactivity on the socket. If timeout is 0, then the existing idle timeout is disabled.
-
-    When an idle timeout is triggered the socket will receive a 'timeout' event but the connection will not be severed.
-
 - `options.retryMaxDelay`: *Optional*, Type: `Number`, Default: `Infinity`.
 
     By default every time the client tries to connect and fails time before reconnection (delay) almost multiply by `1.2`. This delay normally grows infinitely, but setting `retryMaxDelay` limits delay to maximum value, provided in milliseconds.
@@ -315,6 +305,8 @@ var clientX = redis.createClient(7000, {clusterMode: false});
     By default client will try reconnecting until connected. Setting `maxAttempts` limits total amount of reconnects.
 
 - `options.commandsHighWater`: *Optional*, Type: `Number`, Default: `10000`.
+
+    The max pipelining commands count.
 
 ## Debug
 
