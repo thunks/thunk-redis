@@ -52,7 +52,6 @@ exports.createClient = function(port, host, options) {
   options.database = options.database > 0 ? Math.floor(options.database) : 0;
   options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 10;
   options.retryMaxDelay = options.retryMaxDelay >= 150 ? Math.floor(options.retryMaxDelay) : Infinity;
-  options.commandsHighWater = options.commandsHighWater >= 1 ? Math.floor(options.commandsHighWater) : 10000;
 
   var client = new RedisClient(addressArray, options);
 

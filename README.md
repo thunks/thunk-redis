@@ -304,10 +304,6 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
     By default client will try reconnecting until connected. Setting `maxAttempts` limits total amount of reconnects.
 
-- `options.commandsHighWater`: *Optional*, Type: `Number`, Default: `10000`.
-
-    The max pipelining commands count.
-
 ## Debug
 
 Tool: **https://github.com/visionmedia/debug**
