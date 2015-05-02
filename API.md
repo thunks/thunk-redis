@@ -2,7 +2,6 @@ thunk-redis API
 =====
 A thunk/promise-based redis client, support all redis features.
 
-#### redis.createClient([address], [options])
 #### redis.createClient([port], [host], [options])
 #### redis.createClient([addressArray], [options])
 
