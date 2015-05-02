@@ -1,6 +1,6 @@
 thunk-redis
 ==========
-A thunk/promise-based redis client with pipelining and cluster.
+A thunk/promise-based redis client, support all redis features.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]

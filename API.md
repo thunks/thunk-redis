@@ -1,6 +1,6 @@
 thunk-redis API
 =====
-A redis client with pipelining, rely on thunks, support promise.
+A thunk/promise-based redis client, support all redis features.
 
 #### redis.createClient([address], [options])
 #### redis.createClient([port], [host], [options])
@@ -9,7 +9,6 @@ A redis client with pipelining, rely on thunks, support promise.
 + port: `Number`, default: `6379`;
 + host: `String`, default: `'localhost'`;
 + options: `Object`, default: `{}`;
-+ path: `String`, default: `undefined`;
 
 Create a redis client, return the client.
 
@@ -40,6 +39,7 @@ redis.calcSlot(118); // => 13162
 
 #### client.on('close', function () {})
 #### client.on('connect', function () {})
+#### client.on('connection', function (connection) {})
 #### client.on('warn', function (error) {})
 #### client.on('error', function (error) {})
 #### client.on('reconnecting', function (message) {})
