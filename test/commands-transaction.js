@@ -9,24 +9,24 @@ module.exports = function() {
   describe('commands:Transaction', function() {
     var client1, client2;
 
-    beforeEach(function (done) {
+    beforeEach(function(done) {
       client1 = redis.createClient();
-      client1.on('error', function (error) {
+      client1.on('error', function(error) {
         console.error('redis client:', error);
       });
 
       client2 = redis.createClient();
-      client2.on('error', function (error) {
+      client2.on('error', function(error) {
         console.error('redis client:', error);
       });
 
-      client1.flushdb()(function (error, res) {
+      client1.flushdb()(function(error, res) {
         should(error).be.equal(null);
         should(res).be.equal('OK');
       })(done);
     });
 
-    afterEach(function () {
+    afterEach(function() {
       client1.clientEnd();
       client2.clientEnd();
     });
