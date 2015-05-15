@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "A thunk/promise-based redis client, support all redis features.",
   "main": "index.js",
   "authors": [
