@@ -50,8 +50,8 @@ exports.createClient = function(port, host, options) {
   options.authPass = (options.authPass || '') + '';
   options.noDelay = options.noDelay == null ? true : !!options.noDelay;
   options.database = options.database > 0 ? Math.floor(options.database) : 0;
-  options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 10;
-  options.retryMaxDelay = options.retryMaxDelay >= 150 ? Math.floor(options.retryMaxDelay) : Infinity;
+  options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 20;
+  options.retryMaxDelay = options.retryMaxDelay >= 3000 ? Math.floor(options.retryMaxDelay) : 5 * 60 * 1000;
 
   var client = new RedisClient(addressArray, options);
 

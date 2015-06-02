@@ -296,11 +296,11 @@ var clientX = redis.createClient(7000, {clusterMode: false});
 
     Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.
 
-- `options.retryMaxDelay`: *Optional*, Type: `Number`, Default: `Infinity`.
+- `options.retryMaxDelay`: *Optional*, Type: `Number`, Default: `5 * 60 * 1000`.
 
     By default every time the client tries to connect and fails time before reconnection (delay) almost multiply by `1.2`. This delay normally grows infinitely, but setting `retryMaxDelay` limits delay to maximum value, provided in milliseconds.
 
-- `options.maxAttempts`: *Optional*, Type: `Number`, Default: `10`.
+- `options.maxAttempts`: *Optional*, Type: `Number`, Default: `20`.
 
     By default client will try reconnecting until connected. Setting `maxAttempts` limits total amount of reconnects.
 
