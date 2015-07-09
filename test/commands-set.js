@@ -202,9 +202,9 @@ module.exports = function () {
     })
 
     it('client.sscan', function (done) {
-      var count = 100,
-        data = [],
-        scanKeys = []
+      var count = 100
+      var data = []
+      var scanKeys = []
 
       while (count--) data.push('m' + count)
 

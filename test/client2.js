@@ -1,6 +1,5 @@
 'use strict'
 /*global describe, it */
-/*jshint -W106*/
 
 var should = require('should')
 var redis = require('../index')
@@ -10,8 +9,8 @@ module.exports = function () {
     var time = '' + Date.now()
 
     it('redis.createClient()', function (done) {
-      var connect = false,
-        client = redis.createClient()
+      var connect = false
+      var client = redis.createClient()
 
       client.on('connect', function () {
         connect = true
@@ -33,8 +32,8 @@ module.exports = function () {
     })
 
     it('redis.createClient(address, options)', function (done) {
-      var connect = false,
-        client = redis.createClient('127.0.0.1:6379', {
+      var connect = false
+      var client = redis.createClient('127.0.0.1:6379', {
           database: 1
         })
 

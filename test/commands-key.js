@@ -299,10 +299,11 @@ module.exports = function () {
         return this.object('encoding', 'key2')
       })(function (error, res) {
         should(error).be.equal(null)
-        should(res).be.equal('raw')
+        should(res === 'embstr' || res === 'raw').be.equal(true)
         return thunk.delay(1001)
       })(function (error, res) {
         should(error).be.equal(null)
+        should(res).be.equal(undefined)
         return this.object('idletime', 'key1')
       })(function (error, res) {
         should(error).be.equal(null)
@@ -591,9 +592,9 @@ module.exports = function () {
     })
 
     it('client.scan', function (done) {
-      var count = 100,
-        data = {},
-        scanKeys = []
+      var count = 100
+      var data = {}
+      var scanKeys = []
 
       while (count--) data['key' + count] = count
 

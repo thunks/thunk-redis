@@ -224,9 +224,9 @@ module.exports = function () {
     })
 
     it('client.hscan', function (done) {
-      var count = 100,
-        data = {},
-        scanKeys = []
+      var count = 100
+      var data = {}
+      var scanKeys = []
 
       while (count--) data['key' + count] = count
 
@@ -264,6 +264,33 @@ module.exports = function () {
         should(error).be.equal(null)
         should(res[0] === '0').be.equal(true)
         should(Object.keys(res[1]).length === 20).be.equal(true)
+      })(done)
+    })
+
+    it('client.hstrlen', function (done) {
+      client.hstrlen('key', 'f')(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(0)
+        return this.hmset('key', 'f1', 'HelloWorld', 'f2', 99, 'f3', '-256')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal('OK')
+        return this.hstrlen('key', 'f0')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(0)
+        return this.hstrlen('key', 'f1')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(10)
+        return this.hstrlen('key', 'f2')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(2)
+        return this.hstrlen('key', 'f3')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(4)
       })(done)
     })
 

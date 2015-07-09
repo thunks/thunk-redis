@@ -1,6 +1,5 @@
 'use strict'
 /*global describe, it */
-/*jshint -W106*/
 
 var should = require('should')
 var Bluebird = require('bluebird')
@@ -11,8 +10,8 @@ module.exports = function () {
     var time = '' + Date.now()
 
     it('redis.createClient()', function (done) {
-      var connect = false,
-        client = redis.createClient()
+      var connect = false
+      var client = redis.createClient()
 
       client.on('connect', function () {
         connect = true

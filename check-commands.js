@@ -3,13 +3,15 @@
 'use strict'
 
 var redis = require('./index')
-var cli = redis.createClient(7000)
+var cli = redis.createClient(6379)
 
 cli.info()(function *(err, info) {
   if (err) throw err
   console.log('Version:', info.redis_version)
 
-  var add = [], discard = [], commandsInfo = {}
+  var add = []
+  var discard = []
+  var commandsInfo = {}
   var commands = yield cli.command()
 
   commands = commands.map(function (command) {

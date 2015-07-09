@@ -186,9 +186,9 @@ module.exports = function () {
     })
 
     it('client.zscan', function (done) {
-      var count = 100,
-        data = [],
-        scanKeys = []
+      var count = 100
+      var data = []
+      var scanKeys = []
 
       while (count--) data.push(count, 'z' + count)
 

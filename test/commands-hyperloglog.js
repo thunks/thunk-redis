@@ -1,6 +1,6 @@
 'use strict'
 /*global describe, it, before, after, beforeEach */
-/*jshint -W061*/
+
 var should = require('should')
 var thunk = require('thunks')()
 var redis = require('../index')

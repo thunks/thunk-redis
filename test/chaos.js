@@ -1,6 +1,6 @@
 'use strict'
 /*global describe, it*/
-/*jshint -W061*/
+
 var assert = require('assert')
 var thunks = require('thunks')
 var redis = require('../index')
