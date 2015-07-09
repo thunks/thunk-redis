@@ -269,29 +269,33 @@ module.exports = function () {
 
     it('client.hstrlen', function (done) {
       client.hstrlen('key', 'f')(function (error, res) {
+        if (error && /unknown command/.test(error.message)) {
+          console.log('Do not support "hstrlen"')
+          return done()
+        }
         should(error).be.equal(null)
         should(res).be.equal(0)
-        return this.hmset('key', 'f1', 'HelloWorld', 'f2', 99, 'f3', '-256')
-      })(function (error, res) {
-        should(error).be.equal(null)
-        should(res).be.equal('OK')
-        return this.hstrlen('key', 'f0')
-      })(function (error, res) {
-        should(error).be.equal(null)
-        should(res).be.equal(0)
-        return this.hstrlen('key', 'f1')
-      })(function (error, res) {
-        should(error).be.equal(null)
-        should(res).be.equal(10)
-        return this.hstrlen('key', 'f2')
-      })(function (error, res) {
-        should(error).be.equal(null)
-        should(res).be.equal(2)
-        return this.hstrlen('key', 'f3')
-      })(function (error, res) {
-        should(error).be.equal(null)
-        should(res).be.equal(4)
-      })(done)
+        return this.hmset('key', 'f1', 'HelloWorld', 'f2', 99, 'f3', '-256')(function (error, res) {
+          should(error).be.equal(null)
+          should(res).be.equal('OK')
+          return this.hstrlen('key', 'f0')
+        })(function (error, res) {
+          should(error).be.equal(null)
+          should(res).be.equal(0)
+          return this.hstrlen('key', 'f1')
+        })(function (error, res) {
+          should(error).be.equal(null)
+          should(res).be.equal(10)
+          return this.hstrlen('key', 'f2')
+        })(function (error, res) {
+          should(error).be.equal(null)
+          should(res).be.equal(2)
+          return this.hstrlen('key', 'f3')
+        })(function (error, res) {
+          should(error).be.equal(null)
+          should(res).be.equal(4)
+        })(done)
+      })
     })
 
   })
