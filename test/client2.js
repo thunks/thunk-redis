@@ -34,8 +34,8 @@ module.exports = function () {
     it('redis.createClient(address, options)', function (done) {
       var connect = false
       var client = redis.createClient('127.0.0.1:6379', {
-          database: 1
-        })
+        database: 1
+      })
 
       client.on('connect', function () {
         connect = true
