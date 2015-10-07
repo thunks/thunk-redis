@@ -1,4 +1,3 @@
-'use strict'
 /*global describe, it, before, after*/
 
 var assert = require('assert')
@@ -55,6 +54,14 @@ describe('cluster test', function () {
       assert.strictEqual(res[2], 'QUEUED')
       assert.strictEqual(res[3][0], 'OK')
       assert.strictEqual(res[3][1], i + '')
+    }
+  })
+
+  it('evalauto', function *() {
+    var len = count
+    while (len--) {
+      let res = yield client.evalauto('return KEYS[1]', 1, len)
+      assert.strictEqual(+res, len)
     }
   })
 

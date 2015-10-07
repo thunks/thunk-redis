@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-'use strict'
-
-var redis = require('./index')
-var cli = redis.createClient(6379)
+const redis = require('./index')
+const cli = redis.createClient(6379)
 
 cli.info()(function *(err, info) {
   if (err) throw err

@@ -1,4 +1,3 @@
-'use strict'
 /*global describe, before, after */
 
 var should = require('should')

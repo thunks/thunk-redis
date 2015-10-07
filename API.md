@@ -58,6 +58,8 @@ redis.calcSlot(118); // => 13162
 #### client.clientState()
 #### client.clientSwitch(redisId)
 
+#### client.evalauto(script, numkeys, key, [key ...], arg, [arg ...])
+
 #### client.clientCommands
 
 ## Commands
@@ -208,6 +210,7 @@ redis.calcSlot(118); // => 13162
 ### Scripting
 #### client.eval(script, numkeys, key, [key ...], arg, [arg ...])
 #### client.evalsha(sha1, numkeys, key, [key ...], arg, [arg ...])
+#### client.evalauto(script, numkeys, key, [key ...], arg, [arg ...]) [custom command]
 #### client.script('EXISTS', script, [script ...])
 #### client.script('FLUSH')
 #### client.script('KILL')

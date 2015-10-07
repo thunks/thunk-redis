@@ -1,15 +1,14 @@
-'use strict'
 /**
  * thunk-redis - https://github.com/thunks/thunk-redis
  *
  * MIT Licensed
  */
 
-var defaultPort = 6379
-var defaultHost = '127.0.0.1'
-var tool = require('./lib/tool')
-var calcSlot = require('./lib/slot')
-var RedisClient = require('./lib/client')
+const defaultPort = 6379
+const defaultHost = '127.0.0.1'
+const tool = require('./lib/tool')
+const calcSlot = require('./lib/slot')
+const RedisClient = require('./lib/client')
 
 exports.log = tool.log
 exports.each = tool.each

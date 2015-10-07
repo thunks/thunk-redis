@@ -1,4 +1,3 @@
-'use strict'
 /*global describe, it, before, after, beforeEach */
 
 var should = require('should')
@@ -69,6 +68,27 @@ module.exports = function () {
         should(error).be.equal(null)
         should(res).be.eql(['OK', [0]])
         return this.script('kill')
+      })(function (error, res) {
+        should(error).be.instanceOf(Error)
+      })(done)
+    })
+
+    it('client.evalauto', function (done) {
+      client.evalauto('return {KEYS[1],ARGV[1],ARGV[2]}', 1, 'key1', 'first', 'second')(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.eql(['key1', 'first', 'second'])
+        return this.evalauto('return redis.call("set",KEYS[1],"bar")', 1, 'foo')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal('OK')
+        return thunk.all(this.get('foo'), this.evalauto('return redis.call("get","foo")', 0))
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.eql(['bar', 'bar'])
+        return thunk.all(this.lpush('list', 123), this.evalauto('return redis.call("get", "list")', 0))
+      })(function (error, res) {
+        should(error).be.instanceOf(Error)
+        return this.evalauto('return redis.pcall("get", "list")', 0)
       })(function (error, res) {
         should(error).be.instanceOf(Error)
       })(done)
