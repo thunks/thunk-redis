@@ -42,8 +42,8 @@ describe('cluster test', function () {
   })
 
   it('transaction', function *() {
-    for (let i = 0; i < count; i++) {
-      let res = yield [
+    for (var i = 0; i < count; i++) {
+      var res = yield [
         client.multi(i),
         client.set(i, i),
         client.get(i),
@@ -58,10 +58,19 @@ describe('cluster test', function () {
   })
 
   it('evalauto', function *() {
+    var task = []
     var len = count
-    while (len--) {
-      let res = yield client.evalauto('return KEYS[1]', 1, len)
-      assert.strictEqual(+res, len)
+    while (len--) addTask(len)
+    var res = yield thunk.all(task)
+    len = count
+    while (len--) assert.strictEqual(res[len] + len, count - 1)
+
+    function addTask (index) {
+      task.push(function *() {
+        var res = yield client.evalauto('return KEYS[1]', 1, index)
+        assert.strictEqual(+res, index)
+        return +res
+      })
     }
   })
 
