@@ -245,6 +245,5 @@ module.exports = function () {
         should(res[1].length === 10).be.equal(true)
       })(done)
     })
-
   })
 }

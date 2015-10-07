@@ -23,16 +23,12 @@ module.exports = function () {
       return Math.floor(Math.random() * 10) % 2 ? client : clientP
     }
 
-    it('create 10000 users', function (done) {
-      client.flushall()(function *(err, res) {
-        assert(err === null)
-        assert(res === 'OK')
-
-        yield tasks.map(function (value, index) {
-          return createUser('U' + index)
-        })
-        assert((yield client.zcard('userScore')) === len)
-      })(done)
+    it('create 10000 users', function *() {
+      assert((yield client.flushall()) === 'OK')
+      yield tasks.map(function (value, index) {
+        return createUser('U' + index)
+      })
+      assert((yield client.zcard('userScore')) === len)
 
       function * createUser (id) {
         var cli = getClient()
@@ -58,14 +54,12 @@ module.exports = function () {
       }
     })
 
-    it('update 10000 users', function (done) {
-      thunk(function *() {
-        yield tasks.map(function (value, index) {
-          return updateUser('U' + index, Math.floor(Math.random() * 1000))
-        })
+    it('update 10000 users', function *() {
+      yield tasks.map(function (value, index) {
+        return updateUser('U' + index, Math.floor(Math.random() * 1000))
+      })
 
-        assert((yield client.pfcount('scoreLog')) > 5)
-      })(done)
+      assert((yield client.pfcount('scoreLog')) > 5)
 
       function * updateUser (id, score) {
         var cli = getClient()
@@ -84,14 +78,12 @@ module.exports = function () {
       }
     })
 
-    it('create 10000 issues for some users', function (done) {
-      thunk(function *() {
-        yield tasks.map(function (value, index) {
-          return createIssue('I' + i, 'U' + Math.floor(Math.random() * len))
-        })
+    it('create 10000 issues for some users', function *() {
+      yield tasks.map(function (value, index) {
+        return createIssue('I' + i, 'U' + Math.floor(Math.random() * len))
+      })
 
-        assert((yield client.pfcount('scoreLog')) > 5)
-      })(done)
+      assert((yield client.pfcount('scoreLog')) > 5)
 
       function * createIssue (id, uid) {
         var cli = getClient()
@@ -132,6 +124,5 @@ module.exports = function () {
         assert.deepEqual(result, ['OK', 'QUEUED', 'QUEUED', 'QUEUED', 'QUEUED'])
       }
     })
-
   })
 }

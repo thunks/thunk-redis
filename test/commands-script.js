@@ -73,6 +73,5 @@ module.exports = function () {
         should(error).be.instanceOf(Error)
       })(done)
     })
-
   })
 }

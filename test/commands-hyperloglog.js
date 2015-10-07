@@ -55,6 +55,5 @@ module.exports = function () {
         should(res).be.eql(['OK', 7])
       })(done)
     })
-
   })
 }

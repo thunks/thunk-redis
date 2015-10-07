@@ -194,6 +194,5 @@ module.exports = function () {
         should(res).be.eql([3, 0])
       })(done)
     })
-
   })
 }

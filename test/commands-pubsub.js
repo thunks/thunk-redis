@@ -183,6 +183,5 @@ module.exports = function () {
         should(res).be.equal(6)
       })(done)
     })
-
   })
 }

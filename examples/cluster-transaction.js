@@ -21,5 +21,4 @@ client.info()(function *() {
     this.exec('hash{tag}')
   ]
   console.log(res) // [ 'OK', 'QUEUED', 'QUEUED', [ 'OK', 'hash{tag}' ] ]
-
 })()

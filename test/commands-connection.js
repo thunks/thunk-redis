@@ -82,6 +82,5 @@ module.exports = function () {
         should(res).be.equal('OK')
       })(done)
     })
-
   })
 }

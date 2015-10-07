@@ -1,13 +1,15 @@
 {
   "name": "thunk-redis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A thunk/promise-based redis client, support all redis features.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
   ],
   "scripts": {
-    "test": "standard && gulp test"
+    "test": "standard & mocha -t 10000 -r thunk-mocha test/index.js",
+    "test-full": "standard & mocha -t 10000 -r thunk-mocha test/index-full.js",
+    "test-cluster": "mocha -t 100000 -r thunk-mocha test/cluster.js"
   },
   "repository": {
     "type": "git",
@@ -30,18 +32,16 @@
   "dependencies": {
     "debug": "^2.2.0",
     "respjs": "^2.0.3",
-    "thunks": "^3.5.0"
+    "thunks": "^3.5.1"
   },
   "devDependencies": {
-    "bluebird": "^2.9.34",
-    "gulp": "^3.9.0",
-    "gulp-mocha": "^2.1.3",
-    "gulp-sequence": "^0.4.1",
+    "bluebird": "^2.10.2",
     "jsonkit": "^0.3.2",
-    "mocha": "^2.2.5",
-    "redis": "^0.12.1",
-    "should": "^7.0.4",
-    "standard": "^5.1.0"
+    "mocha": "^2.3.3",
+    "redis": "^2.1.0",
+    "should": "^7.1.0",
+    "standard": "^5.3.1",
+    "thunk-mocha": "^0.1.1"
   },
   "license": "MIT",
   "bugs": {
