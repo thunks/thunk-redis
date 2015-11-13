@@ -4,8 +4,17 @@ const thunk = require('thunks')()
 const redis = require('../index')
 const nodeRedis = require('redis')
 const IoRedis = require('ioredis')
+const co = require('co')
 
-thunk(function *() {
+// test in thunks(thunk base)
+thunk(bench)(console.log.bind(console))
+
+// // test in co(promise base)
+// co(bench)
+//   .then(console.log.bind(console))
+//   .catch(console.error.bind(console))
+
+function * bench () {
   var timeN = 0
   var timeT = 0
   var timeI = 0
@@ -245,4 +254,4 @@ thunk(function *() {
 
   yield thunk.delay(100)
   process.exit()
-})()
+}
