@@ -33,18 +33,18 @@ function * bench () {
   var longStr = (new Array(4097).join('-'))
 
   function printResult (title, timeN, timeT, timeI) {
-    console.log(titleN, title, Math.floor(testLen * 1000 / timeN) + ' ops/sec', '100%')
-    console.log(titleT, title, Math.floor(testLen * 1000 / timeT) + ' ops/sec', ((timeN / timeT) * 100).toFixed(1) + '%')
-    console.log(titleI, title, Math.floor(testLen * 1000 / timeI) + ' ops/sec', ((timeN / timeI) * 100).toFixed(1) + '%')
-    console.log('')
+    console.log(`\n${title}:`)
+    console.log(titleN, `${timeN}ms`, Math.floor(testLen * 1000 / timeN) + 'ops/sec', '100%')
+    console.log(titleT, `${timeT}ms`, Math.floor(testLen * 1000 / timeT) + 'ops/sec', ((timeN / timeT) * 100).toFixed(1) + '%')
+    console.log(titleI, `${timeI}ms`, Math.floor(testLen * 1000 / timeI) + 'ops/sec', ((timeN / timeI) * 100).toFixed(1) + '%')
   }
 
   console.log(titleN + 'node_redis ', yield function (done) { clientN.flushdb(done) })
   console.log(titleT + 'thunk-redis ', yield clientT.flushdb())
   console.log(titleI + 'ioRedis ', yield clientI.flushdb())
-  console.log('Bench start:\n')
+  console.log(`Bench start:(${testLen})\n`)
 
-  // PING
+  // PING concurrency(full thread)
   yield thunk.delay(100)
 
   timeN = Date.now()
@@ -68,9 +68,101 @@ function * bench () {
     return clientI.ping()
   })
   timeI = Date.now() - timeI
-  printResult('PING', timeN, timeT, timeI)
+  printResult('PING concurrency(full thread)', timeN, timeT, timeI)
 
-  // SET
+  // PING concurrency(1000 thread)
+  yield thunk.delay(100)
+
+  timeN = Date.now()
+  yield function *() {
+    let count = queue.length
+    yield queue.slice(0, 1000).map(function () {
+      return next
+    })
+
+    function next(callback) {
+      if (count > 0) {
+        count--
+        clientN.ping(function (err) {
+          if (!err) next(callback)
+          else callback(err)
+        })
+      } else callback()
+    }
+  }
+  timeN = Date.now() - timeN
+
+  yield thunk.delay(100)
+
+  timeT = Date.now()
+  yield function *() {
+    let count = queue.length
+    yield queue.slice(0, 1000).map(function () {
+      return next
+    })
+
+    function next(callback) {
+      if (count > 0) {
+        count--
+        clientT.ping()(function (err) {
+          if (!err) next(callback)
+          else callback(err)
+        })
+      } else callback()
+    }
+  }
+  timeT = Date.now() - timeT
+
+  yield thunk.delay(100)
+
+  timeI = Date.now()
+  yield function *() {
+    let count = queue.length
+    yield queue.slice(0, 1000).map(function () {
+      return next
+    })
+
+    function next(callback) {
+      if (count > 0) {
+        count--
+        clientI.ping()
+          .then(function () {
+            next(callback)
+          })
+          .catch(callback)
+      } else callback()
+    }
+  }
+  timeI = Date.now() - timeI
+  printResult('PING concurrency(1000 thread)', timeN, timeT, timeI)
+
+  // PING sequential 1 by 1
+  yield thunk.delay(100)
+
+  timeN = Date.now()
+  for (let i = queue.length; i > 0; i--) {
+    yield function (done) { clientN.ping(done) }
+  }
+  timeN = Date.now() - timeN
+
+  yield thunk.delay(100)
+
+  timeT = Date.now()
+  for (let i = queue.length; i > 0; i--) {
+    yield clientT.ping()
+  }
+  timeT = Date.now() - timeT
+
+  yield thunk.delay(100)
+
+  timeI = Date.now()
+  for (let i = queue.length; i > 0; i--) {
+    yield clientI.ping()
+  }
+  timeI = Date.now() - timeI
+  printResult('PING sequential 1 by 1', timeN, timeT, timeI)
+
+  // SET small string
   yield thunk.delay(100)
 
   timeN = Date.now()
@@ -96,7 +188,7 @@ function * bench () {
   timeI = Date.now() - timeI
   printResult('SET small string', timeN, timeT, timeI)
 
-  // GET
+  // GET small string
   yield thunk.delay(100)
 
   timeN = Date.now()
@@ -122,7 +214,7 @@ function * bench () {
   timeI = Date.now() - timeI
   printResult('GET small string', timeN, timeT, timeI)
 
-  // SET
+  // SET long string
   yield thunk.delay(100)
 
   timeN = Date.now()
@@ -148,7 +240,7 @@ function * bench () {
   timeI = Date.now() - timeI
   printResult('SET long string', timeN, timeT, timeI)
 
-  // GET
+  // GET long string
   yield thunk.delay(100)
 
   timeN = Date.now()
