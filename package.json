@@ -1,7 +1,7 @@
 {
   "name": "thunk-redis",
-  "version": "1.2.1",
-  "description": "A thunk/promise-based redis client, support all redis features.",
+  "version": "1.2.2",
+  "description": "The fastest thunk/promise-based redis client, support all redis features.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
@@ -48,12 +48,11 @@
     "url": "https://github.com/thunks/thunk-redis/issues"
   },
   "homepage": "https://github.com/thunks/thunk-redis",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "benchmark",
-    "test",
-    "examples",
-    "gulpfile.js"
+  "files": [
+    "API.md",
+    "README.md",
+    "CHANGELOG.md",
+    "index.js",
+    "lib"
   ]
 }

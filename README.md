@@ -1,6 +1,6 @@
 thunk-redis
 ==========
-A thunk/promise-based redis client, support all redis features.
+The fastest thunk/promise-based redis client, support all redis features.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -8,6 +8,11 @@ A thunk/promise-based redis client, support all redis features.
 [![Talk topic][talk-image]][talk-url]
 
 ## [thunks](https://github.com/thunks/thunks)
+
+## Implementations:
+
+- [thunk-ratelimiter](https://github.com/thunks/thunk-ratelimiter) The fastest abstract rate limiter.
+- [timed-queue](https://github.com/teambition/timed-queue) Distributed timed job queue, backed by Redis.
 
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
 
@@ -169,39 +174,7 @@ client.select(1)(function* (error, res) {
 
 ## Benchmark
 
-```js
-➜  thunk-redis git:(master) ✗ node --harmony benchmark/index.js
-redis(N):node_redis
-OK
-redis(T):thunk-redis
-OK
-Start...
-
-
-redis(N): PING 49358 ops/sec 100%
-redis(T): PING 54495 ops/sec 110.4%
-
-redis(N): SET small string 39062 ops/sec 100%
-redis(T): SET small string 44523 ops/sec 114.0%
-
-redis(N): GET small string 43859 ops/sec 100%
-redis(T): GET small string 47687 ops/sec 108.7%
-
-redis(N): SET long string 28320 ops/sec 100%
-redis(T): SET long string 35323 ops/sec 124.7%
-
-redis(N): GET long string 30432 ops/sec 100%
-redis(T): GET long string 26645 ops/sec 87.6%
-
-redis(N): INCR 46061 ops/sec 100%
-redis(T): INCR 48756 ops/sec 105.9%
-
-redis(N): LPUSH 39824 ops/sec 100%
-redis(T): LPUSH 45289 ops/sec 113.7%
-
-redis(N): LRANGE 100 8322 ops/sec 100%
-redis(T): LRANGE 100 10094 ops/sec 121.3%
-```
+Details: https://github.com/thunks/thunk-redis/issues/12
 
 ## Installation
 
