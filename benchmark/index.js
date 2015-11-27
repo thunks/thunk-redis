@@ -4,7 +4,7 @@ const thunk = require('thunks')()
 const redis = require('../index')
 const nodeRedis = require('redis')
 const IoRedis = require('ioredis')
-const co = require('co')
+// const co = require('co')
 
 // test in thunks(thunk base)
 thunk(bench)(console.log.bind(console))
@@ -80,7 +80,7 @@ function * bench () {
       return next
     })
 
-    function next(callback) {
+    function next (callback) {
       if (count > 0) {
         count--
         clientN.ping(function (err) {
@@ -101,7 +101,7 @@ function * bench () {
       return next
     })
 
-    function next(callback) {
+    function next (callback) {
       if (count > 0) {
         count--
         clientT.ping()(function (err) {
@@ -122,7 +122,7 @@ function * bench () {
       return next
     })
 
-    function next(callback) {
+    function next (callback) {
       if (count > 0) {
         count--
         clientI.ping()

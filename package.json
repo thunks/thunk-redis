@@ -1,15 +1,16 @@
 {
   "name": "thunk-redis",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "The fastest thunk/promise-based redis client, support all redis features.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
   ],
   "scripts": {
-    "test": "standard & mocha -t 10000 -r thunk-mocha test/index.js",
-    "test-full": "standard & mocha -t 10000 -r thunk-mocha test/index-full.js",
-    "test-cluster": "mocha -t 100000 -r thunk-mocha test/cluster.js"
+    "test": "standard && mocha -t 10000 -r thunk-mocha test/index.js",
+    "test-full": "standard && mocha -t 10000 -r thunk-mocha test/index-full.js",
+    "test-cluster": "mocha -t 100000 -r thunk-mocha test/cluster.js",
+    "test-replica": "mocha -t 10000 -r thunk-mocha test/replica.js"
   },
   "repository": {
     "type": "git",
@@ -32,15 +33,15 @@
   "dependencies": {
     "debug": "^2.2.0",
     "respjs": "^2.0.3",
-    "thunks": "^4.0.0"
+    "thunks": "^4.0.1"
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
     "jsonkit": "^0.3.2",
-    "mocha": "^2.3.3",
-    "redis": "^2.3.0",
+    "mocha": "^2.3.4",
+    "redis": "^2.4.1",
     "should": "^7.1.1",
-    "standard": "^5.3.1",
+    "standard": "^5.4.1",
     "thunk-mocha": "^1.0.0"
   },
   "license": "MIT",
