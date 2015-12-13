@@ -278,6 +278,10 @@ var clientX = redis.createClient(7000, {clusterMode: false})
 
     By default client will try reconnecting until connected. Setting `maxAttempts` limits total amount of reconnects.
 
+- `options.pingInterval`: *Optional*, Type: `Number`, Default: `0`.
+
+    How many ms before sending a ping packet. There is no ping packet by default(`0` to disable). If redis server enable `timeout` config, this option will be useful.
+
 ## Debug
 
 Tool: **https://github.com/visionmedia/debug**

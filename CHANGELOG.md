@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2015-12-13
+### Changed
+
+- add `options.pingInterval`
+- add `client.clientConnect`
+
+## [1.2.4] - 2015-11-29
+### Changed
+
+- update dependencies
+
+## [1.2.3] - 2015-11-27
+### fixed
+
+- fixed for slave node
+
+## [1.2.2] - 2015-11-19
+### Changed
+
+- update description
+
+## [1.2.1] - 2015-11-18
+### Changed
+
+- improve performance
+
 ## [1.2.0] - 2015-11-12
 ### Changed
 

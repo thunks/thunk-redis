@@ -1,6 +1,7 @@
 /*global describe, it */
 
 var should = require('should')
+var thunk = require('thunks')()
 var Bluebird = require('bluebird')
 var redis = require('../index')
 
@@ -87,6 +88,39 @@ module.exports = function () {
         should(error).be.equal(null)
         should(res).be.equal(time)
         this.clientEnd()
+      })(done)
+    })
+  })
+
+  describe('client method', function () {
+    it('client.clientConnect, client.clientEnd and options.pingInterval', function (done) {
+      var client = redis.createClient(6379, {
+        pingInterval: 500
+      })
+
+      var _ping = client.ping
+      var pingCount = 0
+      var _pingCount = 0
+      client.ping = function () {
+        return _ping.call(client)(function (err, res) {
+          if (err) throw err
+          _pingCount++
+          return res
+        })
+      }
+
+      thunk.delay(2200)(function () {
+        var pingCount = _pingCount
+        should(pingCount >= 4).be.equal(true)
+        client.clientEnd()
+        return thunk.delay(1000)
+      })(function () {
+        should(pingCount).be.equal(_pingCount)
+        client.clientConnect()
+        return thunk.delay(1200)
+      })(function () {
+        should(_pingCount >= (pingCount + 2)).be.equal(true)
+        client.clientEnd()
       })(done)
     })
   })

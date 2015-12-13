@@ -53,6 +53,8 @@ redis.calcSlot(118); // => 13162
 
 ## Others
 
+
+#### client.clientConnect()
 #### client.clientEnd()
 #### client.clientUnref()
 #### client.clientState()
