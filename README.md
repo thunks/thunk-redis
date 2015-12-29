@@ -209,6 +209,9 @@ var client2 = redis.createClient({database: 2})
 var client3 = redis.createClient(6379, {database: 2})
 var client4 = redis.createClient('127.0.0.1:6379', {database: 2})
 var client5 = redis.createClient(6379, '127.0.0.1', {database: 2})
+var client6 = redis.createClient([6379, 6380])
+var client7 = redis.createClient(['127.0.0.1:6379', '127.0.0.1:6380']) // IPv4
+var client8 = redis.createClient(['[::1]:6379', '[::1]:6380']) // IPv6
 ```
 
 **redis cluster:**
@@ -235,9 +238,9 @@ var client4 = redis.createClient([
 var clientX = redis.createClient(7000, {clusterMode: false})
 ```
 
-- `options.handleError`: *Optional*, Type: `Boolean`, Default: `true`.
+- `options.onlyMaster`: *Optional*, Type: `Boolean`, Default: `true`.
 
-    Handle client error event.
+    In replication mode, thunk-redis will try to connect master node and close slave node.
 
 - `options.authPass`: *Optional*, Type: `String`, Default: `''`.
 

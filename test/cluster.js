@@ -6,6 +6,10 @@ var redis = require('../index')
 var client = redis.createClient(7000)
 var count = 50000
 
+client.on('error', function (err) {
+  console.log(JSON.stringify(err))
+})
+
 before(function *() {
   yield client.info()
 })

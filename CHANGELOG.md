@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0] - 2015-12-29
+### Changed
+
+- change default `options.maxAttempts` to `5`
+- add `options.onlyMaster`, it is useful for replication mode.
+- remove `options.handleError`
+- support IPv6
+
 ## [1.3.0] - 2015-12-13
 ### Changed
 

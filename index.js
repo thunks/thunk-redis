@@ -9,6 +9,7 @@ const defaultHost = '127.0.0.1'
 const tool = require('./lib/tool')
 const calcSlot = require('./lib/slot')
 const RedisClient = require('./lib/client')
+const wrapIPv6Address = require('./lib/connection').wrapIPv6Address
 
 exports.log = tool.log
 exports.each = tool.each
@@ -48,18 +49,14 @@ exports.createClient = function (port, host, options) {
   options.returnBuffers = !!options.returnBuffers
   options.authPass = (options.authPass || '') + ''
   options.noDelay = options.noDelay == null ? true : !!options.noDelay
+  options.onlyMaster = options.onlyMaster == null ? true : !!options.onlyMaster
+
   options.database = options.database > 0 ? Math.floor(options.database) : 0
-  options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 20
+  options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 5
   options.pingInterval = options.pingInterval >= 0 ? Math.min(options.pingInterval) : 0
   options.retryMaxDelay = options.retryMaxDelay >= 3000 ? Math.floor(options.retryMaxDelay) : 5 * 60 * 1000
 
   var client = new RedisClient(addressArray, options)
-
-  if (options.handleError !== false) {
-    client.on('error', function (err) {
-      console.error('thunk-redis', err.stack)
-    })
-  }
 
   var AliasPromise = options.usePromise
 
@@ -84,12 +81,13 @@ exports.createClient = function (port, host, options) {
   return client
 }
 
+// return ['[192.168.0.100]:6379', '[::192.9.5.5]:6379']
 function normalizeNetAddress (array) {
   return array.map(function (options) {
-    if (typeof options === 'string') return options
-    if (typeof options === 'number') return defaultHost + ':' + options
+    if (typeof options === 'string') return wrapIPv6Address(options)
+    if (typeof options === 'number') return wrapIPv6Address(defaultHost, options)
     options.host = options.host || defaultHost
     options.port = options.port || defaultPort
-    return options.host + ':' + options.port
+    return wrapIPv6Address(options.host, options.port)
   })
 }

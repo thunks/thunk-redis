@@ -4,7 +4,14 @@ var assert = require('assert')
 var thunk = require('thunks')()
 var redis = require('../index')
 var clientM = redis.createClient(6390)
-var clientS = redis.createClient(6391)
+var clientS = redis.createClient(6391, {onlyMaster: false})
+
+clientM.on('error', function (err) {
+  console.log('clientM', JSON.stringify(err))
+})
+clientS.on('error', function (err) {
+  console.log('clientS', JSON.stringify(err))
+})
 
 before(function *() {
   yield clientM.flushall()
