@@ -70,7 +70,7 @@ exports.createClient = function (port, host, options) {
   tool.each(client.clientCommands, function (command) {
     var commandMethod = client[command]
     client[command] = client[command.toUpperCase()] = function () {
-      var thunk = commandMethod.apply(client, arguments)
+      var thunk = commandMethod.apply(this, arguments)
       return new AliasPromise(function (resolve, reject) {
         thunk(function (err, res) {
           return err == null ? resolve(res) : reject(err)
