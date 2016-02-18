@@ -2,7 +2,7 @@
 
 var assert = require('assert')
 var thunks = require('thunks')
-var redis = require('../index')
+var redis = require('..')
 
 module.exports = function () {
   describe('chaos test', function () {

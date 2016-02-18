@@ -4,7 +4,7 @@
 
 const assert = require('assert')
 const thunk = require('thunks')()
-const redis = require('../index')
+const redis = require('..')
 const clusterHosts = [
   '120.26.37.146:6379',
   '120.26.37.146:6380',

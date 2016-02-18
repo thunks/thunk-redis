@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove auto-discover cluster nodes during initialization. Because the nodes information
 from "cluster slots" command includes local-host information. But it will anto-connect
 node by "MOVED" and "ASK".
+- Change files structure.
 
 ## [1.4.1] - 2016-01-20
 ### Changed

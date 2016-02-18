@@ -2,7 +2,7 @@
 
 var should = require('should')
 var JSONKit = require('jsonkit')
-var redis = require('../index')
+var redis = require('..')
 
 module.exports = function () {
   describe('commands:Hash', function () {

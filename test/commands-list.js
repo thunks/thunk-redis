@@ -2,7 +2,7 @@
 
 var should = require('should')
 var thunk = require('thunks')()
-var redis = require('../index')
+var redis = require('..')
 
 module.exports = function () {
   describe('commands:List', function () {

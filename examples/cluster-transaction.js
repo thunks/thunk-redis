@@ -1,7 +1,7 @@
 'use strict'
 /*global */
 
-var redis = require('../index')
+var redis = require('..')
 var client = redis.createClient(7000, {debugMode: false})
 
 client.info()(function *() {

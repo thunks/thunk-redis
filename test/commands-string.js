@@ -1,7 +1,7 @@
 /*global describe, it, before, after, beforeEach */
 
 var should = require('should')
-var redis = require('../index')
+var redis = require('..')
 
 module.exports = function () {
   describe('commands:String', function () {

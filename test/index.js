@@ -1,7 +1,7 @@
 /*global describe, before, after*/
 
 var should = require('should')
-var redis = require('../index')
+var redis = require('..')
 var clientTest = require('./client')
 var commandsConnection = require('./commands-connection')
 var commandsGeo = require('./commands-geo')

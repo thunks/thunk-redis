@@ -2,7 +2,7 @@
 
 const assert = require('assert')
 const thunk = require('thunks')()
-const redis = require('../index')
+const redis = require('..')
 const IoRedis = require('ioredis')
 
 thunk(function *() {

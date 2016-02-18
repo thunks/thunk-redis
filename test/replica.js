@@ -2,7 +2,7 @@
 
 var assert = require('assert')
 var thunk = require('thunks')()
-var redis = require('../index')
+var redis = require('..')
 var clientM = redis.createClient(6390)
 var clientS = redis.createClient(6391, {onlyMaster: false})
 

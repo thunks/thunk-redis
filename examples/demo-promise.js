@@ -1,7 +1,7 @@
 'use strict'
 /*global */
 
-var redis = require('../index')
+var redis = require('..')
 var Bluebird = require('bluebird')
 var client = redis.createClient({
   database: 1,

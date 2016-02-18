@@ -1,7 +1,7 @@
 'use strict'
 
 const thunk = require('thunks')()
-const redis = require('../index')
+const redis = require('..')
 const nodeRedis = require('redis')
 const IoRedis = require('ioredis')
 // const co = require('co')
