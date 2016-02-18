@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0] - 2016-02-18
+### Changed
+
+- Remove auto-discover cluster nodes during initialization. Because the nodes information
+from "cluster slots" command includes local-host information. But it will anto-connect
+node by "MOVED" and "ASK".
+
+## [1.4.1] - 2016-01-20
+### Changed
+
+- Update dependencies
+
 ## [1.4.0] - 2015-12-29
 ### Changed
 
