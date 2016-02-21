@@ -4,8 +4,8 @@ The fastest thunk/promise-based redis client, support all redis features.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Downloads][downloads-image]][downloads-url]
 [![js-standard-style][js-standard-image]][js-standard-url]
-[![Talk topic][talk-image]][talk-url]
 
 ## [thunks](https://github.com/thunks/thunks)
 
@@ -209,6 +209,7 @@ var client2 = redis.createClient({database: 2})
 var client3 = redis.createClient(6379, {database: 2})
 var client4 = redis.createClient('127.0.0.1:6379', {database: 2})
 var client5 = redis.createClient(6379, '127.0.0.1', {database: 2})
+// connect to 2 nodes
 var client6 = redis.createClient([6379, 6380])
 var client7 = redis.createClient(['127.0.0.1:6379', '127.0.0.1:6380']) // IPv4
 var client8 = redis.createClient(['[::1]:6379', '[::1]:6380']) // IPv6
@@ -309,8 +310,8 @@ DEBUG=redis:* node examples/demo
 [travis-url]: https://travis-ci.org/thunks/thunk-redis
 [travis-image]: http://img.shields.io/travis/thunks/thunk-redis.svg
 
-[talk-url]: https://guest.talk.ai/rooms/d1ccbf802n
-[talk-image]: https://img.shields.io/talk/t/d1ccbf802n.svg
+[downloads-url]: https://npmjs.org/package/thunk-redis
+[downloads-image]: http://img.shields.io/npm/dm/thunk-redis.svg?style=flat-square
 
 [js-standard-url]: https://github.com/feross/standard
 [js-standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat

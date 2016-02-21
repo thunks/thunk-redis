@@ -17,7 +17,10 @@ var client2 = redis.createClient({database: 2});
 var client3 = redis.createClient(6379, {database: 2});
 var client4 = redis.createClient('127.0.0.1:6379', {database: 2});
 var client5 = redis.createClient(6379, '127.0.0.1', {database: 2});
-var client6 = redis.createClient([7000, 7001, 7002], {authPass: 'authPassXXX'});
+// connect to 2 nodes
+var client6 = redis.createClient([6379, 6380])
+var client7 = redis.createClient(['127.0.0.1:6379', '127.0.0.1:6380']) // IPv4
+var client8 = redis.createClient(['[::1]:6379', '[::1]:6380']) // IPv6
 ```
 
 #### redis.log([...])
