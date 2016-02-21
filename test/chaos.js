@@ -62,7 +62,8 @@ module.exports = function () {
 
       function * updateUser (id, score) {
         var cli = getClient()
-        var user = JSON.parse(yield cli.get(id))
+        var user = yield cli.get(id)
+        user = JSON.parse(user)
         user.score = score
         user.updatedAt = Date.now()
         var result = yield [

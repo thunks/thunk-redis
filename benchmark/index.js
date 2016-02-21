@@ -266,83 +266,83 @@ function * bench () {
   timeI = Date.now() - timeI
   printResult('GET long string', timeN, timeT, timeI)
 
-  // INCR
-  yield thunk.delay(100)
-
-  timeN = Date.now()
-  yield queue.map(function () {
-    return function (done) { clientN.incr('zensh_thunks_00000003', done) }
-  })
-  timeN = Date.now() - timeN
-
-  yield thunk.delay(100)
-
-  timeT = Date.now()
-  yield queue.map(function () {
-    return clientT.incr('zensh_thunks_00000003')
-  })
-  timeT = Date.now() - timeT
-
-  yield thunk.delay(100)
-
-  timeI = Date.now()
-  yield queue.map(function () {
-    return clientI.incr('zensh_thunks_00000003')
-  })
-  timeI = Date.now() - timeI
-  printResult('INCR', timeN, timeT, timeI)
-
-  // LPUSH
-  yield thunk.delay(100)
-
-  timeN = Date.now()
-  yield queue.map(function () {
-    return function (done) { clientN.lpush('zensh_thunks_00000004', smallStr, done) }
-  })
-  timeN = Date.now() - timeN
-
-  yield thunk.delay(100)
-
-  timeT = Date.now()
-  yield queue.map(function () {
-    return clientT.lpush('zensh_thunks_00000004', smallStr)
-  })
-  timeT = Date.now() - timeT
-
-  yield thunk.delay(100)
-
-  timeI = Date.now()
-  yield queue.map(function () {
-    return clientI.lpush('zensh_thunks_00000004', smallStr)
-  })
-  timeI = Date.now() - timeI
-  printResult('LPUSH', timeN, timeT, timeI)
-
-  // LRANGE
-  yield thunk.delay(100)
-
-  timeN = Date.now()
-  yield queue.map(function () {
-    return function (done) { clientN.lrange('zensh_thunks_00000004', '0', '100', done) }
-  })
-  timeN = Date.now() - timeN
-
-  yield thunk.delay(100)
-
-  timeT = Date.now()
-  yield queue.map(function () {
-    return clientT.lrange('zensh_thunks_00000004', '0', '100')
-  })
-  timeT = Date.now() - timeT
-
-  yield thunk.delay(100)
-
-  timeI = Date.now()
-  yield queue.map(function () {
-    return clientI.lrange('zensh_thunks_00000004', '0', '100')
-  })
-  timeI = Date.now() - timeI
-  printResult('LRANGE 100', timeN, timeT, timeI)
+  // // INCR
+  // yield thunk.delay(100)
+  //
+  // timeN = Date.now()
+  // yield queue.map(function () {
+  //   return function (done) { clientN.incr('zensh_thunks_00000003', done) }
+  // })
+  // timeN = Date.now() - timeN
+  //
+  // yield thunk.delay(100)
+  //
+  // timeT = Date.now()
+  // yield queue.map(function () {
+  //   return clientT.incr('zensh_thunks_00000003')
+  // })
+  // timeT = Date.now() - timeT
+  //
+  // yield thunk.delay(100)
+  //
+  // timeI = Date.now()
+  // yield queue.map(function () {
+  //   return clientI.incr('zensh_thunks_00000003')
+  // })
+  // timeI = Date.now() - timeI
+  // printResult('INCR', timeN, timeT, timeI)
+  //
+  // // LPUSH
+  // yield thunk.delay(100)
+  //
+  // timeN = Date.now()
+  // yield queue.map(function () {
+  //   return function (done) { clientN.lpush('zensh_thunks_00000004', smallStr, done) }
+  // })
+  // timeN = Date.now() - timeN
+  //
+  // yield thunk.delay(100)
+  //
+  // timeT = Date.now()
+  // yield queue.map(function () {
+  //   return clientT.lpush('zensh_thunks_00000004', smallStr)
+  // })
+  // timeT = Date.now() - timeT
+  //
+  // yield thunk.delay(100)
+  //
+  // timeI = Date.now()
+  // yield queue.map(function () {
+  //   return clientI.lpush('zensh_thunks_00000004', smallStr)
+  // })
+  // timeI = Date.now() - timeI
+  // printResult('LPUSH', timeN, timeT, timeI)
+  //
+  // // LRANGE
+  // yield thunk.delay(100)
+  //
+  // timeN = Date.now()
+  // yield queue.map(function () {
+  //   return function (done) { clientN.lrange('zensh_thunks_00000004', '0', '100', done) }
+  // })
+  // timeN = Date.now() - timeN
+  //
+  // yield thunk.delay(100)
+  //
+  // timeT = Date.now()
+  // yield queue.map(function () {
+  //   return clientT.lrange('zensh_thunks_00000004', '0', '100')
+  // })
+  // timeT = Date.now() - timeT
+  //
+  // yield thunk.delay(100)
+  //
+  // timeI = Date.now()
+  // yield queue.map(function () {
+  //   return clientI.lrange('zensh_thunks_00000004', '0', '100')
+  // })
+  // timeI = Date.now() - timeI
+  // printResult('LRANGE 100', timeN, timeT, timeI)
 
   yield thunk.delay(100)
   process.exit()

@@ -168,9 +168,6 @@ module.exports = function () {
           return this.hmset('key', 'key3', 'hello')
         })(function (error, res) {
           should(error).be.instanceOf(Error)
-          return this.hmset('hash', 'key3', null)
-        })(function (error, res) {
-          should(error).be.instanceOf(Error)
         })
       })(done)
     })
