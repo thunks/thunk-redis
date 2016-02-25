@@ -61,7 +61,6 @@ redis.calcSlot(118); // => 13162
 #### client.clientEnd()
 #### client.clientUnref()
 #### client.clientState()
-#### client.clientSwitch(redisId)
 
 #### client.evalauto(script, numkeys, key, [key ...], arg, [arg ...])
 
