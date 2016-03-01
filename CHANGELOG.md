@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.2] - 2016-03-01
+### Changed
+
+- Improve connection.
+
+### fixed
+
+- fixed for old redis(v2.8.x).
+
 ## [1.5.1] - 2016-02-21
 ### Changed
 
