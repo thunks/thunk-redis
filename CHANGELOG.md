@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.4] - 2016-03-16
+### Changed
+
+- Remove socket.cork account to a bug in node.js.
+
 ## [1.5.3] - 2016-03-14
 ### Changed
 
