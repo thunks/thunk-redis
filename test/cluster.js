@@ -6,11 +6,12 @@ const assert = require('assert')
 const thunk = require('thunks')()
 const redis = require('..')
 const clusterHosts = [
-  '120.26.37.146:6379',
-  '120.26.37.146:6380',
-  '52.73.204.217:6379',
-  '52.73.204.217:6380',
-  '52.8.203.123:6379'
+  '127.0.0.1:7000',
+  '127.0.0.1:7001',
+  '127.0.0.1:7002',
+  '127.0.0.1:7003',
+  '127.0.0.1:7004',
+  '127.0.0.1:7005'
 ]
 const client = redis.createClient(clusterHosts)
 const count = 10000
@@ -70,7 +71,7 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it.skip('transaction', function *() {
+  it('transaction', function *() {
     for (let i = 0; i < count; i++) {
       let res = yield [
         client.multi(i),
