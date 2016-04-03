@@ -7,10 +7,10 @@
     "Yan Qing <admin@zensh.com>"
   ],
   "scripts": {
-    "test": "standard && mocha -t 10000 -r thunk-mocha test/index.js",
-    "test-full": "standard && mocha -t 10000 -r thunk-mocha test/index-full.js",
-    "test-cluster": "mocha -t 100000 -r thunk-mocha test/cluster.js",
-    "test-replica": "mocha -t 10000 -r thunk-mocha test/replica.js"
+    "test": "standard && tman -t 10000 test/index.js",
+    "test-full": "standard && tman -t 10000 test/index-full.js",
+    "test-cluster": "tman -t 100000 test/cluster.js",
+    "test-replica": "tman -t 10000 test/replica.js"
   },
   "repository": {
     "type": "git",
@@ -33,15 +33,14 @@
   "dependencies": {
     "debug": "^2.2.0",
     "respjs": "^3.1.0",
-    "thunks": "^4.1.4"
+    "thunks": "^4.1.5"
   },
   "devDependencies": {
     "bluebird": "^3.3.4",
     "jsonkit": "^0.3.2",
-    "mocha": "^2.4.5",
-    "should": "^8.2.2",
+    "should": "^8.3.0",
     "standard": "^6.0.8",
-    "thunk-mocha": "^1.0.3"
+    "tman": "^0.5.0"
   },
   "license": "MIT",
   "bugs": {
