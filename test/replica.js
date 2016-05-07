@@ -13,12 +13,12 @@ clientS.on('error', function (err) {
   console.log('clientS', JSON.stringify(err))
 })
 
-before(function *() {
+before(function * () {
   yield clientM.flushall()
   yield clientS.info()
 })
 
-after(function *() {
+after(function * () {
   yield thunk.delay(1000)
   process.exit()
 })
@@ -29,7 +29,7 @@ describe('replication test', function () {
     assert.strictEqual(clientS._redisState.getConnection(-1).isMaster, false)
   })
 
-  it('sync keys', function *() {
+  it('sync keys', function * () {
     var value = String(Date.now())
 
     assert.strictEqual((yield clientM.set('key1', value)), 'OK')

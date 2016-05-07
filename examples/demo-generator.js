@@ -4,7 +4,7 @@
 var redis = require('..')
 var client = redis.createClient()
 
-client.select(1)(function *(error, res) {
+client.select(1)(function * (error, res) {
   console.log(error, res)
 
   yield this.set('foo', 'bar')

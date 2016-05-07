@@ -4,7 +4,7 @@
 var redis = require('..')
 var client = redis.createClient(7000, {debugMode: false})
 
-client.info()(function *() {
+client.info()(function * () {
   var res = yield [
     this.multi('key'),
     this.set('key', 'key'),

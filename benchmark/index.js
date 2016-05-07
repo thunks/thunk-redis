@@ -74,7 +74,7 @@ function * bench () {
   yield thunk.delay(100)
 
   timeN = Date.now()
-  yield function *() {
+  yield function * () {
     let count = queue.length
     yield queue.slice(0, 1000).map(function () {
       return next
@@ -95,7 +95,7 @@ function * bench () {
   yield thunk.delay(100)
 
   timeT = Date.now()
-  yield function *() {
+  yield function * () {
     let count = queue.length
     yield queue.slice(0, 1000).map(function () {
       return next
@@ -116,7 +116,7 @@ function * bench () {
   yield thunk.delay(100)
 
   timeI = Date.now()
-  yield function *() {
+  yield function * () {
     let count = queue.length
     yield queue.slice(0, 1000).map(function () {
       return next

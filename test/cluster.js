@@ -20,24 +20,24 @@ client.on('error', function (err) {
   console.log(JSON.stringify(err))
 })
 
-before(function *() {
+before(function * () {
   console.log(yield client.cluster('slots'))
 })
 
-after(function *() {
+after(function * () {
   yield thunk.delay(1000)
   process.exit()
 })
 
 describe('cluster test', function () {
-  it('auto find node by "MOVED" and "ASK"', function *() {
+  it('auto find node by "MOVED" and "ASK"', function * () {
     let clusterHosts2 = clusterHosts.slice()
     clusterHosts2.pop() // drop a node
     let client2 = redis.createClient(clusterHosts2)
     let task = []
     let len = count
     while (len--) {
-      task.push(thunk(len + '')(function *(_, res) {
+      task.push(thunk(len + '')(function * (_, res) {
         assert.strictEqual((yield client2.set(res, res)), 'OK')
         assert.strictEqual((yield client2.get(res)), res)
         if (!(res % 500)) process.stdout.write('.')
@@ -46,11 +46,11 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it('create 10000 keys', function *() {
+  it('create 10000 keys', function * () {
     let task = []
     let len = count
     while (len--) {
-      task.push(thunk(len + '')(function *(_, res) {
+      task.push(thunk(len + '')(function * (_, res) {
         assert.strictEqual((yield client.set(res, res)), 'OK')
         assert.strictEqual((yield client.get(res)), res)
         if (!(res % 500)) process.stdout.write('.')
@@ -59,11 +59,11 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it('get 10000 keys', function *() {
+  it('get 10000 keys', function * () {
     let task = []
     let len = count
     while (len--) {
-      task.push(thunk(len + '')(function *(_, res) {
+      task.push(thunk(len + '')(function * (_, res) {
         assert.strictEqual((yield client.get(res)), res)
         if (!(res % 500)) process.stdout.write('.')
       }))
@@ -71,7 +71,7 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it('transaction', function *() {
+  it('transaction', function * () {
     for (let i = 0; i < count; i++) {
       let res = yield [
         client.multi(i),
@@ -88,7 +88,7 @@ describe('cluster test', function () {
     }
   })
 
-  it('evalauto', function *() {
+  it('evalauto', function * () {
     let task = []
     let len = count
     while (len--) addTask(len)
@@ -97,7 +97,7 @@ describe('cluster test', function () {
     while (len--) assert.strictEqual(res[len] + len, count - 1)
 
     function addTask (index) {
-      task.push(function *() {
+      task.push(function * () {
         let res = yield client.evalauto('return KEYS[1]', 1, index)
         assert.strictEqual(+res, index)
         if (!(index % 500)) process.stdout.write('.')
@@ -106,7 +106,7 @@ describe('cluster test', function () {
     }
   })
 
-  it.skip('kill a master', function *() {
+  it.skip('kill a master', function * () {
     let task = []
     let result = {}
     let len = 10000
@@ -121,7 +121,7 @@ describe('cluster test', function () {
     })
 
     while (len--) {
-      task.push(thunk(len + '')(function *(_, res) {
+      task.push(thunk(len + '')(function * (_, res) {
         return yield client.get(res)
       })(function (err, res) {
         assert.strictEqual(err, null)

@@ -69,7 +69,7 @@ describe('thunk-redis', function () {
   commandsTransaction()
 
   try {
-    var check = new Function('return function*(){}') // eslint-disable-line
+    var check = new Function('return function* (){}') // eslint-disable-line
     require('./chaos')()
   } catch (e) {
     console.log('Not support generator!')

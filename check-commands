@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const redis = require('./index')
+const redis = require('./lib/index')
 const cli = redis.createClient(6379)
 
 cli.info()(function *(err, info) {

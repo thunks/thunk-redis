@@ -5,7 +5,7 @@ const thunk = require('thunks')()
 const redis = require('..')
 const IoRedis = require('ioredis')
 
-thunk(function *() {
+thunk(function * () {
   var timeT = 0
   var timeI = 0
   var testLen = 100000
