@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.2] - 2016-05-24
+### Fixed
+
+- Fixed for PubSub keyword 'message'.
+
 ## [1.6.1] - 2016-05-24
 ### Changed
 

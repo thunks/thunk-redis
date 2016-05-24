@@ -127,6 +127,15 @@ module.exports = function () {
       })(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([1, 0, 0])
+        return this.sadd('especialKey', 'pmessage', 'message')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(2)
+        return this.smembers('especialKey')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.containEql('message')
+        should(res).be.containEql('pmessage')
       })(done)
     })
 
