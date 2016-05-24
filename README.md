@@ -286,24 +286,6 @@ var clientX = redis.createClient(7000, {clusterMode: false})
 
     How many ms before sending a ping packet. There is no ping packet by default(`0` to disable). If redis server enable `timeout` config, this option will be useful.
 
-## Debug
-
-Tool: **https://github.com/visionmedia/debug**
-
-Debugs: `redis:resp`, `redis:socket`, `redis:command`
-
-**Debug all:**
-```sh
-DEBUG=redis:* node examples/demo
-```
-
-## Who's using
-
-### [Teambition](https://www.teambition.com/)
-1. Teambition community https://bbs.teambition.com/
-2. Teambition message service https://push.teambition.com/
-
-
 [npm-url]: https://npmjs.org/package/thunk-redis
 [npm-image]: http://img.shields.io/npm/v/thunk-redis.svg
 

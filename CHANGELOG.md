@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.1] - 2016-05-24
+### Changed
+
+- Remove "debug" module.
+- Update dependencies.
+
+## [1.6.0] - 2016-05-07
+### Changed
+
+- Support redis v3.2.
+
 ## [1.5.4] - 2016-03-16
 ### Changed
 
