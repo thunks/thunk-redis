@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.4] - 2016-06-07
+### Changed
+
+- Update dependencies.
+
 ## [1.6.3] - 2016-05-29
 ### Changed
 
