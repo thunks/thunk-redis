@@ -90,6 +90,46 @@ module.exports = function () {
         this.clientEnd()
       })(done)
     })
+
+    it('redis.createClient(redisUrl, options) with error', function (done) {
+      var client = redis.createClient('redis://USER:PASS@localhost:6379', {
+        database: 1
+      })
+
+      client.on('error', function (error) {
+        should(error.message).be.containEql('AUTH')
+        should(error.message).be.containEql('no password')
+        done()
+      })
+    })
+
+    it('redis.createClient(redisUrl, options)', function (done) {
+      var client = redis.createClient('redis://localhost:6379', {
+        database: 1
+      })
+      var client2 = null
+
+      client.get('test')(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(time)
+        return this.config('set', 'requirepass', '123456')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal('OK')
+        this.clientEnd()
+        client2 = redis.createClient('redis://123456@localhost:6379', {
+          database: 1
+        })
+        return client2.get('test')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal(time)
+        return client2.config('set', 'requirepass', '')
+      })(function (error, res) {
+        should(error).be.equal(null)
+        should(res).be.equal('OK')
+      })(done)
+    })
   })
 
   describe('client method', function () {
