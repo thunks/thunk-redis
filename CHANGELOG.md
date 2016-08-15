@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file starting from version **v1.1.0**.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.7] - 2016-08-15
+### Changed
+
+- Update dependencies.
+- Improve socket send.
+
 ## [1.6.6] - 2016-07-22
 ### Changed
 
