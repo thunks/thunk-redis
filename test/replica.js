@@ -1,10 +1,10 @@
 /*global describe, it, before, after*/
 
-var assert = require('assert')
-var thunk = require('thunks')()
-var redis = require('..')
-var clientM = redis.createClient(6390)
-var clientS = redis.createClient(6391, {onlyMaster: false})
+const assert = require('assert')
+const thunk = require('thunks')()
+const redis = require('..')
+const clientM = redis.createClient(6390)
+const clientS = redis.createClient(6391, {onlyMaster: false})
 
 clientM.on('error', function (err) {
   console.log('clientM', JSON.stringify(err))

@@ -1,9 +1,9 @@
 /*global describe, it, before, after, beforeEach */
 
-var should = require('should')
-var thunk = require('thunks')()
-var JSONKit = require('jsonkit')
-var redis = require('..')
+const should = require('should')
+const thunk = require('thunks')()
+const JSONKit = require('jsonkit')
+const redis = require('..')
 
 module.exports = function () {
   describe('commands:Sorted Set', function () {

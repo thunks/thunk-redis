@@ -1,8 +1,8 @@
 /*global describe, it*/
 
-var assert = require('assert')
-var thunks = require('thunks')
-var redis = require('..')
+const assert = require('assert')
+const thunks = require('thunks')
+const redis = require('..')
 
 module.exports = function () {
   describe('chaos test', function () {

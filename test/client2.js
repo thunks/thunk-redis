@@ -1,7 +1,7 @@
 /*global describe, it */
 
-var should = require('should')
-var redis = require('..')
+const should = require('should')
+const redis = require('..')
 
 module.exports = function () {
   describe('createClient2', function () {

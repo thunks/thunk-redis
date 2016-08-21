@@ -1,9 +1,8 @@
 /*global describe, it */
 
-var should = require('should')
-var thunk = require('thunks')()
-var Bluebird = require('bluebird')
-var redis = require('..')
+const should = require('should')
+const thunk = require('thunks')()
+const redis = require('..')
 
 module.exports = function () {
   describe('createClient', function () {
@@ -56,12 +55,12 @@ module.exports = function () {
       }, done)
     })
 
-    it('redis.createClient({usePromise: Bluebird})', function (done) {
+    it('redis.createClient({usePromise: Promise})', function (done) {
       var client = redis.createClient({
-        usePromise: Bluebird
+        usePromise: Promise
       })
       var promise = client.info()
-      should(promise).be.instanceof(Bluebird)
+      should(promise).be.instanceof(Promise)
       promise.then(function (res) {
         done()
       }, done)

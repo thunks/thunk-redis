@@ -1,8 +1,8 @@
 /*global describe, it, before, after, beforeEach */
 
-var should = require('should')
-var thunk = require('thunks')()
-var redis = require('..')
+const should = require('should')
+const thunk = require('thunks')()
+const redis = require('..')
 
 module.exports = function () {
   describe('commands:HyperLogLog', function () {

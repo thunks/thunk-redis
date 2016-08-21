@@ -1,8 +1,8 @@
 /*global describe, it, before, after, beforeEach */
 
-var should = require('should')
-var JSONKit = require('jsonkit')
-var redis = require('..')
+const should = require('should')
+const JSONKit = require('jsonkit')
+const redis = require('..')
 
 module.exports = function () {
   describe('commands:Hash', function () {
