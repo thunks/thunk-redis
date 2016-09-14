@@ -1,4 +1,4 @@
-/*global describe, it */
+/* global describe, it */
 
 const should = require('should')
 const thunk = require('thunks')()

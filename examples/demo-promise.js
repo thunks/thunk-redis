@@ -1,5 +1,5 @@
 'use strict'
-/*global */
+/* global */
 
 var redis = require('..')
 var Bluebird = require('bluebird')

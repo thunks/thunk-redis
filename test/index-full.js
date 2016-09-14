@@ -1,4 +1,4 @@
-/*global describe, before, after */
+/* global describe, before, after */
 
 const should = require('should')
 const redis = require('..')

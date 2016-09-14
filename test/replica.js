@@ -1,4 +1,4 @@
-/*global describe, it, before, after*/
+/* global describe, it, before, after */
 
 const assert = require('assert')
 const thunk = require('thunks')()

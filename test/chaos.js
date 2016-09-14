@@ -1,4 +1,4 @@
-/*global describe, it*/
+/* global describe, it */
 
 const assert = require('assert')
 const thunks = require('thunks')
