@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file starting fro
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
+## [1.7.2] - 2016-10-02
+### Changed
+
+- Updated dependencies.
+
+-----
 ## [1.7.1] - 2016-09-14
 ### Changed
 
 - Updated dependencies.
 
+-----
 ## [1.7.0] - 2016-08-21
 ### Changed
 

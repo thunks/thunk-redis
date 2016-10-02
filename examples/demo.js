@@ -1,9 +1,8 @@
 'use strict'
-/* global */
 
-var redis = require('..')
-var thunk = require('thunks')()
-var client = redis.createClient({
+const redis = require('..')
+const thunk = require('thunks')()
+const client = redis.createClient({
   database: 1
 })
 

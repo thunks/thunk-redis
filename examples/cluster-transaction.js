@@ -1,11 +1,10 @@
 'use strict'
-/* global */
 
-var redis = require('..')
-var client = redis.createClient(7000, {debugMode: false})
+const redis = require('..')
+const client = redis.createClient(7000, {debugMode: false})
 
 client.info()(function * () {
-  var res = yield [
+  let res = yield [
     this.multi('key'),
     this.set('key', 'key'),
     this.get('key'),

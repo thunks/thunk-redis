@@ -1,9 +1,8 @@
 'use strict'
-/* global */
 
-var redis = require('..')
-var Bluebird = require('bluebird')
-var client = redis.createClient({
+const redis = require('..')
+const Bluebird = require('bluebird')
+const client = redis.createClient({
   database: 1,
   usePromise: Bluebird
 })

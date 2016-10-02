@@ -3,7 +3,7 @@
 const redis = require('./lib/index')
 const cli = redis.createClient(6379)
 
-cli.info()(function *(err, info) {
+cli.info()(function * (err, info) {
   if (err) throw err
   console.log('Version:', info.redis_version)
 

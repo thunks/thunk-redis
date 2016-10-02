@@ -23,12 +23,12 @@ The fastest thunk/promise-based redis client, support all redis features.
 **cluster transaction:**
 
 ```js
-var redis = require('../index')
-var client = redis.createClient(7000, {debugMode: false})
+const redis = require('../index')
+const client = redis.createClient(7000, {debugMode: false})
 
-client.info()(function* () {
+client.info()(function * () {
   // provide key to `multi` and `exec` for directing to the same node
-  var res = yield [
+  let res = yield [
     this.multi('key'),
     this.set('key', 'key'),
     this.get('key'),
@@ -51,9 +51,9 @@ client.info()(function* () {
 **default thunk API:**
 
 ```js
-var redis = require('../index')
-var thunk = require('thunks')()
-var client = redis.createClient({
+const redis = require('../index')
+const thunk = require('thunks')()
+const client = redis.createClient({
   database: 1
 })
 
@@ -89,12 +89,9 @@ client.info('server')(function (error, res) {
 
 **use promise API:**
 ```js
-'use strict'
-/*global */
-
-var redis = require('../index')
-var Promise = require('bluebird')
-var client = redis.createClient({
+const redis = require('../index')
+const Promise = require('bluebird')
+const client = redis.createClient({
   database: 1,
   usePromise: Promise
 })
@@ -140,8 +137,8 @@ client
 
 **support generator in thunk API:**
 ```js
-var redis = require('thunk-redis')
-var client = redis.createClient()
+const redis = require('thunk-redis')
+const client = redis.createClient()
 
 client.select(1)(function* (error, res) {
   console.log(error, res)
@@ -197,38 +194,38 @@ npm install thunk-redis
 Helper tool, print result or error stack.
 
 ```js
-var client = redis.createClient()
+const client = redis.createClient()
 client.info()(redis.log)
 ```
 
 ### redis.createClient
 
 ```js
-var client1 = redis.createClient()
-var client2 = redis.createClient({database: 2})
-var client3 = redis.createClient(6379, {database: 2})
-var client4 = redis.createClient('127.0.0.1:6379', {database: 2})
-var client5 = redis.createClient(6379, '127.0.0.1', {database: 2})
+const client1 = redis.createClient()
+const client2 = redis.createClient({database: 2})
+const client3 = redis.createClient(6379, {database: 2})
+const client4 = redis.createClient('127.0.0.1:6379', {database: 2})
+const client5 = redis.createClient(6379, '127.0.0.1', {database: 2})
 // connect to 2 nodes
-var client6 = redis.createClient([6379, 6380])
-var client7 = redis.createClient(['127.0.0.1:6379', '127.0.0.1:6380']) // IPv4
-var client8 = redis.createClient(['[::1]:6379', '[::1]:6380']) // IPv6
+const client6 = redis.createClient([6379, 6380])
+const client7 = redis.createClient(['127.0.0.1:6379', '127.0.0.1:6380']) // IPv4
+const client8 = redis.createClient(['[::1]:6379', '[::1]:6380']) // IPv6
 ```
 
 **redis cluster:**
 
 ```js
 // assume cluster: '127.0.0.1:7000', '127.0.0.1:7001', '127.0.0.1:7002', ...
-var client1 = redis.createClient(7000, options) // will auto find cluster nodes!
-var client2 = redis.createClient([7000, 7001, 7002], options)
+const client1 = redis.createClient(7000, options) // will auto find cluster nodes!
+const client2 = redis.createClient([7000, 7001, 7002], options)
 
-var client3 = redis.createClient([
+const client3 = redis.createClient([
   '127.0.0.1:7000',
   '127.0.0.1:7001',
   '127.0.0.1:7002'
 ], options)
 
-var client4 = redis.createClient([
+const client4 = redis.createClient([
   {host: '127.0.0.1', port: 7000},
   {host: '127.0.0.1', port: 7001},
   {host: '127.0.0.1', port: 7002},
@@ -236,7 +233,7 @@ var client4 = redis.createClient([
 // All of above will work, it will find redis nodes by self.
 
 // Create a client in cluster servers without cluster mode:
-var clientX = redis.createClient(7000, {clusterMode: false})
+const clientX = redis.createClient(7000, {clusterMode: false})
 ```
 
 - `options.onlyMaster`: *Optional*, Type: `Boolean`, Default: `true`.
