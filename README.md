@@ -283,6 +283,29 @@ const clientX = redis.createClient(7000, {clusterMode: false})
 
     How many ms before sending a ping packet. There is no ping packet by default(`0` to disable). If redis server enable `timeout` config, this option will be useful.
 
+- `options.IPMap`: *Optional*, Type: `Object`, Default: `{}`.
+
+    This option use o resolve redis internal IP and external IP problem https://github.com/thunks/thunk-redis/issues/19. Define it like: `{internalIP: externalIP}`, for example:
+    ```js
+    const cli = redis.createClient([
+      '127.0.0.1:7000',
+      '127.0.0.1:7001',
+      '127.0.0.1:7002',
+      '127.0.0.1:7003',
+      '127.0.0.1:7004',
+      '127.0.0.1:7005'
+    ], {
+      IPMap: {
+        '172.17.0.2:7000': '127.0.0.1:7000',
+        '172.17.0.2:7001': '127.0.0.1:7001',
+        '172.17.0.2:7002': '127.0.0.1:7002',
+        '172.17.0.2:7003': '127.0.0.1:7003',
+        '172.17.0.2:7004': '127.0.0.1:7004',
+        '172.17.0.2:7005': '127.0.0.1:7005'
+      }
+    })
+    ```
+
 [npm-url]: https://npmjs.org/package/thunk-redis
 [npm-image]: http://img.shields.io/npm/v/thunk-redis.svg
 

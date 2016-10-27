@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file starting fro
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
+## [1.7.3] - 2016-10-27
+### Changed
+
+- Updated dependencies.
+
+### Fixed
+
+- Fixed for docker-redis-cluster, https://github.com/thunks/thunk-redis/issues/19.
+
+-----
 ## [1.7.2] - 2016-10-02
 ### Changed
 
