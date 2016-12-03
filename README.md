@@ -16,37 +16,9 @@ The fastest thunk/promise-based redis client, support all redis features.
 
 ## Demo([examples](https://github.com/zensh/thunk-redis/blob/master/examples))
 
-**https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf**
+**https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf**
 
 **Sugest set config `cluster-require-full-coverage` to `no` in redis cluster!**
-
-**cluster transaction:**
-
-```js
-const redis = require('../index')
-const client = redis.createClient(7000, {debugMode: false})
-
-client.info()(function * () {
-  // provide key to `multi` and `exec` for directing to the same node
-  let res = yield [
-    this.multi('key'),
-    this.set('key', 'key'),
-    this.get('key'),
-    this.exec('key')
-  ]
-  console.log(res) // [ 'OK', 'QUEUED', 'QUEUED', [ 'OK', 'key' ] ]
-
-  // Keys hash tags
-  res = yield [
-    this.multi('hash{tag}'),
-    this.set('hash{tag}', 'hash{tag}'),
-    this.get('hash{tag}'),
-    this.exec('hash{tag}')
-  ]
-  console.log(res) // [ 'OK', 'QUEUED', 'QUEUED', [ 'OK', 'hash{tag}' ] ]
-
-})()
-```
 
 **default thunk API:**
 
