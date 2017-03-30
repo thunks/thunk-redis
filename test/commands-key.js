@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, before, after, beforeEach */
 
 const should = require('should')
@@ -7,7 +8,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:Key', function () {
-    var client
+    let client
 
     before(function () {
       client = redis.createClient({
@@ -86,8 +87,8 @@ module.exports = function () {
     })
 
     it('client.dump, client.restore', function (done) {
-      var serializedValue
-      var client2 = redis.createClient({
+      let serializedValue
+      let client2 = redis.createClient({
         returnBuffers: true
       })
 
@@ -591,9 +592,9 @@ module.exports = function () {
     })
 
     it('client.scan', function (done) {
-      var count = 100
-      var data = {}
-      var scanKeys = []
+      let count = 100
+      let data = {}
+      let scanKeys = []
 
       while (count--) data['key' + count] = count
 

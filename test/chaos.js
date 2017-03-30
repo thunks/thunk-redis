@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it */
 
 const assert = require('assert')
@@ -6,16 +7,16 @@ const redis = require('..')
 
 module.exports = function () {
   describe('chaos test', function () {
-    var thunk = thunks(function (err) {
+    let thunk = thunks(function (err) {
       throw err
     })
-    var client = redis.createClient()
-    var clientP = redis.createClient({
+    let client = redis.createClient()
+    let clientP = redis.createClient({
       usePromise: true
     })
-    var len = 10000
-    var tasks = []
-    for (var i = 0; i < len; i++) tasks.push(i)
+    let len = 10000
+    let tasks = []
+    for (let i = 0; i < len; i++) tasks.push(i)
 
     function getClient () {
       // use thunk API or promise API randomly
@@ -30,9 +31,9 @@ module.exports = function () {
       assert((yield client.zcard('userScore')) === len)
 
       function * createUser (id) {
-        var cli = getClient()
-        var time = Date.now()
-        var user = {
+        let cli = getClient()
+        let time = Date.now()
+        let user = {
           id: id,
           name: 'user_' + id,
           email: id + '@test.com',
@@ -43,7 +44,7 @@ module.exports = function () {
         }
 
         yield thunk.delay(Math.floor(Math.random() * 5))
-        var result = yield [
+        let result = yield [
           cli.multi(),
           cli.set(id, JSON.stringify(user)),
           cli.zadd('userScore', user.score, id),
@@ -61,12 +62,12 @@ module.exports = function () {
       assert((yield client.pfcount('scoreLog')) > 5)
 
       function * updateUser (id, score) {
-        var cli = getClient()
-        var user = yield cli.get(id)
+        let cli = getClient()
+        let user = yield cli.get(id)
         user = JSON.parse(user)
         user.score = score
         user.updatedAt = Date.now()
-        var result = yield [
+        let result = yield [
           cli.multi(),
           cli.set(id, JSON.stringify(user)),
           cli.zadd('userScore', user.score, id),
@@ -80,15 +81,15 @@ module.exports = function () {
 
     it('create 10000 issues for some users', function * () {
       yield tasks.map(function (value, index) {
-        return createIssue('I' + i, 'U' + Math.floor(Math.random() * len))
+        return createIssue('I' + index, 'U' + Math.floor(Math.random() * len))
       })
 
       assert((yield client.pfcount('scoreLog')) > 5)
 
       function * createIssue (id, uid) {
-        var cli = getClient()
-        var time = Date.now()
-        var issue = {
+        let cli = getClient()
+        let time = Date.now()
+        let issue = {
           id: id,
           creatorId: uid,
           content: 'issue_' + id,
@@ -96,7 +97,7 @@ module.exports = function () {
           updatedAt: time
         }
 
-        var user = JSON.parse(yield cli.get(uid))
+        let user = JSON.parse(yield cli.get(uid))
         if (!user) {
           console.log(uid, user)
           return
@@ -105,7 +106,7 @@ module.exports = function () {
         user.score += 100
         user.updatedAt = time
 
-        var result = yield [
+        let result = yield [
           cli.multi(),
           cli.hmset(id, {
             issue: JSON.stringify(issue),

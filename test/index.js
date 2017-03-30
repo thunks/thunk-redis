@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, before, after */
 
 const should = require('should')
@@ -67,7 +68,7 @@ describe('thunk-redis', function () {
   commandsTransaction()
 
   try {
-    var check = new Function('return function* (){}') // eslint-disable-line
+    let check = new Function('return function* (){}') // eslint-disable-line
     require('./chaos')()
   } catch (e) {
     console.log('Not support generator!')

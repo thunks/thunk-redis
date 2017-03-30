@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, before, after, beforeEach */
 
 const should = require('should')
@@ -7,7 +8,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:Sorted Set', function () {
-    var client
+    let client
 
     before(function () {
       client = redis.createClient({
@@ -185,9 +186,9 @@ module.exports = function () {
     })
 
     it('client.zscan', function (done) {
-      var count = 100
-      var data = []
-      var scanKeys = []
+      let count = 100
+      let data = []
+      let scanKeys = []
 
       while (count--) data.push(count, 'z' + count)
 
@@ -203,7 +204,7 @@ module.exports = function () {
       client.zscan('zset', 0)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql(['0', []])
-        var args = data.slice()
+        let args = data.slice()
         args.unshift('zset')
         return this.zadd.apply(this, args)
       })(function (error, res) {

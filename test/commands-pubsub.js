@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, beforeEach, afterEach */
 
 const should = require('should')
@@ -6,7 +7,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:Pubsub', function () {
-    var client1, client2, client3
+    let client1, client2, client3
 
     beforeEach(function (done) {
       client1 = redis.createClient()
@@ -96,7 +97,7 @@ module.exports = function () {
     })
 
     it('client.publish', function (done) {
-      var messages = []
+      let messages = []
       client1
         .on('message', function (channel, message) {
           messages.push(message)

@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, before, after */
 
 const assert = require('assert')
@@ -30,7 +31,7 @@ describe('replication test', function () {
   })
 
   it('sync keys', function * () {
-    var value = String(Date.now())
+    let value = String(Date.now())
 
     assert.strictEqual((yield clientM.set('key1', value)), 'OK')
     assert.strictEqual((yield clientM.set('key2', value)), 'OK')

@@ -5,11 +5,11 @@ const redis = require('..')
 
 module.exports = function () {
   describe('createClient2', function () {
-    var time = '' + Date.now()
+    let time = '' + Date.now()
 
     it('redis.createClient()', function (done) {
-      var connect = false
-      var client = redis.createClient()
+      let connect = false
+      let client = redis.createClient()
 
       client.on('connect', function () {
         connect = true
@@ -31,8 +31,8 @@ module.exports = function () {
     })
 
     it('redis.createClient(address, options)', function (done) {
-      var connect = false
-      var client = redis.createClient('127.0.0.1:6379', {
+      let connect = false
+      let client = redis.createClient('127.0.0.1:6379', {
         database: 1
       })
 
@@ -49,8 +49,8 @@ module.exports = function () {
     })
 
     it('client.migrate', function (done) {
-      var client = redis.createClient()
-      var client2 = redis.createClient(6380)
+      let client = redis.createClient()
+      let client2 = redis.createClient(6380)
 
       client.set('key', 123)(function (error, res) {
         should(error).be.equal(null)

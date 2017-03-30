@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, before, after, beforeEach */
 
 const should = require('should')
@@ -6,7 +7,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:List', function () {
-    var client, client1
+    let client, client1
 
     before(function () {
       client = redis.createClient({database: 0})
@@ -32,7 +33,7 @@ module.exports = function () {
     })
 
     it('client.blpop, client.brpop', function (done) {
-      var time = Date.now()
+      let time = Date.now()
       thunk.all.call(client, [
         client.blpop('listA', 0),
         thunk.delay(100)(function () {
@@ -58,7 +59,7 @@ module.exports = function () {
     })
 
     it('client.brpoplpush, client.rpoplpush', function (done) {
-      var time = Date.now()
+      let time = Date.now()
       thunk.all.call(client, [
         client.brpoplpush('listA', 'listB', 0),
         thunk.delay(100)(function () {

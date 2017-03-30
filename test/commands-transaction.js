@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, beforeEach, afterEach */
 
 const should = require('should')
@@ -6,7 +7,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:Transaction', function () {
-    var client1, client2
+    let client1, client2
 
     beforeEach(function (done) {
       client1 = redis.createClient()

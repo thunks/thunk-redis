@@ -1,5 +1,5 @@
-thunk-redis
-==========
+# thunk-redis
+
 The fastest thunk/promise-based redis client, support all redis features.
 
 [![NPM version][npm-image]][npm-url]

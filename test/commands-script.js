@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, before, after, beforeEach */
 
 const should = require('should')
@@ -6,7 +7,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:Script', function () {
-    var client
+    let client
 
     before(function () {
       client = redis.createClient({
@@ -50,7 +51,7 @@ module.exports = function () {
     })
 
     it('client.script, client.evalsha', function (done) {
-      var sha = null
+      let sha = null
 
       client.script('load', 'return "hello thunk-redis"')(function (error, res) {
         should(error).be.equal(null)

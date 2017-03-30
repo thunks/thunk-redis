@@ -1,3 +1,4 @@
+'use strict'
 /* global describe, it, beforeEach, afterEach */
 
 const should = require('should')
@@ -6,7 +7,7 @@ const redis = require('..')
 
 module.exports = function () {
   describe('commands:Server', function () {
-    var client1, client2, client3, client4
+    let client1, client2, client3, client4
 
     beforeEach(function (done) {
       client1 = redis.createClient()
@@ -80,10 +81,10 @@ module.exports = function () {
         should(error).be.equal(null)
         return this.client('list')
       })(function (error, res) {
-        var list = res.trim().split('\n')
+        let list = res.trim().split('\n')
         should(error).be.equal(null)
         should(list.length > 3).be.equal(true)
-        var addr4 = list[list.length - 1].replace(/(^.*addr=)|( fd=.*$)/g, '')
+        let addr4 = list[list.length - 1].replace(/(^.*addr=)|( fd=.*$)/g, '')
         return this.client('kill', addr4)
       })(function (error, res) {
         should(error).be.equal(null)
@@ -157,7 +158,7 @@ module.exports = function () {
     })
 
     it('client.command', function (done) {
-      var len = 0
+      let len = 0
       client1.command()(function (error, commands) {
         should(error).be.equal(null)
         len = commands.length
