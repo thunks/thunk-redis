@@ -28,7 +28,7 @@
     "pipelining"
   ],
   "engines": {
-    "node": ">= 4.1.0"
+    "node": ">= 4.0.0"
   },
   "dependencies": {
     "respjs": "^4.0.1",
