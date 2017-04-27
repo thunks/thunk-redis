@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "The fastest thunk/promise-based redis client, support all redis features.",
   "main": "lib/index.js",
   "authors": [

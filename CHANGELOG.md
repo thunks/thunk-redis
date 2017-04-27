@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
 
+## [2.1.0] - 2017-04-27
+
+### Changed
+
+- Improve code with ES2015 style.
+- remove `each` function and `slice` function.
+
 ## [2.0.0] - 2017-03-30
 
 ### Changed
