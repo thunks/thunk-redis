@@ -15,22 +15,22 @@ thunk(bench)(console.log.bind(console))
 //   .catch(console.error.bind(console))
 
 function * bench () {
-  var timeN = 0
-  var timeT = 0
-  var timeI = 0
-  var testLen = 100000
-  var titleN = 'redis(N):'
-  var titleT = 'redis(T):'
-  var titleI = 'redis(I):'
-  var clientN = nodeRedis.createClient(6380)
-  var clientT = redis.createClient(6381)
-  var clientI = new IoRedis(6382)
+  let timeN = 0
+  let timeT = 0
+  let timeI = 0
+  let testLen = 100000
+  let titleN = 'redis(N):'
+  let titleT = 'redis(T):'
+  let titleI = 'redis(I):'
+  let clientN = nodeRedis.createClient(6380)
+  let clientT = redis.createClient(6381)
+  let clientI = new IoRedis(6382)
 
-  var queue = []
+  let queue = []
   while (queue.length < testLen) queue.push(queue.length)
 
-  var smallStr = 'teambition'
-  var longStr = (new Array(4097).join('-'))
+  let smallStr = 'teambition'
+  let longStr = (new Array(4097).join('-'))
 
   function printResult (title, timeN, timeT, timeI) {
     console.log(`\n${title}:`)

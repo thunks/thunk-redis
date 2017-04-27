@@ -1,6 +1,6 @@
 'use strict'
-/* global describe, it, before, after */
 
+const tman = require('tman')
 const assert = require('assert')
 const thunk = require('thunks')()
 const redis = require('..')
@@ -14,23 +14,23 @@ clientS.on('error', function (err) {
   console.log('clientS', JSON.stringify(err))
 })
 
-before(function * () {
+tman.before(function * () {
   yield clientM.flushall()
   yield clientS.info()
 })
 
-after(function * () {
+tman.after(function * () {
   yield thunk.delay(1000)
   process.exit()
 })
 
-describe('replication test', function () {
-  it('isMaster', function () {
+tman.suite('replication test', function () {
+  tman.it('isMaster', function () {
     assert.strictEqual(clientM._redisState.getConnection(-1).isMaster, true)
     assert.strictEqual(clientS._redisState.getConnection(-1).isMaster, false)
   })
 
-  it('sync keys', function * () {
+  tman.it('sync keys', function * () {
     let value = String(Date.now())
 
     assert.strictEqual((yield clientM.set('key1', value)), 'OK')

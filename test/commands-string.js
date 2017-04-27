@@ -1,14 +1,14 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:String', function () {
+  tman.suite('commands:String', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -17,18 +17,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.append', function (done) {
+    tman.it('client.append', function (done) {
       client.append('key', 123)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(3)
@@ -43,7 +43,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.bitcount, client.getbit, client.setbit', function (done) {
+    tman.it('client.bitcount, client.getbit, client.setbit', function (done) {
       client.getbit('key', 9)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -90,7 +90,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.bitop', function (done) {
+    tman.it('client.bitop', function (done) {
       client.bitop('or', 'key', 'key1', 'key2', 'key3')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -129,7 +129,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.bitpos', function (done) {
+    tman.it('client.bitpos', function (done) {
       client.set('key', '\xff\xf0\x00')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -160,7 +160,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.decr, client.decrby, client.incr, client.incrby, client.incrbyfloat', function (done) {
+    tman.it('client.decr, client.decrby, client.incr, client.incrby, client.incrbyfloat', function (done) {
       client.decr('key')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(-1)
@@ -186,7 +186,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.get, client.set', function (done) {
+    tman.it('client.get, client.set', function (done) {
       client.get('key')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -228,7 +228,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.getset, client.getrange', function (done) {
+    tman.it('client.getset, client.getrange', function (done) {
       client.getset('key', 'hello')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -257,7 +257,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.mget, client.mset, client.msetnx', function (done) {
+    tman.it('client.mget, client.mset, client.msetnx', function (done) {
       client.mget('key1', 'key2')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([null, null])
@@ -306,7 +306,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.psetex, client.setex, client.setnx, client.setrange, client.strlen', function (done) {
+    tman.it('client.psetex, client.setex, client.setnx, client.setrange, client.strlen', function (done) {
       client.strlen('key')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)

@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:List', function () {
+  tman.suite('commands:List', function () {
     let client, client1
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({database: 0})
       client.on('error', function (error) {
         console.error('redis client:', error)
@@ -20,19 +20,19 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
       client1.clientEnd()
     })
 
-    it('client.blpop, client.brpop', function (done) {
+    tman.it('client.blpop, client.brpop', function (done) {
       let time = Date.now()
       thunk.all.call(client, [
         client.blpop('listA', 0),
@@ -58,7 +58,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.brpoplpush, client.rpoplpush', function (done) {
+    tman.it('client.brpoplpush, client.rpoplpush', function (done) {
       let time = Date.now()
       thunk.all.call(client, [
         client.brpoplpush('listA', 'listB', 0),
@@ -84,7 +84,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.lindex, client.linsert', function (done) {
+    tman.it('client.lindex, client.linsert', function (done) {
       client.lindex('listA', 0)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -113,7 +113,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.llen, client.lpop, client.lpush', function (done) {
+    tman.it('client.llen, client.lpop, client.lpush', function (done) {
       client.llen('listA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -131,7 +131,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.lpushx, client.lrange, client.lrem', function (done) {
+    tman.it('client.lpushx, client.lrange, client.lrem', function (done) {
       client.lpushx('listA', 'a')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -157,7 +157,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.lset, client.ltrim', function (done) {
+    tman.it('client.lset, client.ltrim', function (done) {
       client.lset('listA', 0, 'a')(function (error, res) {
         should(error).be.instanceOf(Error)
         return thunk.all(this.lpush('listA', 'a'), this.lset('listA', 1, 'a'))
@@ -177,7 +177,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.rpop, client.rpush, client.rpushx', function (done) {
+    tman.it('client.rpop, client.rpush, client.rpushx', function (done) {
       client.rpop('listA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)

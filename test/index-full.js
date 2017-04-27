@@ -1,6 +1,6 @@
 'use strict'
-/* global describe, before, after */
 
+const tman = require('tman')
 const should = require('should')
 const redis = require('..')
 const clientTest = require('./client')
@@ -19,8 +19,8 @@ const commandsSortedSet = require('./commands-sorted-set')
 const commandsString = require('./commands-string')
 const commandsTransaction = require('./commands-transaction')
 
-describe('thunk-redis', function () {
-  before(function (done) {
+tman.suite('thunk-redis', function () {
+  tman.before(function (done) {
     redis.createClient({
       database: 0
     }).flushall()(function (error, res) {
@@ -46,7 +46,7 @@ describe('thunk-redis', function () {
     })(done)
   })
 
-  after(function () {
+  tman.after(function () {
     setTimeout(function () {
       process.exit()
     }, 1000)

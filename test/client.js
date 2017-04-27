@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('createClient', function () {
+  tman.suite('createClient', function () {
     let time = '' + Date.now()
 
-    it('redis.createClient()', function (done) {
+    tman.it('redis.createClient()', function (done) {
       let connect = false
       let client = redis.createClient()
 
@@ -32,7 +32,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('redis.createClient(options)', function (done) {
+    tman.it('redis.createClient(options)', function (done) {
       let client = redis.createClient({
         database: 1
       })
@@ -44,7 +44,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('redis.createClient({usePromise: true})', function (done) {
+    tman.it('redis.createClient({usePromise: true})', function (done) {
       if (typeof Promise !== 'function') return done()
       let client = redis.createClient({
         usePromise: true
@@ -56,7 +56,7 @@ module.exports = function () {
       }, done)
     })
 
-    it('redis.createClient({usePromise: Promise})', function (done) {
+    tman.it('redis.createClient({usePromise: Promise})', function (done) {
       let client = redis.createClient({
         usePromise: Promise
       })
@@ -67,7 +67,7 @@ module.exports = function () {
       }, done)
     })
 
-    it('redis.createClient(port, options)', function (done) {
+    tman.it('redis.createClient(port, options)', function (done) {
       let client = redis.createClient(6379, {
         database: 1
       })
@@ -79,7 +79,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('redis.createClient(port, host, options)', function (done) {
+    tman.it('redis.createClient(port, host, options)', function (done) {
       let client = redis.createClient(6379, 'localhost', {
         database: 1
       })
@@ -91,7 +91,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('redis.createClient(redisUrl, options) with error', function (done) {
+    tman.it('redis.createClient(redisUrl, options) with error', function (done) {
       let client = redis.createClient('redis://USER:PASS@localhost:6379', {
         database: 1
       })
@@ -103,7 +103,7 @@ module.exports = function () {
       })
     })
 
-    it('redis.createClient(redisUrl, options)', function (done) {
+    tman.it('redis.createClient(redisUrl, options)', function (done) {
       let client = redis.createClient('redis://localhost:6379', {
         database: 1
       })
@@ -132,8 +132,8 @@ module.exports = function () {
     })
   })
 
-  describe('client method', function () {
-    it('client.clientConnect, client.clientEnd and options.pingInterval', function (done) {
+  tman.suite('client method', function () {
+    tman.it('client.clientConnect, client.clientEnd and options.pingInterval', function (done) {
       let client = redis.createClient(6379, {
         pingInterval: 500
       })

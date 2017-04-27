@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, beforeEach, afterEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Pubsub', function () {
+  tman.suite('commands:Pubsub', function () {
     let client1, client2, client3
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client1 = redis.createClient()
       client1.on('error', function (error) {
         console.error('redis client:', error)
@@ -31,13 +31,13 @@ module.exports = function () {
       })(done)
     })
 
-    afterEach(function () {
+    tman.afterEach(function () {
       client1.clientEnd()
       client2.clientEnd()
       client3.clientEnd()
     })
 
-    it('client.psubscribe, client.punsubscribe', function (done) {
+    tman.it('client.psubscribe, client.punsubscribe', function (done) {
       client1
         .on('psubscribe', function (pattern, n) {
           if (pattern === 'a.*') should(n).be.equal(1)
@@ -66,7 +66,7 @@ module.exports = function () {
       })
     })
 
-    it('client.subscribe, client.unsubscribe', function (done) {
+    tman.it('client.subscribe, client.unsubscribe', function (done) {
       client1
         .on('subscribe', function (pattern, n) {
           if (pattern === 'a') should(n).be.equal(1)
@@ -96,7 +96,7 @@ module.exports = function () {
       })
     })
 
-    it('client.publish', function (done) {
+    tman.it('client.publish', function (done) {
       let messages = []
       client1
         .on('message', function (channel, message) {
@@ -139,7 +139,7 @@ module.exports = function () {
       })
     })
 
-    it('client.pubsub', function (done) {
+    tman.it('client.pubsub', function (done) {
       thunk.call(client3, client1.subscribe('a', 'b', 'ab'))(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(undefined)

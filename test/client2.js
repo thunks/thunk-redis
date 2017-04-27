@@ -1,13 +1,14 @@
-/* global describe, it */
+'use strict'
 
+const tman = require('tman')
 const should = require('should')
 const redis = require('..')
 
 module.exports = function () {
-  describe('createClient2', function () {
+  tman.suite('createClient2', function () {
     let time = '' + Date.now()
 
-    it('redis.createClient()', function (done) {
+    tman.it('redis.createClient()', function (done) {
       let connect = false
       let client = redis.createClient()
 
@@ -30,7 +31,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('redis.createClient(address, options)', function (done) {
+    tman.it('redis.createClient(address, options)', function (done) {
       let connect = false
       let client = redis.createClient('127.0.0.1:6379', {
         database: 1
@@ -48,7 +49,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.migrate', function (done) {
+    tman.it('client.migrate', function (done) {
       let client = redis.createClient()
       let client2 = redis.createClient(6380)
 

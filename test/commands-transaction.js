@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, beforeEach, afterEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Transaction', function () {
+  tman.suite('commands:Transaction', function () {
     let client1, client2
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client1 = redis.createClient()
       client1.on('error', function (error) {
         console.error('redis client:', error)
@@ -26,12 +26,12 @@ module.exports = function () {
       })(done)
     })
 
-    afterEach(function () {
+    tman.afterEach(function () {
       client1.clientEnd()
       client2.clientEnd()
     })
 
-    it('client.multi, client.discard, client.exec', function (done) {
+    tman.it('client.multi, client.discard, client.exec', function (done) {
       client1.multi()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -56,7 +56,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.watch, client.unwatch', function (done) {
+    tman.it('client.watch, client.unwatch', function (done) {
       client1.watch('users')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')

@@ -1,16 +1,16 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const JSONKit = require('jsonkit')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Key', function () {
+  tman.suite('commands:Key', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -19,18 +19,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.del, client.exists', function (done) {
+    tman.it('client.del, client.exists', function (done) {
       client.mset({
         key: 1,
         key1: 2,
@@ -86,7 +86,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.dump, client.restore', function (done) {
+    tman.it('client.dump, client.restore', function (done) {
       let serializedValue
       let client2 = redis.createClient({
         returnBuffers: true
@@ -145,7 +145,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.expire', function (done) {
+    tman.it('client.expire', function (done) {
       client.set('key', 123)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -170,7 +170,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.expireat', function (done) {
+    tman.it('client.expireat', function (done) {
       client.set('key', 123)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -195,7 +195,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.keys', function (done) {
+    tman.it('client.keys', function (done) {
       client.keys('*')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([])
@@ -225,7 +225,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.move', function (done) {
+    tman.it('client.move', function (done) {
       client.mset({
         key1: 1,
         key2: 2
@@ -281,7 +281,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.object', function (done) {
+    tman.it('client.object', function (done) {
       client.mset({
         key1: 123,
         key2: 'hello'
@@ -311,7 +311,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.persist', function (done) {
+    tman.it('client.persist', function (done) {
       client.set('key', 'hello')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -341,7 +341,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.pexpire', function (done) {
+    tman.it('client.pexpire', function (done) {
       client.set('key', 123)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -366,7 +366,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.pexpireat', function (done) {
+    tman.it('client.pexpireat', function (done) {
       client.set('key', 123)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -391,7 +391,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.pttl, client.ttl', function (done) {
+    tman.it('client.pttl, client.ttl', function (done) {
       client.set('key', 'hello')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -430,7 +430,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.randomkey', function (done) {
+    tman.it('client.randomkey', function (done) {
       client.randomkey()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -445,7 +445,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.rename, client.renamenx', function (done) {
+    tman.it('client.rename, client.renamenx', function (done) {
       client.mset({
         key: 'hello',
         newkey: 1
@@ -496,7 +496,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.sort', function (done) {
+    tman.it('client.sort', function (done) {
       client.sort('key')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([])
@@ -561,7 +561,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.type', function (done) {
+    tman.it('client.type', function (done) {
       client.mset({
         a: 123,
         b: '123'
@@ -591,7 +591,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.scan', function (done) {
+    tman.it('client.scan', function (done) {
       let count = 100
       let data = {}
       let scanKeys = []

@@ -1,14 +1,14 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Connection', function () {
+  tman.suite('commands:Connection', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -17,18 +17,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.echo', function (done) {
+    tman.it('client.echo', function (done) {
       client.echo('hello world!')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('hello world!')
@@ -39,14 +39,14 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.ping', function (done) {
+    tman.it('client.ping', function (done) {
       client.ping()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('PONG')
       })(done)
     })
 
-    it('client.select', function (done) {
+    tman.it('client.select', function (done) {
       client.select(10)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
@@ -57,7 +57,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.auth', function (done) {
+    tman.it('client.auth', function (done) {
       client.auth('123456')(function (error, res) {
         should(error).be.instanceOf(Error)
         should(res).be.equal(undefined)
@@ -76,7 +76,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.quit', function (done) {
+    tman.it('client.quit', function (done) {
       client.quit()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')

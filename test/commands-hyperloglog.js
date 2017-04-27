@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:HyperLogLog', function () {
+  tman.suite('commands:HyperLogLog', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -18,18 +18,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.pfadd, client.pfcount, client.pfmerge', function (done) {
+    tman.it('client.pfadd, client.pfcount, client.pfmerge', function (done) {
       client.pfadd('db', 'Redis', 'MongoDB', 'MySQL')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(1)

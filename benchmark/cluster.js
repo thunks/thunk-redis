@@ -6,23 +6,23 @@ const redis = require('..')
 const IoRedis = require('ioredis')
 
 thunk(function * () {
-  var timeT = 0
-  var timeI = 0
-  var testLen = 100000
-  var titleT = 'redis(T):'
-  var titleI = 'redis(I):'
-  var clientT = redis.createClient(7000)
-  var clientI = new IoRedis.Cluster([
+  let timeT = 0
+  let timeI = 0
+  let testLen = 100000
+  let titleT = 'redis(T):'
+  let titleI = 'redis(I):'
+  let clientT = redis.createClient(7000)
+  let clientI = new IoRedis.Cluster([
     {port: 7000, host: '127.0.0.1'},
     {port: 7001, host: '127.0.0.1'},
     {port: 7002, host: '127.0.0.1'}
   ])
 
-  var queue = []
+  let queue = []
   while (queue.length < testLen) queue.push(queue.length)
 
-  var smallStr = 'teambition'
-  var longStr = (new Array(4097).join('-'))
+  let smallStr = 'teambition'
+  let longStr = (new Array(4097).join('-'))
 
   function printResult (title, timeT, timeI) {
     console.log(titleT, title, Math.floor(testLen * 1000 / timeT) + ' ops/sec', '100%')
@@ -35,7 +35,7 @@ thunk(function * () {
   console.log(titleI + 'ioRedis\n', yield function (done) { clientI.cluster('info', done) })
   console.log('Bench start:\n')
 
-  var resT, resI
+  let resT, resI
 
   // SET
   yield thunk.delay(100)

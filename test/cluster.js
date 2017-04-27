@@ -1,7 +1,6 @@
 'use strict'
 
-/* global describe, it, before, after */
-
+const tman = require('tman')
 const assert = require('assert')
 const thunk = require('thunks')()
 const redis = require('..')
@@ -36,17 +35,17 @@ client.on('error', function (err) {
   console.log(JSON.stringify(err))
 })
 
-before(function * () {
+tman.before(function * () {
   console.log(yield client.cluster('slots'))
 })
 
-after(function * () {
+tman.after(function * () {
   yield thunk.delay(1000)
   process.exit()
 })
 
-describe('cluster test', function () {
-  it('auto find node by "MOVED" and "ASK"', function * () {
+tman.suite('cluster test', function () {
+  tman.it('auto find node by "MOVED" and "ASK"', function * () {
     let clusterHosts2 = clusterHosts.slice()
     clusterHosts2.pop() // drop a node
     let client2 = redis.createClient(clusterHosts2, options)
@@ -62,7 +61,7 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it('create 10000 keys', function * () {
+  tman.it('create 10000 keys', function * () {
     let task = []
     let len = count
     while (len--) {
@@ -75,7 +74,7 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it('get 10000 keys', function * () {
+  tman.it('get 10000 keys', function * () {
     let task = []
     let len = count
     while (len--) {
@@ -87,7 +86,7 @@ describe('cluster test', function () {
     yield thunk.all(task)
   })
 
-  it.skip('transaction', function * () {
+  tman.it.skip('transaction', function * () {
     for (let i = 0; i < count; i++) {
       let res = yield [
         client.multi(),
@@ -105,7 +104,7 @@ describe('cluster test', function () {
     }
   })
 
-  it.skip('evalauto', function * () {
+  tman.it.skip('evalauto', function * () {
     let task = []
     let len = count
     while (len--) addTask(len)
@@ -121,7 +120,7 @@ describe('cluster test', function () {
     }
   })
 
-  it.skip('kill a master', function * () {
+  tman.it.skip('kill a master', function * () {
     let task = []
     let result = {}
     let len = 10000

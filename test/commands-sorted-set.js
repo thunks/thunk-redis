@@ -1,16 +1,16 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const JSONKit = require('jsonkit')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Sorted Set', function () {
+  tman.suite('commands:Sorted Set', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -19,18 +19,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.zadd, client.zcard, client.zcount', function (done) {
+    tman.it('client.zadd, client.zcard, client.zcount', function (done) {
       client.zcard('zsetA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -51,7 +51,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zincrby, client.zscore, client.zrange, client.zrangebyscore', function (done) {
+    tman.it('client.zincrby, client.zscore, client.zrange, client.zrangebyscore', function (done) {
       client.zadd('zsetA', 2, 'a')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(1)
@@ -82,7 +82,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zrank, client.zrevrank', function (done) {
+    tman.it('client.zrank, client.zrevrank', function (done) {
       client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(3)
@@ -97,7 +97,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zrem, client.zremrangebyrank, client.zremrangebyscore', function (done) {
+    tman.it('client.zrem, client.zremrangebyrank, client.zremrangebyscore', function (done) {
       client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(3)
@@ -120,7 +120,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zrevrange, client.zrevrangebyscore', function (done) {
+    tman.it('client.zrevrange, client.zrevrangebyscore', function (done) {
       client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(3)
@@ -135,7 +135,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zunionstore, client.zinterstore', function (done) {
+    tman.it('client.zunionstore, client.zinterstore', function (done) {
       client.zadd('zsetA', 1, 'a', 2, 'b', 3, 'c')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(3)
@@ -162,7 +162,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zrangebylex, client.zlexcount, client.zremrangebylex', function (done) {
+    tman.it('client.zrangebylex, client.zlexcount, client.zremrangebylex', function (done) {
       client.zadd('zsetA', 1, 'a', 1, 'b', 1, 'c', 1, 'bc')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(4)
@@ -185,7 +185,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.zscan', function (done) {
+    tman.it('client.zscan', function (done) {
       let count = 100
       let data = []
       let scanKeys = []

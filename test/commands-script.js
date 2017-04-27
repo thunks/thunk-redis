@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Script', function () {
+  tman.suite('commands:Script', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -18,18 +18,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.eval', function (done) {
+    tman.it('client.eval', function (done) {
       client.eval('return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}', 2, 'key1', 'key2', 'first', 'second')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql(['key1', 'key2', 'first', 'second'])
@@ -50,7 +50,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.script, client.evalsha', function (done) {
+    tman.it('client.script, client.evalsha', function (done) {
       let sha = null
 
       client.script('load', 'return "hello thunk-redis"')(function (error, res) {
@@ -74,7 +74,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.evalauto', function (done) {
+    tman.it('client.evalauto', function (done) {
       client.evalauto('return {KEYS[1],ARGV[1],ARGV[2]}', 1, 'key1', 'first', 'second')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql(['key1', 'first', 'second'])

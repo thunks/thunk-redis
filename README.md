@@ -65,7 +65,7 @@ const redis = require('../index')
 const Promise = require('bluebird')
 const client = redis.createClient({
   database: 1,
-  usePromise: Promise
+  usePromise: true
 })
 
 client.on('connect', function () {
@@ -218,7 +218,7 @@ const clientX = redis.createClient(7000, {clusterMode: false})
 
 - `options.returnBuffers`: *Optional*, Type: `Boolean`, Default: `false`.
 
-- `options.usePromise`: *Optional*, Type: `Boolean` or `Promise` constructor, Default: `false`.
+- `options.usePromise`: *Optional*, Type: `Boolean`, Default: `false`.
 
     Export promise commands API.
 
@@ -227,15 +227,6 @@ const clientX = redis.createClient(7000, {clusterMode: false})
     var redis = require('thunk-redis')
     var client = redis.createClient({
       usePromise: true
-    })
-    ```
-
-    **Use bluebird:**
-    ```js
-    var redis = require('thunk-redis')
-    var Bluebird = require('bluebird')
-    var client = redis.createClient({
-      usePromise: Bluebird
     })
     ```
 

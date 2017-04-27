@@ -1,16 +1,16 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const JSONKit = require('jsonkit')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Set', function () {
+  tman.suite('commands:Set', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -19,18 +19,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.sadd, client.scard', function (done) {
+    tman.it('client.sadd, client.scard', function (done) {
       client.scard('setA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -47,7 +47,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.sdiff, client.sdiffstore', function (done) {
+    tman.it('client.sdiff, client.sdiffstore', function (done) {
       client.sdiff('setA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([])
@@ -79,7 +79,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.sinter, client.sinterstore', function (done) {
+    tman.it('client.sinter, client.sinterstore', function (done) {
       client.sinter('setA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([])
@@ -109,7 +109,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.sismember, client.smembers', function (done) {
+    tman.it('client.sismember, client.smembers', function (done) {
       client.smembers('setA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal([])
@@ -140,7 +140,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.smove, client.spop', function (done) {
+    tman.it('client.smove, client.spop', function (done) {
       client.smove('setA', 'setB', 'a')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -159,7 +159,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.srandmember, client.srem', function (done) {
+    tman.it('client.srandmember, client.srem', function (done) {
       client.srandmember('setA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -178,7 +178,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.sunion, client.sunionstore', function (done) {
+    tman.it('client.sunion, client.sunionstore', function (done) {
       client.sunion('setA')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([])
@@ -210,7 +210,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.sscan', function (done) {
+    tman.it('client.sscan', function (done) {
       let count = 100
       let data = []
       let scanKeys = []

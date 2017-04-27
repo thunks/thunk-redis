@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const JSONKit = require('jsonkit')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Hash', function () {
+  tman.suite('commands:Hash', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient({
         database: 0
       })
@@ -18,18 +18,18 @@ module.exports = function () {
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.hdel, client.hexists', function (done) {
+    tman.it('client.hdel, client.hexists', function (done) {
       client.hdel('hash', 'key')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -63,7 +63,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.hget, client.hgetall, client.hkeys', function (done) {
+    tman.it('client.hget, client.hgetall, client.hkeys', function (done) {
       client.hget('hash', 'key')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -102,7 +102,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.hincrby, client.hincrbyfloat', function (done) {
+    tman.it('client.hincrby, client.hincrbyfloat', function (done) {
       client.hincrby('hash', 'key', -1)(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(-1)
@@ -128,7 +128,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.hlen, client.hmget, client.hmset', function (done) {
+    tman.it('client.hlen, client.hmget, client.hmset', function (done) {
       client.hlen('hash')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -173,7 +173,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.hset, client.hsetnx, client.hvals', function (done) {
+    tman.it('client.hset, client.hsetnx, client.hvals', function (done) {
       client.hvals('hash')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.eql([])
@@ -220,7 +220,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.hscan', function (done) {
+    tman.it('client.hscan', function (done) {
       let count = 100
       let data = {}
       let scanKeys = []
@@ -264,7 +264,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.hstrlen', function (done) {
+    tman.it('client.hstrlen', function (done) {
       client.hstrlen('key', 'f')(function (error, res) {
         if (error && /unknown command/.test(error.message)) {
           console.log('Do not support "hstrlen"')

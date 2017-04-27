@@ -1,9 +1,9 @@
 'use strict'
 
-var db = require('db')
-var coroutine = require('coroutine')
-var dbs = 'redis://127.0.0.1'
-var client = db.open(dbs)
+const db = require('db')
+const coroutine = require('coroutine')
+const dbs = 'redis://127.0.0.1'
+const client = db.open(dbs)
 
 var titleF = 'redis@fibjs:'
 var time = 0

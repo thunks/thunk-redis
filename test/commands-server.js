@@ -1,15 +1,15 @@
 'use strict'
-/* global describe, it, beforeEach, afterEach */
 
+const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Server', function () {
+  tman.suite('commands:Server', function () {
     let client1, client2, client3, client4
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client1 = redis.createClient()
       client1.on('error', function (error) {
         console.error('redis client:', error)
@@ -31,20 +31,20 @@ module.exports = function () {
       })(done)
     })
 
-    afterEach(function () {
+    tman.afterEach(function () {
       client1.clientEnd()
       client2.clientEnd()
       client3.clientEnd()
     })
 
-    it('client.monitor', function (done) {
+    tman.it('client.monitor', function (done) {
       client2.monitor()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    it('client.bgrewriteaof, client.bgsave, client.lastsave', function (done) {
+    tman.it('client.bgrewriteaof, client.bgsave, client.lastsave', function (done) {
       client1.bgrewriteaof()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('Background append only file rewriting started')
@@ -63,7 +63,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.client', function (done) {
+    tman.it('client.client', function (done) {
       client1.client('getname')(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(null)
@@ -81,7 +81,7 @@ module.exports = function () {
         should(error).be.equal(null)
         return this.client('list')
       })(function (error, res) {
-        let list = res.trim().split('\n')
+        let list = res.trim().spltman.it('\n')
         should(error).be.equal(null)
         should(list.length > 3).be.equal(true)
         let addr4 = list[list.length - 1].replace(/(^.*addr=)|( fd=.*$)/g, '')
@@ -95,7 +95,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.config', function (done) {
+    tman.it('client.config', function (done) {
       client1.config('get', '*')(function (error, res) {
         should(error).be.equal(null)
         should(res.length > 10).be.equal(true)
@@ -111,7 +111,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.debug', function (done) {
+    tman.it('client.debug', function (done) {
       client1.debug('object', 'key')(function (error, res) {
         should(error).be.instanceOf(Error)
         return thunk.all(this.set('key', 100), this.debug('object', 'key'))
@@ -123,7 +123,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.dbsize, client.flushall, client.flushdb', function (done) {
+    tman.it('client.dbsize, client.flushall, client.flushdb', function (done) {
       client1.dbsize()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal(0)
@@ -142,7 +142,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.time, client.info, client.slowlog', function (done) {
+    tman.it('client.time, client.info, client.slowlog', function (done) {
       client1.time()(function (error, res) {
         should(error).be.equal(null)
         should(res.length).be.equal(2)
@@ -157,7 +157,7 @@ module.exports = function () {
       })(done)
     })
 
-    it('client.command', function (done) {
+    tman.it('client.command', function (done) {
       let len = 0
       client1.command()(function (error, commands) {
         should(error).be.equal(null)
@@ -184,6 +184,6 @@ module.exports = function () {
       })(done)
     })
 
-    it.skip('client.psync, client.sync, client.save, client.shutdown, client.slaveof', function (done) {})
+    tman.it.skip('client.psync, client.sync, client.save, client.shutdown, client.slaveof', function (done) {})
   })
 }

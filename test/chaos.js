@@ -1,12 +1,12 @@
 'use strict'
-/* global describe, it */
 
+const tman = require('tman')
 const assert = require('assert')
 const thunks = require('thunks')
 const redis = require('..')
 
 module.exports = function () {
-  describe('chaos test', function () {
+  tman.suite('chaos test', function () {
     let thunk = thunks(function (err) {
       throw err
     })
@@ -23,7 +23,7 @@ module.exports = function () {
       return Math.floor(Math.random() * 10) % 2 ? client : clientP
     }
 
-    it('create 10000 users', function * () {
+    tman.it('create 10000 users', function * () {
       assert((yield client.flushall()) === 'OK')
       yield tasks.map(function (value, index) {
         return createUser('U' + index)
@@ -54,7 +54,7 @@ module.exports = function () {
       }
     })
 
-    it('update 10000 users', function * () {
+    tman.it('update 10000 users', function * () {
       yield tasks.map(function (value, index) {
         return updateUser('U' + index, Math.floor(Math.random() * 1000))
       })
@@ -79,7 +79,7 @@ module.exports = function () {
       }
     })
 
-    it('create 10000 issues for some users', function * () {
+    tman.it('create 10000 issues for some users', function * () {
       yield tasks.map(function (value, index) {
         return createIssue('I' + index, 'U' + Math.floor(Math.random() * len))
       })

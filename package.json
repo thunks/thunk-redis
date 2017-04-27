@@ -28,7 +28,7 @@
     "pipelining"
   ],
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 4.1.0"
   },
   "dependencies": {
     "respjs": "^4.0.1",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "jsonkit": "^0.3.2",
     "should": "^11.2.1",
-    "standard": "^9.0.2",
+    "standard": "^10.0.2",
     "tman": "^1.6.6"
   },
   "license": "MIT",

@@ -1,32 +1,32 @@
 'use strict'
-/* global describe, it, before, after, beforeEach */
 
+const tman = require('tman')
 const should = require('should')
 const redis = require('..')
 
 module.exports = function () {
-  describe('commands:Geo', function () {
+  tman.suite('commands:Geo', function () {
     let client
 
-    before(function () {
+    tman.before(function () {
       client = redis.createClient()
       client.on('error', function (error) {
         console.error('redis client:', error)
       })
     })
 
-    beforeEach(function (done) {
+    tman.beforeEach(function (done) {
       client.flushdb()(function (error, res) {
         should(error).be.equal(null)
         should(res).be.equal('OK')
       })(done)
     })
 
-    after(function () {
+    tman.after(function () {
       client.clientEnd()
     })
 
-    it('client.geoadd, client.geodist, client.georadius', function (done) {
+    tman.it('client.geoadd, client.geodist, client.georadius', function (done) {
       client.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', 15.087269, 37.502669, 'Catania')(function (error, res) {
         if (error && /unknown command/.test(error.message)) {
           console.log('Do not support "geoadd"')
@@ -69,7 +69,7 @@ module.exports = function () {
       })
     })
 
-    it('client.geohash', function (done) {
+    tman.it('client.geohash', function (done) {
       client.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', 15.087269, 37.502669, 'Catania')(function (error, res) {
         if (error && /unknown command/.test(error.message)) {
           console.log('Do not support "geoadd"')
@@ -89,7 +89,7 @@ module.exports = function () {
       })
     })
 
-    it('client.geopos, client.georadiusbymember', function (done) {
+    tman.it('client.geopos, client.georadiusbymember', function (done) {
       client.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', 15.087269, 37.502669, 'Catania', 13.583333, 37.316667, 'Agrigento')(function (error, res) {
         if (error && /unknown command/.test(error.message)) {
           console.log('Do not support "geoadd"')
