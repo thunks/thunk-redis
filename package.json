@@ -1,6 +1,6 @@
 {
   "name": "thunk-redis",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "The fastest thunk/promise-based redis client, support all redis features.",
   "main": "lib/index.js",
   "authors": [
@@ -28,17 +28,17 @@
     "pipelining"
   ],
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 4.5.0"
   },
   "dependencies": {
-    "respjs": "^4.0.1",
+    "respjs": "^4.1.0",
     "thunks": "^4.7.6"
   },
   "devDependencies": {
     "jsonkit": "^0.3.2",
     "should": "^11.2.1",
     "standard": "^10.0.2",
-    "tman": "^1.6.6"
+    "tman": "^1.6.7"
   },
   "license": "MIT",
   "bugs": {

@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
 
+## [2.1.1] - 2017-05-329
+
+### Changed
+
+- Updated dependencies, changed node engines to >= v4.5.0.
+
 ## [2.1.0] - 2017-04-27
 
 ### Changed
