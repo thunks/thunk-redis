@@ -2,14 +2,10 @@
 
 const tman = require('tman')
 const assert = require('assert')
-const thunks = require('thunks')
 const redis = require('..')
 
 module.exports = function () {
   tman.suite('chaos test', function () {
-    let thunk = thunks(function (err) {
-      throw err
-    })
     let client = redis.createClient()
     let clientP = redis.createClient({
       usePromise: true
@@ -25,13 +21,10 @@ module.exports = function () {
 
     tman.it('create 10000 users', function * () {
       assert((yield client.flushall()) === 'OK')
-      yield tasks.map(function (value, index) {
-        return createUser('U' + index)
-      })
+      yield tasks.map((value, index) => createUser('U' + index))
       assert((yield client.zcard('userScore')) === len)
 
-      function * createUser (id) {
-        let cli = getClient()
+      function createUser (id) {
         let time = Date.now()
         let user = {
           id: id,
@@ -43,14 +36,16 @@ module.exports = function () {
           updatedAt: time
         }
 
-        yield thunk.delay(Math.floor(Math.random() * 5))
-        let result = yield [
-          cli.multi(),
-          cli.set(id, JSON.stringify(user)),
-          cli.zadd('userScore', user.score, id),
-          cli.exec()
-        ]
-        assert.deepEqual(result, ['OK', 'QUEUED', 'QUEUED', ['OK', 1]])
+        return new Promise((resolve, reject) => setTimeout(resolve, Math.floor(Math.random() * 5)))
+          .then(() => {
+            return Promise.all([
+              clientP.multi(),
+              clientP.set(id, JSON.stringify(user)),
+              clientP.zadd('userScore', user.score, id),
+              clientP.exec()
+            ])
+          })
+          .then((result) => assert.deepEqual(result, ['OK', 'QUEUED', 'QUEUED', ['OK', 1]]))
       }
     })
 

@@ -9,7 +9,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated dependencies, changed node engines to >= v4.5.0.
+- Update dependencies.
+- Add Node.js v8 to test.
+- Update dependencies, changed node engines to >= v4.5.0.
 
 ## [2.1.0] - 2017-04-27
 
@@ -22,13 +24,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated dependencies, changed node engines to >= v4.
+- Update dependencies, changed node engines to >= v4.
 
 ## [1.7.3] - 2016-10-27
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ### Fixed
 
@@ -38,32 +40,32 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.7.1] - 2016-09-14
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.7.0] - 2016-08-21
 
 ### Changed
 
-- Updated engines to ">=0.12".
+- Update engines to ">=0.12".
 
 ## [1.6.7] - 2016-08-15
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 - Improved socket send.
 
 ## [1.6.6] - 2016-07-22
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 - Added "TOUCH" command.
 
 ## [1.6.5] - 2016-06-08
@@ -76,7 +78,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.6.3] - 2016-05-29
 
@@ -95,7 +97,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Removed "debug" module.
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.6.0] - 2016-05-07
 
@@ -113,7 +115,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.5.2] - 2016-03-01
 
@@ -129,7 +131,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 - Improved code.
 
 ## [1.5.0] - 2016-02-18
@@ -145,7 +147,7 @@ node by "MOVED" and "ASK".
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.4.0] - 2015-12-29
 
@@ -167,7 +169,7 @@ node by "MOVED" and "ASK".
 
 ### Changed
 
-- Updated dependencies.
+- Update dependencies.
 
 ## [1.2.3] - 2015-11-27
 
@@ -179,7 +181,7 @@ node by "MOVED" and "ASK".
 
 ### Changed
 
-- Updated description.
+- Update description.
 
 ## [1.2.1] - 2015-11-18
 
@@ -191,7 +193,7 @@ node by "MOVED" and "ASK".
 
 ### Changed
 
-- Updated `thunks` to v4.0.0.
+- Update `thunks` to v4.0.0.
 
 ## [1.1.1] - 2015-10-07
 
