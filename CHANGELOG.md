@@ -5,9 +5,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
 
+## [2.1.5] - 2017-10-12
+
+### Fixed
+
+- fix evalauto command.
+
 ## [2.1.4] - 2017-10-12
 
-### Changed
+### Fixed
 
 - Update dependencies.
 - fix evalauto command.
