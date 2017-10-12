@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
 
+## [2.1.4] - 2017-10-12
+
+### Changed
+
+- Update dependencies.
+- fix evalauto command.
+
 ## [2.1.1] - 2017-06-03
 
 ### Changed
