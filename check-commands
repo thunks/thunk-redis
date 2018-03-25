@@ -5,12 +5,11 @@ const cli = redis.createClient(6379)
 
 cli.info()(function * (err, info) {
   if (err) throw err
-  console.log('Version:', info.redis_version)
 
-  var add = []
-  var discard = []
-  var commandsInfo = {}
-  var commands = yield cli.command()
+  const add = []
+  const discard = []
+  const commandsInfo = {}
+  let commands = yield cli.command()
 
   commands = commands.map(function (command) {
     commandsInfo[command[0]] = command.slice(1)
@@ -21,19 +20,20 @@ cli.info()(function * (err, info) {
     if (cli.clientCommands.indexOf(command) === -1) add.push(command)
     return add
   }, add)
-  console.log('Add:', add)
 
   cli.clientCommands.reduce(function (discard, command) {
     if (commands.indexOf(command) === -1) discard.push(command)
     return discard
   }, discard)
-  console.log('Discard:', discard)
 
-  info = {}
+  const all = {}
   Object.keys(commandsInfo).sort().forEach(function (command) {
-    info[command] = commandsInfo[command]
+    all[command] = commandsInfo[command]
   })
-  console.log(info)
 
+  console.log(all)
+  console.log('Add:', add)
+  console.log('Discard:', discard)
+  console.log('Version:', info.redis_version)
   process.exit()
 })()

@@ -2,7 +2,6 @@
 
 const tman = require('tman')
 const should = require('should')
-const JSONKit = require('jsonkit')
 const redis = require('..')
 
 module.exports = function () {
@@ -247,10 +246,10 @@ module.exports = function () {
       })(function (error, res) {
         should(error).be.equal(null)
         should(scanKeys.length).be.equal(200)
-        JSONKit.each(data, function (value, key) {
-          should(scanKeys).be.containEql(value + '')
+        for (let key of Object.keys(data)) {
+          should(scanKeys).be.containEql(data[key] + '')
           should(scanKeys).be.containEql(key)
-        })
+        }
         return this.hscan('hash', '0', 'count', 20)
       })(function (error, res) {
         should(error).be.equal(null)

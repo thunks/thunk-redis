@@ -3,7 +3,6 @@
 const tman = require('tman')
 const should = require('should')
 const thunk = require('thunks')()
-const JSONKit = require('jsonkit')
 const redis = require('..')
 
 module.exports = function () {
@@ -617,9 +616,9 @@ module.exports = function () {
         return fullScan(0)
       })(function (error, res) {
         should(error).be.equal(null)
-        JSONKit.each(data, function (value, key) {
+        for (let key of Object.keys(data)) {
           should(scanKeys.indexOf(key) >= 0).be.equal(true)
-        })
+        }
         return this.scan('0', 'count', 20)
       })(function (error, res) {
         should(error).be.equal(null)
