@@ -7,8 +7,8 @@
     "Yan Qing <admin@zensh.com>"
   ],
   "scripts": {
-    "test": "standard && tman -t 10000 test/index.js",
-    "test-full": "standard && tman -t 10000 test/index-full.js",
+    "test": "standard && tman -t 10000 test/index.js test/commands",
+    "test-full": "standard && tman -t 10000 test/index.js test/client2.js test/commands",
     "test-cluster": "tman -t 100000 test/cluster.js",
     "test-replica": "tman -t 10000 test/replica.js"
   },

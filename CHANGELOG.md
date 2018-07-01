@@ -4,8 +4,13 @@ All notable changes to this project will be documented in this file starting fro
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
+## [2.2.0] - 2018-07-01
 
-## [2.1.5] - 2017-10-12
+### Changed
+
+- support redis v5 commands.
+
+## [2.1.6] - 2017-10-12
 
 ### Fixed
 
