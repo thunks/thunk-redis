@@ -117,7 +117,7 @@ module.exports = function () {
         should(error).be.equal(null)
         should(res).be.equal('OK')
         this.clientEnd()
-        client2 = redis.createClient('redis://123456@localhost:6379', {
+        client2 = redis.createClient(['redis://123456@localhost:6379'], {
           database: 1
         })
         return client2.get('test')
