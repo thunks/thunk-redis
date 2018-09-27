@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file starting fro
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 -----
+## [2.1.7, 2.2.1] - 2018-09-27
+
+### Changed
+
+- support redisUrl array.
+
 ## [2.2.0] - 2018-07-01
 
 ### Changed
