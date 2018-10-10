@@ -18,19 +18,19 @@ function * bench () {
   let timeN = 0
   let timeT = 0
   let timeI = 0
-  let testLen = 100000
-  let titleN = 'redis(N):'
-  let titleT = 'redis(T):'
-  let titleI = 'redis(I):'
-  let clientN = nodeRedis.createClient(6380)
-  let clientT = redis.createClient(6381)
-  let clientI = new IoRedis(6382)
+  const testLen = 100000
+  const titleN = 'redis(N):'
+  const titleT = 'redis(T):'
+  const titleI = 'redis(I):'
+  const clientN = nodeRedis.createClient(6380)
+  const clientT = redis.createClient(6381)
+  const clientI = new IoRedis(6382)
 
-  let queue = []
+  const queue = []
   while (queue.length < testLen) queue.push(queue.length)
 
-  let smallStr = 'teambition'
-  let longStr = (new Array(4097).join('-'))
+  const smallStr = 'teambition'
+  const longStr = (new Array(4097).join('-'))
 
   function printResult (title, timeN, timeT, timeI) {
     console.log(`\n${title}:`)

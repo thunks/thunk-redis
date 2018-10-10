@@ -185,7 +185,7 @@ tman.suite('commands:Sorted Set', function () {
 
   tman.it('client.zscan', function (done) {
     let count = 100
-    let data = []
+    const data = []
     let scanKeys = []
 
     while (count--) data.push(count, 'z' + count)
@@ -202,7 +202,7 @@ tman.suite('commands:Sorted Set', function () {
     client.zscan('zset', 0)(function (error, res) {
       should(error).be.equal(null)
       should(res).be.eql(['0', []])
-      let args = data.slice()
+      const args = data.slice()
       args.unshift('zset')
       return this.zadd.apply(this, args)
     })(function (error, res) {
@@ -212,7 +212,7 @@ tman.suite('commands:Sorted Set', function () {
     })(function (error, res) {
       should(error).be.equal(null)
       should(scanKeys.length).be.equal(200)
-      for (let key of Object.keys(data)) {
+      for (const key of Object.keys(data)) {
         should(scanKeys).be.containEql(data[key] + '')
       }
       return this.zscan('zset', 0, 'match', '*0', 'COUNT', 200)

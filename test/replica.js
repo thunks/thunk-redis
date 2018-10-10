@@ -31,7 +31,7 @@ tman.suite('replication test', function () {
   })
 
   tman.it('sync keys', function * () {
-    let value = String(Date.now())
+    const value = String(Date.now())
 
     assert.strictEqual((yield clientM.set('key1', value)), 'OK')
     assert.strictEqual((yield clientM.set('key2', value)), 'OK')

@@ -12,7 +12,7 @@ client.select(1)(function * (error, res) {
   console.log('foo -> %s', yield this.get('foo'))
   console.log('bar -> %s', yield this.get('bar'))
 
-  let user = {
+  const user = {
     id: 'u001',
     name: 'jay',
     age: 24

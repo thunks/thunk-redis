@@ -210,7 +210,7 @@ tman.suite('commands:Set', function () {
 
   tman.it('client.sscan', function (done) {
     let count = 100
-    let data = []
+    const data = []
     let scanKeys = []
 
     while (count--) data.push('m' + count)
@@ -227,7 +227,7 @@ tman.suite('commands:Set', function () {
     client.sscan('set', 0)(function (error, res) {
       should(error).be.equal(null)
       should(res).be.eql(['0', []])
-      let args = data.slice()
+      const args = data.slice()
       args.unshift('set')
       return this.sadd.apply(this, args)
     })(function (error, res) {
@@ -237,7 +237,7 @@ tman.suite('commands:Set', function () {
     })(function (error, res) {
       should(error).be.equal(null)
       should(scanKeys.length).be.equal(100)
-      for (let key of Object.keys(data)) {
+      for (const key of Object.keys(data)) {
         should(scanKeys).be.containEql(data[key])
       }
       return this.sscan('set', 0, 'count', 20)

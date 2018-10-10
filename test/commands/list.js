@@ -32,7 +32,7 @@ tman.suite('commands:List', function () {
   })
 
   tman.it('client.blpop, client.brpop', function (done) {
-    let time = Date.now()
+    const time = Date.now()
     thunk.all.call(client, [
       client.blpop('listA', 0),
       thunk.delay(100)(function () {
@@ -58,7 +58,7 @@ tman.suite('commands:List', function () {
   })
 
   tman.it('client.brpoplpush, client.rpoplpush', function (done) {
-    let time = Date.now()
+    const time = Date.now()
     thunk.all.call(client, [
       client.brpoplpush('listA', 'listB', 0),
       thunk.delay(100)(function () {

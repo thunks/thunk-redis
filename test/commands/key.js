@@ -86,7 +86,7 @@ tman.suite('commands:Key', function () {
 
   tman.it('client.dump, client.restore', function (done) {
     let serializedValue
-    let client2 = redis.createClient({
+    const client2 = redis.createClient({
       returnBuffers: true
     })
 
@@ -591,7 +591,7 @@ tman.suite('commands:Key', function () {
 
   tman.it('client.scan', function (done) {
     let count = 100
-    let data = {}
+    const data = {}
     let scanKeys = []
 
     while (count--) data['key' + count] = count
@@ -615,7 +615,7 @@ tman.suite('commands:Key', function () {
       return fullScan(0)
     })(function (error, res) {
       should(error).be.equal(null)
-      for (let key of Object.keys(data)) {
+      for (const key of Object.keys(data)) {
         should(scanKeys.indexOf(key) >= 0).be.equal(true)
       }
       return this.scan('0', 'count', 20)

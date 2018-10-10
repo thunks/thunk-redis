@@ -6,11 +6,11 @@ const thunk = require('thunks').thunk
 const redis = require('../..')
 
 tman.suite('createClient', function () {
-  let time = '' + Date.now()
+  const time = '' + Date.now()
 
   tman.it('redis.createClient()', function (done) {
     let connect = false
-    let client = redis.createClient()
+    const client = redis.createClient()
 
     client.on('connect', function () {
       connect = true
@@ -32,7 +32,7 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient(options)', function (done) {
-    let client = redis.createClient({
+    const client = redis.createClient({
       database: 1
     })
 
@@ -45,10 +45,10 @@ tman.suite('createClient', function () {
 
   tman.it('redis.createClient({usePromise: true})', function (done) {
     if (typeof Promise !== 'function') return done()
-    let client = redis.createClient({
+    const client = redis.createClient({
       usePromise: true
     })
-    let promise = client.info()
+    const promise = client.info()
     should(promise).be.instanceof(Promise)
     promise.then(function (res) {
       done()
@@ -56,10 +56,10 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient({usePromise: Promise})', function (done) {
-    let client = redis.createClient({
+    const client = redis.createClient({
       usePromise: Promise
     })
-    let promise = client.info()
+    const promise = client.info()
     should(promise).be.instanceof(Promise)
     promise.then(function (res) {
       done()
@@ -67,7 +67,7 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient(port, options)', function (done) {
-    let client = redis.createClient(6379, {
+    const client = redis.createClient(6379, {
       database: 1
     })
 
@@ -79,7 +79,7 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient(port, host, options)', function (done) {
-    let client = redis.createClient(6379, 'localhost', {
+    const client = redis.createClient(6379, 'localhost', {
       database: 1
     })
 
@@ -91,7 +91,7 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient(redisUrl, options) with error', function (done) {
-    let client = redis.createClient('redis://USER:PASS@localhost:6379', {
+    const client = redis.createClient('redis://USER:PASS@localhost:6379', {
       database: 1
     })
 
@@ -103,7 +103,7 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient(redisUrl, options)', function (done) {
-    let client = redis.createClient('redis://localhost:6379', {
+    const client = redis.createClient('redis://localhost:6379', {
       database: 1
     })
     let client2 = null
@@ -133,12 +133,12 @@ tman.suite('createClient', function () {
 
 tman.suite('client method', function () {
   tman.it('client.clientConnect, client.clientEnd and options.pingInterval', function (done) {
-    let client = redis.createClient(6379, {
+    const client = redis.createClient(6379, {
       pingInterval: 500
     })
 
-    let _ping = client.ping
-    let pingCount = 0
+    const _ping = client.ping
+    const pingCount = 0
     let _pingCount = 0
     client.ping = function () {
       return _ping.call(client)(function (err, res) {
@@ -149,7 +149,7 @@ tman.suite('client method', function () {
     }
 
     thunk.delay(2200)(function () {
-      let pingCount = _pingCount
+      const pingCount = _pingCount
       should(pingCount >= 4).be.equal(true)
       client.clientEnd()
       return thunk.delay(1000)
