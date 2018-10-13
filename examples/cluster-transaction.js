@@ -1,7 +1,7 @@
 'use strict'
 
 const redis = require('..')
-const client = redis.createClient(7000, {debugMode: false})
+const client = redis.createClient(7000, { debugMode: false })
 
 client.info()(function * () {
   let res = yield [

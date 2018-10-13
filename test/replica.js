@@ -5,7 +5,7 @@ const assert = require('assert')
 const thunk = require('thunks')()
 const redis = require('..')
 const clientM = redis.createClient(6390)
-const clientS = redis.createClient(6391, {onlyMaster: false})
+const clientS = redis.createClient(6391, { onlyMaster: false })
 
 clientM.on('error', function (err) {
   console.log('clientM', JSON.stringify(err))

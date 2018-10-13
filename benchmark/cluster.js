@@ -13,9 +13,9 @@ thunk(function * () {
   const titleI = 'redis(I):'
   const clientT = redis.createClient(7000)
   const clientI = new IoRedis.Cluster([
-    {port: 7000, host: '127.0.0.1'},
-    {port: 7001, host: '127.0.0.1'},
-    {port: 7002, host: '127.0.0.1'}
+    { port: 7000, host: '127.0.0.1' },
+    { port: 7001, host: '127.0.0.1' },
+    { port: 7002, host: '127.0.0.1' }
   ])
 
   const queue = []
@@ -56,10 +56,10 @@ thunk(function * () {
   printResult('SET small string', timeT, timeI)
 
   resT.map(function (val) {
-    assert.equal(val, 'OK')
+    assert.strictEqual(val, 'OK')
   })
   resI.map(function (val) {
-    assert.equal(val, 'OK')
+    assert.strictEqual(val, 'OK')
   })
 
   // GET
@@ -81,10 +81,10 @@ thunk(function * () {
   printResult('GET small string', timeT, timeI)
 
   resT.map(function (val) {
-    assert.equal(val, smallStr)
+    assert.strictEqual(val, smallStr)
   })
   resI.map(function (val) {
-    assert.equal(val, smallStr)
+    assert.strictEqual(val, smallStr)
   })
 
   // SET
@@ -106,10 +106,10 @@ thunk(function * () {
   printResult('SET long string', timeT, timeI)
 
   resT.map(function (val) {
-    assert.equal(val, 'OK')
+    assert.strictEqual(val, 'OK')
   })
   resI.map(function (val) {
-    assert.equal(val, 'OK')
+    assert.strictEqual(val, 'OK')
   })
 
   // GET
@@ -131,10 +131,10 @@ thunk(function * () {
   printResult('GET long string', timeT, timeI)
 
   resT.map(function (val) {
-    assert.equal(val, longStr)
+    assert.strictEqual(val, longStr)
   })
   resI.map(function (val) {
-    assert.equal(val, longStr)
+    assert.strictEqual(val, longStr)
   })
 
   // INCR

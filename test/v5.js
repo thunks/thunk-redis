@@ -1,7 +1,7 @@
 'use strict'
 
 const { suite, it, before, beforeEach, after } = require('tman')
-const { strictEqual, deepEqual } = require('assert')
+const { strictEqual, deepStrictEqual } = require('assert')
 const redis = require('..')
 
 suite('redis v5', function () {
@@ -39,10 +39,10 @@ suite('redis v5', function () {
       const res = yield cli.xrange('mystream', '-', '+')
       strictEqual(res.length, 2)
       strictEqual(res[0][0], id1)
-      deepEqual(res[0][1], ['name', 'Sara', 'surname', 'OConnor'])
+      deepStrictEqual(res[0][1], ['name', 'Sara', 'surname', 'OConnor'])
 
       strictEqual(res[1][0], id2)
-      deepEqual(res[1][1], ['field1', 'value1', 'field2', 'value2', 'field3', 'value3'])
+      deepStrictEqual(res[1][1], ['field1', 'value1', 'field2', 'value2', 'field3', 'value3'])
     })
   })
 })

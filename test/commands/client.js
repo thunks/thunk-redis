@@ -44,7 +44,6 @@ tman.suite('createClient', function () {
   })
 
   tman.it('redis.createClient({usePromise: true})', function (done) {
-    if (typeof Promise !== 'function') return done()
     const client = redis.createClient({
       usePromise: true
     })

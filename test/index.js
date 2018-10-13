@@ -25,8 +25,3 @@ tman.before(function * () {
 
   yield cli.clientEnd()
 })
-
-tman.after(function * () {
-  yield (done) => setTimeout(done, 1000)
-  process.exit()
-})

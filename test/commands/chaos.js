@@ -44,7 +44,7 @@ tman.suite('chaos test', function () {
             clientP.exec()
           ])
         })
-        .then((result) => assert.deepEqual(result, ['OK', 'QUEUED', 'QUEUED', ['OK', 1]]))
+        .then((result) => assert.deepStrictEqual(result, ['OK', 'QUEUED', 'QUEUED', ['OK', 1]]))
     }
   })
 
@@ -69,7 +69,7 @@ tman.suite('chaos test', function () {
         cli.exec()
       ]
       result.pop()
-      assert.deepEqual(result, ['OK', 'QUEUED', 'QUEUED', 'QUEUED'])
+      assert.deepStrictEqual(result, ['OK', 'QUEUED', 'QUEUED', 'QUEUED'])
     }
   })
 
@@ -116,7 +116,7 @@ tman.suite('chaos test', function () {
         cli.exec()
       ]
       result.pop()
-      assert.deepEqual(result, ['OK', 'QUEUED', 'QUEUED', 'QUEUED', 'QUEUED'])
+      assert.deepStrictEqual(result, ['OK', 'QUEUED', 'QUEUED', 'QUEUED', 'QUEUED'])
     }
   })
 })

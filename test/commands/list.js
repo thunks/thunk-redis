@@ -9,11 +9,11 @@ tman.suite('commands:List', function () {
   let client, client1
 
   tman.before(function () {
-    client = redis.createClient({database: 0})
+    client = redis.createClient({ database: 0 })
     client.on('error', function (error) {
       console.error('redis client:', error)
     })
-    client1 = redis.createClient({database: 0})
+    client1 = redis.createClient({ database: 0 })
     client1.on('error', function (error) {
       console.error('redis client1:', error)
     })
