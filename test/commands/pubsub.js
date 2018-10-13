@@ -96,7 +96,7 @@ tman.suite('commands:Pubsub', function () {
   })
 
   tman.it('client.publish', function (done) {
-    let messages = []
+    const messages = []
     client1
       .on('message', function (channel, message) {
         messages.push(message)

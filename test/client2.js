@@ -5,11 +5,11 @@ const should = require('should')
 const redis = require('..')
 
 tman.suite('createClient2', function () {
-  let time = '' + Date.now()
+  const time = '' + Date.now()
 
   tman.it('redis.createClient()', function (done) {
     let connect = false
-    let client = redis.createClient()
+    const client = redis.createClient()
 
     client.on('connect', function () {
       connect = true
@@ -32,7 +32,7 @@ tman.suite('createClient2', function () {
 
   tman.it('redis.createClient(address, options)', function (done) {
     let connect = false
-    let client = redis.createClient('127.0.0.1:6379', {
+    const client = redis.createClient('127.0.0.1:6379', {
       database: 1
     })
 
@@ -49,8 +49,8 @@ tman.suite('createClient2', function () {
   })
 
   tman.it('client.migrate', function (done) {
-    let client = redis.createClient()
-    let client2 = redis.createClient(6380)
+    const client = redis.createClient()
+    const client2 = redis.createClient(6380)
 
     client.set('key', 123)(function (error, res) {
       should(error).be.equal(null)

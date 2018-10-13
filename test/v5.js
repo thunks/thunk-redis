@@ -30,13 +30,13 @@ suite('redis v5', function () {
 
   suite('stream', function () {
     it('should work', function * () {
-      let id1 = yield cli.xadd('mystream', '*', 'name', 'Sara', 'surname', 'OConnor')
-      let id2 = yield cli.xadd('mystream', '*', 'field1', 'value1', 'field2', 'value2', 'field3', 'value3')
+      const id1 = yield cli.xadd('mystream', '*', 'name', 'Sara', 'surname', 'OConnor')
+      const id2 = yield cli.xadd('mystream', '*', 'field1', 'value1', 'field2', 'value2', 'field3', 'value3')
 
-      let len = yield cli.xlen('mystream')
+      const len = yield cli.xlen('mystream')
       strictEqual(len, 2)
 
-      let res = yield cli.xrange('mystream', '-', '+')
+      const res = yield cli.xrange('mystream', '-', '+')
       strictEqual(res.length, 2)
       strictEqual(res[0][0], id1)
       deepEqual(res[0][1], ['name', 'Sara', 'surname', 'OConnor'])

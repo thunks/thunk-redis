@@ -220,7 +220,7 @@ tman.suite('commands:Hash', function () {
 
   tman.it('client.hscan', function (done) {
     let count = 100
-    let data = {}
+    const data = {}
     let scanKeys = []
 
     while (count--) data['key' + count] = count
@@ -245,7 +245,7 @@ tman.suite('commands:Hash', function () {
     })(function (error, res) {
       should(error).be.equal(null)
       should(scanKeys.length).be.equal(200)
-      for (let key of Object.keys(data)) {
+      for (const key of Object.keys(data)) {
         should(scanKeys).be.containEql(data[key] + '')
         should(scanKeys).be.containEql(key)
       }

@@ -5,12 +5,12 @@ const assert = require('assert')
 const redis = require('../..')
 
 tman.suite('chaos test', function () {
-  let client = redis.createClient()
-  let clientP = redis.createClient({
+  const client = redis.createClient()
+  const clientP = redis.createClient({
     usePromise: true
   })
-  let len = 10000
-  let tasks = []
+  const len = 10000
+  const tasks = []
   for (let i = 0; i < len; i++) tasks.push(i)
 
   function getClient () {
@@ -24,8 +24,8 @@ tman.suite('chaos test', function () {
     assert((yield client.zcard('userScore')) === len)
 
     function createUser (id) {
-      let time = Date.now()
-      let user = {
+      const time = Date.now()
+      const user = {
         id: id,
         name: 'user_' + id,
         email: id + '@test.com',
@@ -56,12 +56,12 @@ tman.suite('chaos test', function () {
     assert((yield client.pfcount('scoreLog')) > 5)
 
     function * updateUser (id, score) {
-      let cli = getClient()
+      const cli = getClient()
       let user = yield cli.get(id)
       user = JSON.parse(user)
       user.score = score
       user.updatedAt = Date.now()
-      let result = yield [
+      const result = yield [
         cli.multi(),
         cli.set(id, JSON.stringify(user)),
         cli.zadd('userScore', user.score, id),
@@ -81,9 +81,9 @@ tman.suite('chaos test', function () {
     assert((yield client.pfcount('scoreLog')) > 5)
 
     function * createIssue (id, uid) {
-      let cli = getClient()
-      let time = Date.now()
-      let issue = {
+      const cli = getClient()
+      const time = Date.now()
+      const issue = {
         id: id,
         creatorId: uid,
         content: 'issue_' + id,
@@ -91,7 +91,7 @@ tman.suite('chaos test', function () {
         updatedAt: time
       }
 
-      let user = JSON.parse(yield cli.get(uid))
+      const user = JSON.parse(yield cli.get(uid))
       if (!user) {
         console.log(uid, user)
         return
@@ -100,7 +100,7 @@ tman.suite('chaos test', function () {
       user.score += 100
       user.updatedAt = time
 
-      let result = yield [
+      const result = yield [
         cli.multi(),
         cli.hmset(id, {
           issue: JSON.stringify(issue),

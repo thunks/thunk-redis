@@ -80,10 +80,10 @@ tman.suite('commands:Server', function () {
       should(error).be.equal(null)
       return this.client('list')
     })(function (error, res) {
-      let list = res.trim().spltman.it('\n')
+      const list = res.trim().spltman.it('\n')
       should(error).be.equal(null)
       should(list.length > 3).be.equal(true)
-      let addr4 = list[list.length - 1].replace(/(^.*addr=)|( fd=.*$)/g, '')
+      const addr4 = list[list.length - 1].replace(/(^.*addr=)|( fd=.*$)/g, '')
       return this.client('kill', addr4)
     })(function (error, res) {
       should(error).be.equal(null)
